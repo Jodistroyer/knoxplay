@@ -232,7 +232,30 @@
             "disabled": false,
             "watch": false,
             "templateName": "",
-            "theme": ""
+            "theme": "",
+            "rule": {
+                "required": "this is must yeah ;)",
+                "min": {
+                    "value": "11",
+                    "message": "min 11 is needed ;)"
+                },
+                "max": {
+                    "value": null,
+                    "message": ""
+                },
+                "minLength": {
+                    "value": "3",
+                    "message": "min 3 is needed ;)"
+                },
+                "maxLength": {
+                    "value": null,
+                    "message": ""
+                },
+                "pattern": {
+                    "value": "",
+                    "message": ""
+                }
+            }
         },
         "numberType": {
             "id": "numberType",
