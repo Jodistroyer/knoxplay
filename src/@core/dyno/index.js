@@ -24,6 +24,7 @@ import Upload from "@src/@core/components/input/dataEntry/Upload"
 import { Button } from '@src/@core/components/button'
 import { Title } from '@src/@core/components/label'
 import { Container } from '@src/@core/components/container'
+import { Error } from '@src/@core/components/error'
 
 const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction = {}, defaultValues, dynoName }) => {
     const [data, setData] = useState();
@@ -45,6 +46,8 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
 
     const renderContainer = (children) => <div sm='12' className='mb-1'>
         {children} </div>
+
+    const renderContainerDefault = (children) => children
 
     const validationResolver = {
         noteq: async (item, value) => {
@@ -88,7 +91,7 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
         const selectedComponent = newComponents && newComponents[type];
         if (selectedComponent === undefined) return null;
 
-        return renderContainer(selectedComponent({ ...propsItems }));
+        return renderContainer(selectedComponent({ ...propsItems, Error }));
         // return selectedComponent({ ...propsItems })
     };
 

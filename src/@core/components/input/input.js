@@ -2,10 +2,10 @@ import React from "react"
 import { Input as AntInput } from "antd"
 import "./style.css"
 
-function Input({ item, field, error, ...rest }) {
+function Input({ item, field, error, Error, ...rest }) {
     if (!item) return;
-    const { label, placeholder, name } = item;
-    const { onChange, value } = field;
+    const { label, placeholder } = item;
+    const { onChange, value, name } = field;
     const { message = "" } = (error && error[name]) || { message: false }
     console.log(rest, "restrestrestinput", error)
     return (
@@ -15,12 +15,15 @@ function Input({ item, field, error, ...rest }) {
             </label>
             <div className="input-group">
                 <AntInput
+                    id={name}
+                    name={name}
                     className={message && "is-invalid"}
                     onChange={onChange}
                     placeholder={placeholder}
                     value={value}
                 />
             </div>
+            <Error {...{ item, field, error }} />
         </>
     )
 }

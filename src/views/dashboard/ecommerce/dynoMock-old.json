@@ -1,27 +1,29 @@
 {
     "dataModel": {},
-    "name": "contact",
+    "name": "profile",
     "items": {
         "root": {
             "name": "root",
             "items": [
-                "body"
+                "mainContainer"
             ],
             "visible": true
         },
-        "body": {
-            "id": "body",
+        "mainContainer": {
+            "id": "mainContainer",
             "type": "fieldset",
-            "name": "body",
-            "label": "Contact Information",
+            "name": "mainContainer",
+            "label": "Fieldset",
             "value": "",
             "visible": true,
             "items": [
-                "title",
-                "firstname",
-                "surname",
-                "contacts",
-                "submit"
+                "D423GnRfv",
+                "name",
+                "parentInfoArr",
+                "available",
+                "interest",
+                "relationships.anyFriend",
+                "d0L5Em5Ku"
             ],
             "parent": [
                 "root",
@@ -39,18 +41,19 @@
             "disabled": false,
             "watch": false,
             "templateName": "cardContainer",
-            "theme": ""
+            "theme": "",
+            "isArray": false
         },
-        "firstname": {
-            "id": "firstname",
+        "name": {
+            "id": "name",
             "type": "text",
-            "name": "firstname",
-            "label": "First name",
+            "name": "name",
+            "label": "Name",
             "value": "",
             "visible": true,
             "parent": [
-                "body",
-                "0"
+                "NGhuWOkET",
+                "1"
             ],
             "defaultValue": "",
             "header": "",
@@ -76,8 +79,8 @@
                     "message": ""
                 },
                 "minLength": {
-                    "value": "3",
-                    "message": "min 3 is needed ;)"
+                    "value": null,
+                    "message": ""
                 },
                 "maxLength": {
                     "value": null,
@@ -89,15 +92,15 @@
                 }
             }
         },
-        "surname": {
-            "id": "surname",
-            "type": "text",
-            "name": "surname",
-            "label": "Surname",
+        "available": {
+            "id": "available",
+            "type": "checkbox",
+            "name": "available",
+            "label": "Available",
             "value": "",
             "visible": true,
             "parent": [
-                "body",
+                "NGhuWOkET",
                 "1"
             ],
             "defaultValue": "",
@@ -114,16 +117,16 @@
             "templateName": "",
             "theme": ""
         },
-        "title": {
-            "id": "title",
-            "type": "select",
-            "name": "title",
-            "label": "Title",
+        "interest": {
+            "id": "interest",
+            "type": "radiobox",
+            "name": "interest",
+            "label": "Interest",
             "value": "",
             "visible": true,
             "parent": [
-                "body",
-                "0"
+                "NGhuWOkET",
+                "2"
             ],
             "defaultValue": "",
             "header": "",
@@ -143,157 +146,86 @@
             "optionsSchema": "",
             "options": [
                 {
-                    "value": "mr",
-                    "label": "MR"
+                    "value": "yesy",
+                    "label": "yesy"
                 },
                 {
-                    "value": "mrs",
-                    "label": "Mrs"
+                    "value": "wow",
+                    "label": "wow"
                 },
                 {
-                    "value": "miss",
-                    "label": "Miss"
-                }
-            ],
-            "rule": {
-                "required": "this is must yeah ;)",
-                "min": {
-                    "value": "3",
-                    "message": "min 3 is needed ;)"
-                },
-                "max": {
-                    "value": null,
-                    "message": ""
-                },
-                "minLength": {
-                    "value": "3",
-                    "message": "min 3 is needed ;)"
-                },
-                "maxLength": {
-                    "value": null,
-                    "message": ""
-                },
-                "pattern": {
-                    "value": "",
-                    "message": ""
-                }
-            }
-        },
-        "contacts": {
-            "id": "contacts",
-            "type": "fieldset",
-            "name": "contacts",
-            "label": "Phone Information",
-            "value": "",
-            "visible": true,
-            "items": [
-                "number",
-                "numberType"
-            ],
-            "parent": [
-                "body",
-                "3"
-            ],
-            "defaultValue": "",
-            "header": "",
-            "tooltip": "",
-            "description": "",
-            "placeholder": "",
-            "valueType": "",
-            "suffix": "",
-            "prefix": "",
-            "inputType": "",
-            "disabled": false,
-            "watch": false,
-            "templateName": "cardContainer",
-            "theme": "",
-            "isArray": true
-        },
-        "number": {
-            "id": "number",
-            "type": "text",
-            "name": "number",
-            "label": "Number",
-            "value": "",
-            "visible": true,
-            "parent": [
-                "contacts",
-                "0"
-            ],
-            "defaultValue": "",
-            "header": "",
-            "tooltip": "",
-            "description": "",
-            "placeholder": "",
-            "valueType": "",
-            "suffix": "",
-            "prefix": "",
-            "inputType": "",
-            "disabled": false,
-            "watch": false,
-            "templateName": "",
-            "theme": ""
-        },
-        "numberType": {
-            "id": "numberType",
-            "type": "select",
-            "name": "numberType",
-            "label": "Type",
-            "value": "",
-            "visible": true,
-            "parent": [
-                "contacts",
-                "1"
-            ],
-            "defaultValue": "",
-            "header": "",
-            "tooltip": "",
-            "description": "",
-            "placeholder": "",
-            "valueType": "",
-            "suffix": "",
-            "prefix": "",
-            "inputType": "",
-            "disabled": false,
-            "watch": false,
-            "templateName": "",
-            "theme": "",
-            "optionLabelSchema": "",
-            "optionValueSchema": "",
-            "optionsSchema": "",
-            "options": [
-                {
-                    "value": "mobile",
-                    "label": "Mobile"
-                },
-                {
-                    "value": "home",
-                    "label": "Home"
-                },
-                {
-                    "value": "office",
-                    "label": "Office"
-                },
-                {
-                    "value": "fax",
-                    "label": "Fax"
-                },
-                {
-                    "value": "others",
-                    "label": "Others"
+                    "value": "er",
+                    "label": "er"
                 }
             ]
         },
-        "submit": {
-            "id": "submit",
-            "type": "button",
-            "name": "submit",
-            "label": "Submit Contact",
+        "relationships.anyFriend": {
+            "id": "relationships.anyFriend",
+            "type": "select",
+            "name": "relationships.anyFriend",
+            "label": "Any Friend",
             "value": "",
             "visible": true,
             "parent": [
-                "body",
-                "4"
+                "NGhuWOkET",
+                "1"
+            ],
+            "defaultValue": "",
+            "header": "",
+            "tooltip": "",
+            "description": "",
+            "placeholder": "",
+            "valueType": "",
+            "suffix": "",
+            "prefix": "",
+            "inputType": "",
+            "disabled": false,
+            "watch": false,
+            "templateName": "",
+            "theme": "",
+            "optionLabelSchema": "",
+            "optionValueSchema": "",
+            "optionsSchema": "",
+            "options": [
+                {
+                    "label": "me",
+                    "value": {
+                        "data": {
+                            "type": "book",
+                            "id": "638e13aa09a7ab27e14db8a3"
+                        }
+                    }
+                },
+                {
+                    "label": "you",
+                    "value": {
+                        "data": {
+                            "type": "book",
+                            "id": "6390ad9a594af9c6c6b46b80"
+                        }
+                    }
+                },
+                {
+                    "value": {
+                        "data": {
+                            "type": "book",
+                            "id": "639331d3594af9c6c6b46b82"
+                        }
+                    },
+                    "label": "we"
+                }
+            ]
+        },
+        "d0L5Em5Ku": {
+            "id": "d0L5Em5Ku",
+            "type": "button",
+            "name": "TXCGA1xer6",
+            "label": "Submit Proudly ;)",
+            "value": "",
+            "visible": true,
+            "parent": [
+                "NGhuWOkET",
+                "5"
             ],
             "defaultValue": "",
             "header": "",
@@ -312,6 +244,85 @@
                 "actionURL": "callAPI",
                 "actionType": "callAPI"
             }
+        },
+        "D423GnRfv": {
+            "id": "D423GnRfv",
+            "type": "label",
+            "name": "JWi3ibUqBe",
+            "label": "My Amazing Profile",
+            "value": "",
+            "visible": true,
+            "parent": [
+                "NGhuWOkET",
+                "0"
+            ],
+            "defaultValue": "",
+            "header": "",
+            "tooltip": "",
+            "description": "",
+            "placeholder": "",
+            "valueType": "",
+            "suffix": "",
+            "prefix": "",
+            "inputType": "",
+            "disabled": false,
+            "watch": false,
+            "templateName": "",
+            "theme": ""
+        },
+        "parentContact": {
+            "id": "parentContact",
+            "type": "text",
+            "name": "parentContact",
+            "label": "Contact 45678",
+            "value": "",
+            "visible": true,
+            "parent": [
+                "parentInfo",
+                "0"
+            ],
+            "defaultValue": "",
+            "header": "",
+            "tooltip": "",
+            "description": "",
+            "placeholder": "",
+            "valueType": "",
+            "suffix": "",
+            "prefix": "",
+            "inputType": "",
+            "disabled": false,
+            "watch": false,
+            "templateName": "",
+            "theme": ""
+        },
+        "parentInfoArr": {
+            "id": "parentInfoArr",
+            "type": "fieldset",
+            "name": "parentInfoArr",
+            "label": "Parent Info",
+            "value": "",
+            "visible": true,
+            "items": [
+                "parentContact"
+            ],
+            "parent": [
+                "NGhuWOkET",
+                "1"
+            ],
+            "defaultValue": "",
+            "header": "",
+            "tooltip": "",
+            "description": "",
+            "placeholder": "",
+            "valueType": "",
+            "suffix": "",
+            "prefix": "",
+            "inputType": "",
+            "disabled": false,
+            "watch": false,
+            "templateName": "cardContainer",
+            "theme": "",
+            "isArray": true
         }
     }
 }

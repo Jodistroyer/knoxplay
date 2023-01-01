@@ -306,6 +306,7 @@ const EcommerceDashboard = () => {
       localFunction={{
         "callAPI": async ({ url, form, item, data: formData }) => {
           console.log('brrrrrrr', formData);
+          if(!formData) return;
           const commerce = {
             data: formData,
             user: {

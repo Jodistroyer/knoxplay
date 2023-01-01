@@ -3,7 +3,7 @@ import { Radio as AntRadio } from "antd"
 import "./style.css"
 
 
-function Radio({ item, field, ...rest }) {
+function Radio({ item, field, error, Error, ...rest }) {
     if (!item) return;
     const { label, placeholder, name, options } = item;
     if(!options) return;
@@ -21,6 +21,7 @@ function Radio({ item, field, ...rest }) {
                     value={value}
                 />
             </div>
+            <Error {...{ item, field, error }} />
         </>
     );
 };

@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css';
 import { Switch as AntSwitch } from 'antd';
 
-function Switch({ item, field, managedCallback, ...rest }) {
+function Switch({ item, field, managedCallback, error, Error, ...rest }) {
   if (!item) return;
   const { label, placeholder, name, options, defaultValue } = item;
   if (!options) return;
@@ -15,8 +15,8 @@ function Switch({ item, field, managedCallback, ...rest }) {
         onChange={onChange}
        />
        {label}
+       <Error {...{ item, field, error }} />
     </>
-
   );
 };
 

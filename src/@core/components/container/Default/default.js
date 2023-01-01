@@ -8,6 +8,7 @@ function Default({ item, field, child, ...rest }) {
     console.log(rest, "restrestrest")
     return (
         <>
+        {label}
             {child}
         </>
     )

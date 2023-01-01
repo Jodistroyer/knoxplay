@@ -25,7 +25,7 @@ function AntCustomSelect({ item, field, managedCallback, ...rest }) {
     );
 };
 
-function CustomSelect({ item, field, managedCallback, ...rest }) {
+function CustomSelect({ item, field, managedCallback,error, Error, ...rest }) {
     if (!item) return;
     const { label, placeholder, name, options, defaultValue } = item;
     if (!options) return;
@@ -63,6 +63,7 @@ function CustomSelect({ item, field, managedCallback, ...rest }) {
                 // fieldNames="data.id"
                 />
             </div>
+            <Error {...{ item, field, error }} />
         </>
     );
 };
