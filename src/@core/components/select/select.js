@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Select as AntSelect } from "antd"
 import Select from "react-select";
 
@@ -27,8 +27,12 @@ function AntCustomSelect({ item, field, managedCallback, ...rest }) {
 
 function CustomSelect({ item, field, managedCallback,error, Error, ...rest }) {
     if (!item) return;
-    const { label, placeholder, name, options, defaultValue } = item;
-    if (!options) return;
+    const { label, placeholder, name, options = [], defaultValue, action } = item;
+    console.log(options, name, 'CustomSelect')
+
+    const [ existingOptions, setExistingOptions] = useState(options);
+
+    // if (!Array.isArray(options)) return;
     const { onChange, value } = field;
     const isMulti = false;
     const CustomOnChange = (element) => {
@@ -36,11 +40,26 @@ function CustomSelect({ item, field, managedCallback,error, Error, ...rest }) {
         onChange(element.value);
     }
 
+    useEffect(()=> {
+        if (item === undefined) return null;
+        CustomOnChange({value: ""})
+    
+        if(action){
+          setTimeout(() => {
+            managedCallback({item: item}).then(result => {
+              console.log(result, 'hereeeeeeeeeeeeeeeeeeeee droppppppp');
+              setExistingOptions(result.data)
+            })       
+          }, 1000);
+        }
+      }, [])
+    
+
     const getValue = () => {
         if (options) {
             return isMulti
                 ? options.filter(option => value.indexOf(option.value) >= 0)
-                : options.find(option => option.value === value);
+                : Array.isArray(options) && options.find(option => option.value === value);
         } else {
             return isMulti ? [] : "";
         }
@@ -59,7 +78,7 @@ function CustomSelect({ item, field, managedCallback,error, Error, ...rest }) {
                     {...field}
                     value={getValue()}
                     onChange={CustomOnChange}
-                    options={options}
+                    options={existingOptions}
                 // fieldNames="data.id"
                 />
             </div>

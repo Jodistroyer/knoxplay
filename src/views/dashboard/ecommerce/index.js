@@ -73,7 +73,9 @@ import Dynamo from "@src/@core/dyno"
 import '@styles/react/libs/charts/apex-charts.scss'
 import '@styles/base/pages/dashboard-ecommerce.scss'
 import { Bar } from 'react-chartjs-2'
-import mockTest from "./dynoMock.json"
+// import mockTest from "./dynoMock.json"
+import mockTest from "./dynoMock-old.json"
+
 const sample110 = {
   root: {
     name: "root",
@@ -278,6 +280,11 @@ const sample110 = {
   },
 };
 
+const form = {
+  "category": "63b12cb5013c34001c1728a1",
+  "contact": "63b12df2013c34001c1728a8"
+}
+
 const EcommerceDashboard = () => {
 
   const [data, updateData] = useState(mockTest)
@@ -286,9 +293,9 @@ const EcommerceDashboard = () => {
 
   useEffect(() => {
     console.log(data, 'data ressssssssssss')
-    axios.get(`${root}63a81dfa013c34001c1726ad`).then(res => {
+    axios.get(`${root}${form['category']}`).then(res => {
       console.log(res, 'ressssssssssss')
-      // updateData(res.data);
+      updateData(res.data);
     }).catch(error => {
       console.log(error, 'error ressssssssssss')
     })
@@ -304,9 +311,20 @@ const EcommerceDashboard = () => {
       defaultValues={data.defaultValues}
       fields={data.items}
       localFunction={{
+        "getResource": async ({ url, form, item, data: formData }) => {
+          const result = await axios.get(`http://localhost:3033/commerce/resource/${url}`).then(res => {
+            console.log(res, 'ressssssssssss updatedddd getResource ;)')
+            return res;
+            // updateData({...data, dataHelper: {...data.dataHelper, [name]: res.data}});
+
+          }).catch(error => {
+            console.log(error, 'error ressssssssssss')
+          });
+          return result;
+        },
         "callAPI": async ({ url, form, item, data: formData }) => {
           console.log('brrrrrrr', formData);
-          if(!formData) return;
+          if (!formData) return;
           const commerce = {
             data: formData,
             user: {

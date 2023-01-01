@@ -186,7 +186,12 @@
             "optionLabelSchema": "",
             "optionValueSchema": "",
             "optionsSchema": "",
-            "options": [
+            "action": {
+                "actionType": "getResource",
+                "actionURL": "invoice"
+            },
+            "options-fx": "frgetResource(`invoice`, `relationships.anyFriend`)",
+            "options-manual": [
                 {
                     "label": "me",
                     "value": {

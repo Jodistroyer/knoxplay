@@ -293,7 +293,7 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
             //   item.action,
             // )
 
-            extraFunctions[item?.action?.actionType]({
+            const result = await extraFunctions[item?.action?.actionType]({
                 url: item?.action?.actionURL,
                 data: formData,
                 form: myForm?.current,
@@ -304,7 +304,7 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
                 .then((response) => {
                     // const formDataAfter = myForm.current.getValues();
 
-                    // console.log("instance response lol inside", response, 'pagination test', formDataAfter);
+                    console.log("instance response lol inside", response);
 
                     // item.items = response.root?.items;
 
@@ -328,6 +328,7 @@ const DynamoField = ({ dataStore, fields, devTest, width = "90%", localFunction 
                 .catch((error) => {
                     console.log("instance error lol", error);
                 });
+                return result;
         }
 
         // // Get dynamo form values
