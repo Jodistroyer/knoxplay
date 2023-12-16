@@ -1,208 +1,186 @@
-// ** React Imports
-import { Link } from 'react-router-dom'
-import { useState, useEffect } from 'react'
+// ** MUI Imports
+import Fab from '@mui/material/Fab'
+import AppBar from '@mui/material/AppBar'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
+import MuiToolbar from '@mui/material/Toolbar'
 
-// ** Store & Actions
-import { useSelector, useDispatch } from 'react-redux'
-import { handleMenuHidden, handleContentWidth } from '@store/layout'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import classnames from 'classnames'
-import { ArrowUp } from 'react-feather'
+// ** Theme Config Import
+import themeConfig from 'src/configs/themeConfig'
 
-// ** Reactstrap Imports
-import { Navbar, NavItem, Button } from 'reactstrap'
+// ** Components
+import Customizer from 'src/@core/components/customizer'
+import Footer from './components/shared-components/footer'
+import Navigation from './components/horizontal/navigation'
+import ScrollToTop from 'src/@core/components/scroll-to-top'
+import AppBarContent from './components/horizontal/app-bar-content'
 
-// ** Configs
-import themeConfig from '@configs/themeConfig'
+// ** Util Import
+import { hexToRGBA } from '../utils/hex-to-rgba'
 
-// ** Custom Components
+const HorizontalLayoutWrapper = styled('div')({
+  height: '100%',
+  display: 'flex',
+  ...(themeConfig.horizontalMenuAnimation && { overflow: 'clip' })
+})
 
-import Customizer from '@components/customizer'
-import ScrollToTop from '@components/scrolltop'
-import NavbarComponent from './components/navbar'
-import FooterComponent from './components/footer'
-import MenuComponent from './components/menu/horizontal-menu'
+const MainContentWrapper = styled(Box)({
+  flexGrow: 1,
+  minWidth: 0,
+  display: 'flex',
+  minHeight: '100vh',
+  flexDirection: 'column'
+})
 
-// ** Custom Hooks
-import { useRTL } from '@hooks/useRTL'
-import { useSkin } from '@hooks/useSkin'
-import { useLayout } from '@hooks/useLayout'
-import { useNavbarType } from '@hooks/useNavbarType'
-import { useFooterType } from '@hooks/useFooterType'
-import { useNavbarColor } from '@hooks/useNavbarColor'
+const Toolbar = styled(MuiToolbar)(({ theme }) => ({
+  width: '100%',
+  padding: `${theme.spacing(0, 6)} !important`,
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(4)
+  },
+  [theme.breakpoints.down('xs')]: {
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2)
+  }
+}))
 
-// ** Styles
-import '@styles/base/core/menu/menu-types/horizontal-menu.scss'
+const ContentWrapper = styled('main')(({ theme }) => ({
+  flexGrow: 1,
+  width: '100%',
+  padding: theme.spacing(6),
+  transition: 'padding .25s ease-in-out',
+  [theme.breakpoints.down('sm')]: {
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4)
+  }
+}))
 
 const HorizontalLayout = props => {
   // ** Props
-  const { navbar, menuData, footer, children, menu } = props
-
-  // ** Hooks
-  const { skin, setSkin } = useSkin()
-  const [isRtl, setIsRtl] = useRTL()
-  const { navbarType, setNavbarType } = useNavbarType()
-  const { footerType, setFooterType } = useFooterType()
-  const { navbarColor, setNavbarColor } = useNavbarColor()
-  const { layout, setLayout, setLastLayout } = useLayout()
-
-  // ** States
-  const [isMounted, setIsMounted] = useState(false)
-  const [navbarScrolled, setNavbarScrolled] = useState(false)
-
-  // ** Store Vars
-  const dispatch = useDispatch()
-  const layoutStore = useSelector(state => state.layout)
+  const {
+    hidden,
+    children,
+    settings,
+    scrollToTop,
+    footerProps,
+    saveSettings,
+    contentHeightFixed,
+    horizontalLayoutProps
+  } = props
 
   // ** Vars
-  const contentWidth = layoutStore.contentWidth
-  const isHidden = layoutStore.menuHidden
-
-  // ** Handles Content Width
-  const setContentWidth = val => dispatch(handleContentWidth(val))
-
-  // ** Handles Content Width
-  const setIsHidden = val => dispatch(handleMenuHidden(val))
-
-  // ** UseEffect Cleanup
-  const cleanup = () => {
-    setIsMounted(false)
-    setNavbarScrolled(false)
+  const { skin, appBar, navHidden, appBarBlur, contentWidth } = settings
+  const appBarProps = horizontalLayoutProps?.appBar?.componentProps
+  const userNavMenuContent = horizontalLayoutProps?.navMenu?.content
+  let userAppBarStyle = {}
+  if (appBarProps && appBarProps.sx) {
+    userAppBarStyle = appBarProps.sx
   }
-
-  //** ComponentDidMount
-  useEffect(() => {
-    setIsMounted(true)
-    window.addEventListener('scroll', function () {
-      if (window.pageYOffset > 65 && navbarScrolled === false) {
-        setNavbarScrolled(true)
-      }
-      if (window.pageYOffset < 65) {
-        setNavbarScrolled(false)
-      }
-    })
-    return () => cleanup()
-  }, [])
-
-  // ** Vars
-  const footerClasses = {
-    static: 'footer-static',
-    sticky: 'footer-fixed',
-    hidden: 'footer-hidden'
-  }
-
-  const navbarWrapperClasses = {
-    floating: 'navbar-floating',
-    sticky: 'navbar-sticky',
-    static: 'navbar-static'
-  }
-
-  const navbarClasses = {
-    floating: contentWidth === 'boxed' ? 'floating-nav container-xxl' : 'floating-nav',
-    sticky: 'fixed-top'
-  }
-
-  const bgColorCondition = navbarColor !== '' && navbarColor !== 'light' && navbarColor !== 'white'
-
-  if (!isMounted) {
-    return null
-  }
+  const userAppBarProps = Object.assign({}, appBarProps)
+  delete userAppBarProps.sx
 
   return (
-    <div
-      className={classnames(
-        `wrapper horizontal-layout horizontal-menu ${navbarWrapperClasses[navbarType] || 'navbar-floating'} ${
-          footerClasses[footerType] || 'footer-static'
-        } menu-expanded`
-      )}
-      {...(isHidden ? { 'data-col': '1-column' } : {})}
-    >
-      <Navbar
-        expand='lg'
-        container={false}
-        className={classnames('header-navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center', {
-          'navbar-scrolled': navbarScrolled
-        })}
-      >
-        {!navbar && (
-          <div className='navbar-header d-xl-block d-none'>
-            <ul className='nav navbar-nav'>
-              <NavItem>
-                <Link to='/' className='navbar-brand'>
-                  <span className='brand-logo'>
-                    <img src={themeConfig.app.appLogoImage} alt='logo' />
-                  </span>
-                  <h2 className='brand-text mb-0'>{themeConfig.app.appName}</h2>
-                </Link>
-              </NavItem>
-            </ul>
-          </div>
-        )}
-
-        <div className='navbar-container d-flex content'>
-          {navbar ? navbar({ skin, setSkin }) : <NavbarComponent skin={skin} setSkin={setSkin} />}
-        </div>
-      </Navbar>
-      {!isHidden ? (
-        <div className='horizontal-menu-wrapper'>
-          <Navbar
-            tag='div'
-            expand='sm'
-            light={skin !== 'dark'}
-            dark={skin === 'dark' || bgColorCondition}
-            className={classnames(`header-navbar navbar-horizontal navbar-shadow menu-border`, {
-              [navbarClasses[navbarType]]: navbarType !== 'static',
-              'floating-nav': (!navbarClasses[navbarType] && navbarType !== 'static') || navbarType === 'floating'
-            })}
+    <HorizontalLayoutWrapper className='layout-wrapper'>
+      <MainContentWrapper className='layout-content-wrapper' sx={{ ...(contentHeightFixed && { maxHeight: '100vh' }) }}>
+        {/* Navbar (or AppBar) and Navigation Menu Wrapper */}
+        <AppBar
+          color='default'
+          elevation={skin === 'bordered' ? 0 : 2}
+          className='layout-navbar-and-nav-container'
+          position={appBar === 'fixed' ? 'sticky' : 'static'}
+          sx={{
+            alignItems: 'center',
+            color: 'text.primary',
+            justifyContent: 'center',
+            ...(appBar === 'static' && { zIndex: 13 }),
+            transition: 'border-bottom 0.2s ease-in-out',
+            ...(appBarBlur && { backdropFilter: 'blur(6px)' }),
+            backgroundColor: theme => hexToRGBA(theme.palette.background.paper, appBarBlur ? 0.95 : 1),
+            ...(skin === 'bordered' && { borderBottom: theme => `1px solid ${theme.palette.divider}` }),
+            ...userAppBarStyle
+          }}
+          {...userAppBarProps}
+        >
+          {/* Navbar / AppBar */}
+          <Box
+            className='layout-navbar'
+            sx={{
+              width: '100%',
+              ...(navHidden ? {} : { borderBottom: theme => `1px solid ${theme.palette.divider}` })
+            }}
           >
-            {menu ? menu({ menuData, routerProps, currentActiveItem }) : <MenuComponent menuData={menuData} />}
-          </Navbar>
-        </div>
-      ) : null}
-
-      {children}
-      {themeConfig.layout.customizer === true ? (
-        <Customizer
-          skin={skin}
-          isRtl={isRtl}
-          layout={layout}
-          setSkin={setSkin}
-          setIsRtl={setIsRtl}
-          isHidden={isHidden}
-          setLayout={setLayout}
-          footerType={footerType}
-          navbarType={navbarType}
-          setIsHidden={setIsHidden}
-          themeConfig={themeConfig}
-          navbarColor={navbarColor}
-          contentWidth={contentWidth}
-          setFooterType={setFooterType}
-          setNavbarType={setNavbarType}
-          setLastLayout={setLastLayout}
-          setNavbarColor={setNavbarColor}
-          setContentWidth={setContentWidth}
-        />
-      ) : null}
-      <footer
-        className={classnames(`footer footer-light ${footerClasses[footerType] || 'footer-static'}`, {
-          'd-none': footerType === 'hidden'
-        })}
-      >
-        {footer ? footer : <FooterComponent footerType={footerType} footerClasses={footerClasses} />}
-      </footer>
-      
-
-      {themeConfig.layout.scrollTop === true ? (
-        <div className='scroll-to-top'>
-          <ScrollToTop showOffset={300} className='scroll-top d-block'>
-            <Button className='btn-icon' color='primary'>
-              <ArrowUp size={14} />
-            </Button>
+            <Toolbar
+              className='navbar-content-container'
+              sx={{
+                mx: 'auto',
+                ...(contentWidth === 'boxed' && { '@media (min-width:1440px)': { maxWidth: 1440 } }),
+                minHeight: theme => `${theme.mixins.toolbar.minHeight - 2}px !important`
+              }}
+            >
+              <AppBarContent
+                {...props}
+                hidden={hidden}
+                settings={settings}
+                saveSettings={saveSettings}
+                appBarContent={horizontalLayoutProps?.appBar?.content}
+                appBarBranding={horizontalLayoutProps?.appBar?.branding}
+              />
+            </Toolbar>
+          </Box>
+          {/* Navigation Menu */}
+          {navHidden ? null : (
+            <Box className='layout-horizontal-nav' sx={{ width: '100%', ...horizontalLayoutProps?.navMenu?.sx }}>
+              <Toolbar
+                className='horizontal-nav-content-container'
+                sx={{
+                  mx: 'auto',
+                  ...(contentWidth === 'boxed' && { '@media (min-width:1440px)': { maxWidth: 1440 } }),
+                  minHeight: theme =>
+                    `${theme.mixins.toolbar.minHeight - 4 - (skin === 'bordered' ? 1 : 0)}px !important`
+                }}
+              >
+                {(userNavMenuContent && userNavMenuContent(props)) || (
+                  <Navigation {...props} horizontalNavItems={horizontalLayoutProps.navMenu?.navItems} />
+                )}
+              </Toolbar>
+            </Box>
+          )}
+        </AppBar>
+        {/* Content */}
+        <ContentWrapper
+          className='layout-page-content'
+          sx={{
+            ...(contentHeightFixed && { display: 'flex', overflow: 'hidden' }),
+            ...(contentWidth === 'boxed' && {
+              mx: 'auto',
+              '@media (min-width:1440px)': { maxWidth: 1440 },
+              '@media (min-width:1200px)': { maxWidth: '100%' }
+            })
+          }}
+        >
+          {children}
+        </ContentWrapper>
+        {/* Footer */}
+        <Footer {...props} footerStyles={footerProps?.sx} footerContent={footerProps?.content} />
+        {/* Customizer */}
+        {themeConfig.disableCustomizer || hidden ? null : <Customizer />}
+        {/* Scroll to top button */}
+        {scrollToTop ? (
+          scrollToTop(props)
+        ) : (
+          <ScrollToTop className='mui-fixed'>
+            <Fab color='primary' size='small' aria-label='scroll back to top'>
+              <Icon icon='tabler:arrow-up' />
+            </Fab>
           </ScrollToTop>
-        </div>
-      ) : null}
-    </div>
+        )}
+      </MainContentWrapper>
+    </HorizontalLayoutWrapper>
   )
 }
+
 export default HorizontalLayout

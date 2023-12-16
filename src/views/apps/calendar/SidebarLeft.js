@@ -1,94 +1,133 @@
-// ** React Imports
-import { Fragment } from 'react'
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
+import Drawer from '@mui/material/Drawer'
+import Divider from '@mui/material/Divider'
+import Checkbox from '@mui/material/Checkbox'
+import Typography from '@mui/material/Typography'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Custom Components
-import classnames from 'classnames'
+// ** Third Party Imports
+import DatePicker from 'react-datepicker'
 
-// ** Reactstrap Imports
-import { Card, CardBody, Button, Input, Label } from 'reactstrap'
+// ** Icons Imports
+import Icon from 'src/@core/components/icon'
 
-// ** illustration import
-import illustration from '@src/assets/images/pages/calendar-illustration.png'
-
-// ** Filters Checkbox Array
-const filters = [
-  { label: 'Personal', color: 'danger', className: 'form-check-danger mb-1' },
-  { label: 'Business', color: 'primary', className: 'form-check-primary mb-1' },
-  { label: 'Family', color: 'warning', className: 'form-check-warning mb-1' },
-  { label: 'Holiday', color: 'success', className: 'form-check-success mb-1' },
-  { label: 'ETC', color: 'info', className: 'form-check-info' }
-]
+// ** Styled Component
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 const SidebarLeft = props => {
-  // ** Props
-  const { handleAddEventSidebar, toggleSidebar, updateFilter, updateAllFilters, store, dispatch } = props
+  const {
+    store,
+    mdAbove,
+    dispatch,
+    calendarApi,
+    calendarsColor,
+    leftSidebarOpen,
+    leftSidebarWidth,
+    handleSelectEvent,
+    handleAllCalendars,
+    handleCalendarsUpdate,
+    handleLeftSidebarToggle,
+    handleAddEventSidebarToggle
+  } = props
+  const colorsArr = calendarsColor ? Object.entries(calendarsColor) : []
 
-  // ** Function to handle Add Event Click
-  const handleAddEventClick = () => {
-    toggleSidebar(false)
-    handleAddEventSidebar()
+  const renderFilters = colorsArr.length
+    ? colorsArr.map(([key, value]) => {
+        return (
+          <FormControlLabel
+            key={key}
+            label={key}
+            sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+            control={
+              <Checkbox
+                color={value}
+                checked={store.selectedCalendars.includes(key)}
+                onChange={() => dispatch(handleCalendarsUpdate(key))}
+              />
+            }
+          />
+        )
+      })
+    : null
+
+  const handleSidebarToggleSidebar = () => {
+    handleAddEventSidebarToggle()
+    dispatch(handleSelectEvent(null))
   }
-
-  return (
-    <Fragment>
-      <Card className='sidebar-wrapper shadow-none'>
-        <CardBody className='card-body d-flex justify-content-center my-sm-0 mb-3'>
-          <Button color='primary' block onClick={handleAddEventClick}>
-            <span className='align-middle'>Add Event</span>
+  if (renderFilters) {
+    return (
+      <Drawer
+        open={leftSidebarOpen}
+        onClose={handleLeftSidebarToggle}
+        variant={mdAbove ? 'permanent' : 'temporary'}
+        ModalProps={{
+          disablePortal: true,
+          disableAutoFocus: true,
+          disableScrollLock: true,
+          keepMounted: true // Better open performance on mobile.
+        }}
+        sx={{
+          zIndex: 3,
+          display: 'block',
+          position: mdAbove ? 'static' : 'absolute',
+          '& .MuiDrawer-paper': {
+            borderRadius: 1,
+            boxShadow: 'none',
+            width: leftSidebarWidth,
+            borderTopRightRadius: 0,
+            alignItems: 'flex-start',
+            borderBottomRightRadius: 0,
+            zIndex: mdAbove ? 2 : 'drawer',
+            position: mdAbove ? 'static' : 'absolute'
+          },
+          '& .MuiBackdrop-root': {
+            borderRadius: 1,
+            position: 'absolute'
+          }
+        }}
+      >
+        <Box sx={{ p: 6, width: '100%' }}>
+          <Button fullWidth variant='contained' sx={{ '& svg': { mr: 2 } }} onClick={handleSidebarToggleSidebar}>
+            <Icon icon='tabler:plus' fontSize='1.125rem' />
+            Add Event
           </Button>
-        </CardBody>
-        <CardBody>
-          <h5 className='section-label mb-1'>
-            <span className='align-middle'>Filter</span>
-          </h5>
-          <div className='form-check mb-1'>
-            <Input
-              id='view-all'
-              type='checkbox'
-              label='View All'
-              className='select-all'
-              checked={store.selectedCalendars.length === filters.length}
-              onChange={e => dispatch(updateAllFilters(e.target.checked))}
-            />
-            <Label className='form-check-label' for='view-all'>
-              View All
-            </Label>
-          </div>
-          <div className='calendar-events-filter'>
-            {filters.length &&
-              filters.map(filter => {
-                return (
-                  <div
-                    key={`${filter.label}-key`}
-                    className={classnames('form-check', {
-                      [filter.className]: filter.className
-                    })}
-                  >
-                    <Input
-                      type='checkbox'
-                      key={filter.label}
-                      label={filter.label}
-                      className='input-filter'
-                      id={`${filter.label}-event`}
-                      checked={store.selectedCalendars.includes(filter.label)}
-                      onChange={() => {
-                        dispatch(updateFilter(filter.label))
-                      }}
-                    />
-                    <Label className='form-check-label' for={`${filter.label}-event`}>
-                      {filter.label}
-                    </Label>
-                  </div>
-                )
-              })}
-          </div>
-        </CardBody>
-      </Card>
-      <div className='mt-auto'>
-        <img className='img-fluid' src={illustration} alt='illustration' />
-      </div>
-    </Fragment>
-  )
+        </Box>
+
+        <Divider sx={{ width: '100%', m: '0 !important' }} />
+        <DatePickerWrapper
+          sx={{
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            '& .react-datepicker': { boxShadow: 'none !important', border: 'none !important' }
+          }}
+        >
+          <DatePicker inline onChange={date => calendarApi.gotoDate(date)} />
+        </DatePickerWrapper>
+        <Divider sx={{ width: '100%', m: '0 !important' }} />
+        <Box sx={{ p: 6, width: '100%', display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+          <Typography variant='body2' sx={{ mb: 2, color: 'text.disabled', textTransform: 'uppercase' }}>
+            Filters
+          </Typography>
+          <FormControlLabel
+            label='View All'
+            sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+            control={
+              <Checkbox
+                checked={store.selectedCalendars.length === colorsArr.length}
+                onChange={e => dispatch(handleAllCalendars(e.target.checked))}
+              />
+            }
+          />
+          {renderFilters}
+        </Box>
+      </Drawer>
+    )
+  } else {
+    return null
+  }
 }
 
 export default SidebarLeft

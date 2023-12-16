@@ -1,25 +1,11 @@
-import mock from '../mock'
-
-// ** Utils
-import { paginateArray } from '../utils'
-
-// Avatars Imports
-import avatar1 from '@src/assets/images/avatars/1.png'
-import avatar2 from '@src/assets/images/avatars/2.png'
-import avatar3 from '@src/assets/images/avatars/3.png'
-import avatar4 from '@src/assets/images/avatars/4.png'
-import avatar5 from '@src/assets/images/avatars/5.png'
-import avatar6 from '@src/assets/images/avatars/6.png'
-import avatar7 from '@src/assets/images/avatars/7.png'
-import avatar8 from '@src/assets/images/avatars/8.png'
-import avatar9 from '@src/assets/images/avatars/9.png'
-import avatar10 from '@src/assets/images/avatars/10.png'
+// ** Mock
+import mock from 'src/@fake-db/mock'
 
 const data = {
   users: [
     {
       id: 1,
-      billing: 'Manual - Credit Card',
+      billing: 'Auto Debit',
       fullName: 'Galen Slixby',
       company: 'Yotz PVT LTD',
       role: 'editor',
@@ -30,7 +16,7 @@ const data = {
       currentPlan: 'enterprise',
       status: 'inactive',
       avatar: '',
-      avatarColor: 'light-primary'
+      avatarColor: 'primary'
     },
     {
       id: 2,
@@ -44,11 +30,11 @@ const data = {
       email: 'hredmore1@imgur.com',
       currentPlan: 'team',
       status: 'pending',
-      avatar: avatar10
+      avatar: '/images/avatars/3.png'
     },
     {
       id: 3,
-      billing: 'Auto Debit',
+      billing: 'Manual - Cash',
       fullName: 'Marjory Sicely',
       company: 'Oozz PVT LTD',
       role: 'maintainer',
@@ -58,11 +44,11 @@ const data = {
       email: 'msicely2@who.int',
       currentPlan: 'enterprise',
       status: 'active',
-      avatar: avatar1
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 4,
-      billing: 'Manual - Credit Card',
+      billing: 'Auto Debit',
       fullName: 'Cyrill Risby',
       company: 'Oozz PVT LTD',
       role: 'maintainer',
@@ -72,7 +58,7 @@ const data = {
       email: 'crisby3@wordpress.com',
       currentPlan: 'team',
       status: 'inactive',
-      avatar: avatar9
+      avatar: '/images/avatars/3.png'
     },
     {
       id: 5,
@@ -86,11 +72,11 @@ const data = {
       email: 'mhurran4@yahoo.co.jp',
       currentPlan: 'enterprise',
       status: 'pending',
-      avatar: avatar10
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 6,
-      billing: 'Auto Debit',
+      billing: 'Manual - Cash',
       fullName: 'Silvain Halstead',
       company: 'Jaxbean PVT LTD',
       role: 'author',
@@ -101,7 +87,7 @@ const data = {
       currentPlan: 'company',
       status: 'active',
       avatar: '',
-      avatarColor: 'light-success'
+      avatarColor: 'error'
     },
     {
       id: 7,
@@ -116,11 +102,11 @@ const data = {
       currentPlan: 'company',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-danger'
+      avatarColor: 'warning'
     },
     {
       id: 8,
-      billing: 'Manual - Cash',
+      billing: 'Auto Debit',
       fullName: 'Kathryne Liger',
       company: 'Pixoboo PVT LTD',
       role: 'author',
@@ -130,11 +116,11 @@ const data = {
       email: 'kliger7@vinaora.com',
       currentPlan: 'enterprise',
       status: 'pending',
-      avatar: avatar9
+      avatar: '/images/avatars/4.png'
     },
     {
       id: 9,
-      billing: 'Auto Debit',
+      billing: 'Manual - Credit Card',
       fullName: 'Franz Scotfurth',
       company: 'Tekfly PVT LTD',
       role: 'subscriber',
@@ -144,11 +130,11 @@ const data = {
       email: 'fscotfurth8@dailymotion.com',
       currentPlan: 'team',
       status: 'pending',
-      avatar: avatar2
+      avatar: '/images/avatars/2.png'
     },
     {
       id: 10,
-      billing: 'Auto Debit',
+      billing: 'Manual - Credit Card',
       fullName: 'Jillene Bellany',
       company: 'Gigashots PVT LTD',
       role: 'maintainer',
@@ -158,11 +144,11 @@ const data = {
       email: 'jbellany9@kickstarter.com',
       currentPlan: 'company',
       status: 'inactive',
-      avatar: avatar9
+      avatar: '/images/avatars/5.png'
     },
     {
       id: 11,
-      billing: 'Manual - Paypal',
+      billing: 'Auto Debit',
       fullName: 'Jonah Wharlton',
       company: 'Eare PVT LTD',
       role: 'subscriber',
@@ -172,11 +158,11 @@ const data = {
       email: 'jwharltona@oakley.com',
       currentPlan: 'team',
       status: 'inactive',
-      avatar: avatar4
+      avatar: '/images/avatars/4.png'
     },
     {
       id: 12,
-      billing: 'Manual - Credit Card',
+      billing: 'Auto Debit',
       fullName: 'Seth Hallam',
       company: 'Yakitri PVT LTD',
       role: 'subscriber',
@@ -186,11 +172,11 @@ const data = {
       email: 'shallamb@hugedomains.com',
       currentPlan: 'team',
       status: 'pending',
-      avatar: avatar5
+      avatar: '/images/avatars/5.png'
     },
     {
       id: 13,
-      billing: 'Auto Debit',
+      billing: 'Manual - Cash',
       fullName: 'Yoko Pottie',
       company: 'Leenti PVT LTD',
       role: 'subscriber',
@@ -200,11 +186,11 @@ const data = {
       email: 'ypottiec@privacy.gov.au',
       currentPlan: 'basic',
       status: 'inactive',
-      avatar: avatar7
+      avatar: '/images/avatars/7.png'
     },
     {
       id: 14,
-      billing: 'Auto Debit',
+      billing: 'Manual - Paypal',
       fullName: 'Maximilianus Krause',
       company: 'Digitube PVT LTD',
       role: 'author',
@@ -214,11 +200,11 @@ const data = {
       email: 'mkraused@stanford.edu',
       currentPlan: 'team',
       status: 'active',
-      avatar: avatar9
+      avatar: '/images/avatars/6.png'
     },
     {
       id: 15,
-      billing: 'Auto Debit',
+      billing: 'Manual - Credit Card',
       fullName: 'Zsazsa McCleverty',
       company: 'Kaymbo PVT LTD',
       role: 'maintainer',
@@ -228,7 +214,7 @@ const data = {
       email: 'zmcclevertye@soundcloud.com',
       currentPlan: 'enterprise',
       status: 'active',
-      avatar: avatar2
+      avatar: '/images/avatars/2.png'
     },
     {
       id: 16,
@@ -242,7 +228,7 @@ const data = {
       email: 'bemblinf@wired.com',
       currentPlan: 'company',
       status: 'active',
-      avatar: avatar6
+      avatar: '/images/avatars/6.png'
     },
     {
       id: 17,
@@ -257,11 +243,11 @@ const data = {
       currentPlan: 'basic',
       status: 'active',
       avatar: '',
-      avatarColor: 'light-warning'
+      avatarColor: 'success'
     },
     {
       id: 18,
-      billing: 'Manual - Cash',
+      billing: 'Auto Debit',
       fullName: 'Bertha Biner',
       company: 'Twinte PVT LTD',
       role: 'editor',
@@ -271,11 +257,11 @@ const data = {
       email: 'bbinerh@mozilla.com',
       currentPlan: 'team',
       status: 'active',
-      avatar: avatar7
+      avatar: '/images/avatars/7.png'
     },
     {
       id: 19,
-      billing: 'Manual - Cash',
+      billing: 'Auto Debit',
       fullName: 'Travus Bruntjen',
       company: 'Cogidoo PVT LTD',
       role: 'admin',
@@ -286,7 +272,7 @@ const data = {
       currentPlan: 'enterprise',
       status: 'active',
       avatar: '',
-      avatarColor: 'light-info'
+      avatarColor: 'primary'
     },
     {
       id: 20,
@@ -300,11 +286,11 @@ const data = {
       email: 'wburlandj@uiuc.edu',
       currentPlan: 'team',
       status: 'inactive',
-      avatar: avatar6
+      avatar: '/images/avatars/6.png'
     },
     {
       id: 21,
-      billing: 'Auto Debit',
+      billing: 'Manual - Cash',
       fullName: 'Selina Kyle',
       company: 'Wayne Enterprises',
       role: 'admin',
@@ -314,11 +300,11 @@ const data = {
       email: 'irena.dubrovna@wayne.com',
       currentPlan: 'team',
       status: 'active',
-      avatar: avatar1
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 22,
-      billing: 'Auto Debit',
+      billing: 'Manual - Cash',
       fullName: 'Jameson Lyster',
       company: 'Quaxo PVT LTD',
       role: 'editor',
@@ -328,7 +314,7 @@ const data = {
       email: 'jlysterl@guardian.co.uk',
       currentPlan: 'company',
       status: 'inactive',
-      avatar: avatar8
+      avatar: '/images/avatars/8.png'
     },
     {
       id: 23,
@@ -339,14 +325,14 @@ const data = {
       username: 'kskitterelm',
       country: 'Poland',
       contact: '(254) 845-4107',
-      email: 'kskitterelm@washingtonpost.com',
+      email: 'kskitterelm@ainyx.com',
       currentPlan: 'basic',
       status: 'pending',
-      avatar: avatar3
+      avatar: '/images/avatars/3.png'
     },
     {
       id: 24,
-      billing: 'Manual - Paypal',
+      billing: 'Auto Debit',
       fullName: 'Cleavland Hatherleigh',
       company: 'Flipopia PVT LTD',
       role: 'admin',
@@ -356,11 +342,11 @@ const data = {
       email: 'chatherleighn@washington.edu',
       currentPlan: 'team',
       status: 'pending',
-      avatar: avatar2
+      avatar: '/images/avatars/2.png'
     },
     {
       id: 25,
-      billing: 'Manual - Credit Card',
+      billing: 'Manual - Paypal',
       fullName: 'Adeline Micco',
       company: 'Topicware PVT LTD',
       role: 'admin',
@@ -371,11 +357,11 @@ const data = {
       currentPlan: 'enterprise',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-primary'
+      avatarColor: 'error'
     },
     {
       id: 26,
-      billing: 'Manual - Cash',
+      billing: 'Manual - Credit Card',
       fullName: 'Hugh Hasson',
       company: 'Skinix PVT LTD',
       role: 'admin',
@@ -385,7 +371,7 @@ const data = {
       email: 'hhassonp@bizjournals.com',
       currentPlan: 'basic',
       status: 'inactive',
-      avatar: avatar4
+      avatar: '/images/avatars/4.png'
     },
     {
       id: 27,
@@ -399,11 +385,11 @@ const data = {
       email: 'gjacombsq@jigsy.com',
       currentPlan: 'enterprise',
       status: 'active',
-      avatar: avatar10
+      avatar: '/images/avatars/5.png'
     },
     {
       id: 28,
-      billing: 'Manual - Credit Card',
+      billing: 'Manual - Cash',
       fullName: 'Bree Kilday',
       company: 'Jetpulse PVT LTD',
       role: 'maintainer',
@@ -414,7 +400,7 @@ const data = {
       currentPlan: 'team',
       status: 'active',
       avatar: '',
-      avatarColor: 'light-success'
+      avatarColor: 'warning'
     },
     {
       id: 29,
@@ -428,11 +414,11 @@ const data = {
       email: 'cpinyons@behance.net',
       currentPlan: 'team',
       status: 'active',
-      avatar: avatar7
+      avatar: '/images/avatars/7.png'
     },
     {
       id: 30,
-      billing: 'Manual - Credit Card',
+      billing: 'Manual - Cash',
       fullName: 'Isabel Mallindine',
       company: 'Voomm PVT LTD',
       role: 'subscriber',
@@ -443,11 +429,11 @@ const data = {
       currentPlan: 'team',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-warning'
+      avatarColor: 'info'
     },
     {
       id: 31,
-      billing: 'Manual - Cash',
+      billing: 'Auto Debit',
       fullName: 'Gwendolyn Meineken',
       company: 'Oyondu PVT LTD',
       role: 'admin',
@@ -457,7 +443,7 @@ const data = {
       email: 'gmeinekenu@hc360.com',
       currentPlan: 'basic',
       status: 'pending',
-      avatar: avatar1
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 32,
@@ -471,11 +457,11 @@ const data = {
       email: 'rsnowballv@indiegogo.com',
       currentPlan: 'basic',
       status: 'pending',
-      avatar: avatar5
+      avatar: '/images/avatars/5.png'
     },
     {
       id: 33,
-      billing: 'Auto Debit',
+      billing: 'Manual - Credit Card',
       fullName: 'Rochette Emer',
       company: 'Thoughtworks PVT LTD',
       role: 'admin',
@@ -485,7 +471,7 @@ const data = {
       email: 'remerw@blogtalkradio.com',
       currentPlan: 'basic',
       status: 'active',
-      avatar: avatar8
+      avatar: '/images/avatars/8.png'
     },
     {
       id: 34,
@@ -499,7 +485,7 @@ const data = {
       email: 'ofibbensx@booking.com',
       currentPlan: 'company',
       status: 'active',
-      avatar: avatar4
+      avatar: '/images/avatars/4.png'
     },
     {
       id: 35,
@@ -514,11 +500,11 @@ const data = {
       currentPlan: 'company',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-danger'
+      avatarColor: 'error'
     },
     {
       id: 36,
-      billing: 'Manual - Paypal',
+      billing: 'Auto Debit',
       fullName: 'Bradan Rosebotham',
       company: 'Agivu PVT LTD',
       role: 'subscriber',
@@ -529,7 +515,7 @@ const data = {
       currentPlan: 'team',
       status: 'inactive',
       avatar: '',
-      avatarColor: 'light-info'
+      avatarColor: 'success'
     },
     {
       id: 37,
@@ -543,11 +529,11 @@ const data = {
       email: 'shebblethwaite10@arizona.edu',
       currentPlan: 'company',
       status: 'inactive',
-      avatar: avatar9
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 38,
-      billing: 'Manual - Credit Card',
+      billing: 'Auto Debit',
       fullName: 'Moritz Piccard',
       company: 'Twitternation PVT LTD',
       role: 'maintainer',
@@ -557,11 +543,11 @@ const data = {
       email: 'mpiccard11@vimeo.com',
       currentPlan: 'enterprise',
       status: 'inactive',
-      avatar: avatar1
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 39,
-      billing: 'Manual - Cash',
+      billing: 'Manual - Paypal',
       fullName: 'Tyne Widmore',
       company: 'Yombu PVT LTD',
       role: 'subscriber',
@@ -572,11 +558,11 @@ const data = {
       currentPlan: 'team',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-primary'
+      avatarColor: 'primary'
     },
     {
       id: 40,
-      billing: 'Manual - Cash',
+      billing: 'Auto Debit',
       fullName: 'Florenza Desporte',
       company: 'Kamba PVT LTD',
       role: 'author',
@@ -586,11 +572,11 @@ const data = {
       email: 'fdesporte13@omniture.com',
       currentPlan: 'company',
       status: 'active',
-      avatar: avatar6
+      avatar: '/images/avatars/6.png'
     },
     {
       id: 41,
-      billing: 'Manual - Credit Card',
+      billing: 'Auto Debit',
       fullName: 'Edwina Baldetti',
       company: 'Dazzlesphere PVT LTD',
       role: 'maintainer',
@@ -601,11 +587,11 @@ const data = {
       currentPlan: 'team',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-success'
+      avatarColor: 'info'
     },
     {
       id: 42,
-      billing: 'Manual - Cash',
+      billing: 'Manual - Credit Card',
       fullName: 'Benedetto Rossiter',
       company: 'Mybuzz PVT LTD',
       role: 'editor',
@@ -616,11 +602,11 @@ const data = {
       currentPlan: 'team',
       status: 'inactive',
       avatar: '',
-      avatarColor: 'light-danger'
+      avatarColor: 'warning'
     },
     {
       id: 43,
-      billing: 'Manual - Credit Card',
+      billing: 'Auto Debit',
       fullName: 'Micaela McNirlan',
       company: 'Tambee PVT LTD',
       role: 'admin',
@@ -631,7 +617,7 @@ const data = {
       currentPlan: 'basic',
       status: 'inactive',
       avatar: '',
-      avatarColor: 'light-warning'
+      avatarColor: 'error'
     },
     {
       id: 44,
@@ -646,11 +632,11 @@ const data = {
       currentPlan: 'team',
       status: 'active',
       avatar: '',
-      avatarColor: 'light-info'
+      avatarColor: 'success'
     },
     {
       id: 45,
-      billing: 'Manual - Paypal',
+      billing: 'Manual - Cash',
       fullName: 'Corrie Perot',
       company: 'Flipopia PVT LTD',
       role: 'subscriber',
@@ -660,11 +646,11 @@ const data = {
       email: 'cperot18@goo.ne.jp',
       currentPlan: 'team',
       status: 'pending',
-      avatar: avatar3
+      avatar: '/images/avatars/3.png'
     },
     {
       id: 46,
-      billing: 'Auto Debit',
+      billing: 'Manual - Credit Card',
       fullName: 'Saunder Offner',
       company: 'Skalith PVT LTD',
       role: 'maintainer',
@@ -675,11 +661,11 @@ const data = {
       currentPlan: 'enterprise',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-primary'
+      avatarColor: 'primary'
     },
     {
       id: 47,
-      billing: 'Manual - Paypal',
+      billing: 'Auto Debit',
       fullName: 'Karena Courtliff',
       company: 'Feedfire PVT LTD',
       role: 'admin',
@@ -689,11 +675,11 @@ const data = {
       email: 'kcourtliff1a@bbc.co.uk',
       currentPlan: 'basic',
       status: 'active',
-      avatar: avatar1
+      avatar: '/images/avatars/1.png'
     },
     {
       id: 48,
-      billing: 'Manual - Paypal',
+      billing: 'Auto Debit',
       fullName: 'Onfre Wind',
       company: 'Thoughtmix PVT LTD',
       role: 'admin',
@@ -704,11 +690,11 @@ const data = {
       currentPlan: 'basic',
       status: 'pending',
       avatar: '',
-      avatarColor: 'light-success'
+      avatarColor: 'error'
     },
     {
       id: 49,
-      billing: 'Manual - Cash',
+      billing: 'Auto Debit',
       fullName: 'Paulie Durber',
       company: 'Babbleblab PVT LTD',
       role: 'subscriber',
@@ -719,11 +705,11 @@ const data = {
       currentPlan: 'team',
       status: 'inactive',
       avatar: '',
-      avatarColor: 'light-danger'
+      avatarColor: 'warning'
     },
     {
       id: 50,
-      billing: 'Auto Debit',
+      billing: 'Manual - Cash',
       fullName: 'Beverlie Krabbe',
       company: 'Kaymbo PVT LTD',
       role: 'editor',
@@ -733,84 +719,147 @@ const data = {
       email: 'bkrabbe1d@home.pl',
       currentPlan: 'company',
       status: 'active',
-      avatar: avatar9
+      avatar: '/images/avatars/2.png'
     }
   ]
 }
 
-// GET ALL DATA
-mock.onGet('/api/users/list/all-data').reply(200, data.users)
+const projectListData = [
+  {
+    id: 1,
+    hours: '18:42',
+    progressValue: 78,
+    totalTask: '122/240',
+    progressColor: 'success',
+    projectType: 'React Project',
+    projectTitle: 'BGC eCommerce App',
+    img: '/images/icons/project-icons/react.png'
+  },
+  {
+    id: 2,
+    hours: '20:42',
+    progressValue: 18,
+    totalTask: '9/56',
+    progressColor: 'error',
+    projectType: 'Figma Project',
+    projectTitle: 'Falcon Logo Design',
+    img: '/images/icons/project-icons/figma.png'
+  },
+  {
+    id: 3,
+    hours: '120:87',
+    progressValue: 62,
+    totalTask: '290/320',
+    progressColor: 'primary',
+    projectType: 'VueJs Project',
+    projectTitle: 'Dashboard Design',
+    img: '/images/icons/project-icons/vue.png'
+  },
+  {
+    id: 4,
+    hours: '89:19',
+    progressValue: 8,
+    totalTask: '7/63',
+    progressColor: 'error',
+    projectType: 'Xamarin Project',
+    projectTitle: 'Foodista Mobile App',
+    img: '/images/icons/project-icons/xamarin.png'
+  },
+  {
+    id: 5,
+    hours: '230:10',
+    progressValue: 49,
+    totalTask: '120/186',
+    progressColor: 'warning',
+    projectType: 'Python Project',
+    projectTitle: 'Dojo React Project',
+    img: '/images/icons/project-icons/python.png'
+  },
+  {
+    id: 6,
+    hours: '342:41',
+    progressValue: 92,
+    totalTask: '99/109',
+    progressColor: 'success',
+    projectType: 'Sketch Project',
+    projectTitle: 'Blockchain Website',
+    img: '/images/icons/project-icons/sketch.png'
+  },
+  {
+    id: 7,
+    hours: '12:45',
+    progressValue: 88,
+    totalTask: '98/110',
+    progressColor: 'success',
+    projectType: 'HTML Project',
+    projectTitle: 'Hoffman Website',
+    img: '/images/icons/project-icons/html5.png'
+  }
+]
 
 // POST: Add new user
 mock.onPost('/apps/users/add-user').reply(config => {
   // Get event from post data
-  const user = JSON.parse(config.data)
-  const highestValue = data.users.reduce((a, b) => (a.id > b.id ? a : b)).id
-
-  user.id = highestValue + 1
-
-  data.users.push(user)
+  const user = JSON.parse(config.data).data
+  const lastId = Math.max(...data.users.map(u => u.id), 0)
+  user.id = lastId + 1
+  data.users.unshift({ ...user, avatar: '', avatarColor: 'primary', status: 'active' })
 
   return [201, { user }]
 })
 
-// GET Updated DATA
-mock.onGet('/api/users/list/data').reply(config => {
-  const {
-    q = '',
-    page = 1,
-    role = null,
-    perPage = 10,
-    sort = 'asc',
-    status = null,
-    currentPlan = null,
-    sortColumn = 'fullName'
-  } = config
-
-  /* eslint-disable  */
+// GET: DATA
+mock.onGet('/apps/users/list').reply(config => {
+  const { q = '', role = null, status = null, currentPlan = null } = config.params ?? ''
   const queryLowered = q.toLowerCase()
 
-  const dataAsc = data.users.sort((a, b) => (a[sortColumn] < b[sortColumn] ? -1 : 1))
-
-  const dataToFilter = sort === 'asc' ? dataAsc : dataAsc.reverse()
-
-  const filteredData = dataToFilter.filter(
+  const filteredData = data.users.filter(
     user =>
-      (user.email.toLowerCase().includes(queryLowered) ||
+      (user.username.toLowerCase().includes(queryLowered) ||
         user.fullName.toLowerCase().includes(queryLowered) ||
-        user.billing.toLowerCase().includes(queryLowered)) &&
+        user.role.toLowerCase().includes(queryLowered) ||
+        (user.email.toLowerCase().includes(queryLowered) &&
+          user.currentPlan.toLowerCase().includes(queryLowered) &&
+          user.status.toLowerCase().includes(queryLowered))) &&
       user.role === (role || user.role) &&
       user.currentPlan === (currentPlan || user.currentPlan) &&
       user.status === (status || user.status)
   )
-  /* eslint-enable  */
 
   return [
     200,
     {
-      total: filteredData.length,
-      users: paginateArray(filteredData, perPage, page)
+      allData: data.users,
+      users: filteredData,
+      params: config.params,
+      total: filteredData.length
     }
   ]
-})
-
-// GET USER
-mock.onGet('/api/users/user').reply(config => {
-  const { id } = config
-  const user = data.users.find(i => i.id === id)
-  return [200, { user }]
 })
 
 // DELETE: Deletes User
 mock.onDelete('/apps/users/delete').reply(config => {
   // Get user id from URL
-  let userId = config.id
-
-  // Convert Id to number
-  userId = Number(userId)
-
+  const userId = config.data
   const userIndex = data.users.findIndex(t => t.id === userId)
   data.users.splice(userIndex, 1)
 
   return [200]
+})
+
+// GET: DATA
+mock.onGet('/apps/users/project-list').reply(config => {
+  const { q = '' } = config.params ?? ''
+  const queryLowered = q.toLowerCase()
+
+  const filteredData = projectListData.filter(
+    user =>
+      user.projectTitle.toLowerCase().includes(queryLowered) ||
+      user.projectType.toLowerCase().includes(queryLowered) ||
+      user.totalTask.toLowerCase().includes(queryLowered) ||
+      user.hours.toLowerCase().includes(queryLowered) ||
+      String(user.progressValue).toLowerCase().includes(queryLowered)
+  )
+
+  return [200, filteredData]
 })

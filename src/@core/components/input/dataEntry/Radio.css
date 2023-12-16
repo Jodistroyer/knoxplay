@@ -1,9 +1,0 @@
-.ant-radio-wrapper .ant-radio-checked::after,
-.ant-radio-wrapper .ant-radio-checked .ant-radio-inner{
-    background-color: #7367f0b3;
-    border-color: #7367f0b3;
-    font-size: 1.1rem ;
-    font-family: Montserrat, Helvetica, Arial, Serif;
-    line-height: 1;
-    padding: 0.358rem;
-}

@@ -1,115 +1,136 @@
-// ** React Imports
-import { useState } from 'react'
+// ** MUI Imports
+import Tab from '@mui/material/Tab'
+import TabPanel from '@mui/lab/TabPanel'
+import TabContext from '@mui/lab/TabContext'
+import { styled } from '@mui/material/styles'
+import Accordion from '@mui/material/Accordion'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import MuiTabList from '@mui/lab/TabList'
+import AccordionSummary from '@mui/material/AccordionSummary'
+import AccordionDetails from '@mui/material/AccordionDetails'
 
-// ** Icons Imports
-import * as Icon from 'react-feather'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Reactstrap Imports
-import {
-  Nav,
-  Row,
-  Col,
-  NavItem,
-  NavLink,
-  TabPane,
-  TabContent,
-  AccordionBody,
-  AccordionItem,
-  AccordionHeader,
-  UncontrolledAccordion
-} from 'reactstrap'
+// ** Custom Components Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Images
-import illustration from '@src/assets/images/illustration/faq-illustrations.svg'
+// Styled TabList component
+const MuiBox = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  marginTop: theme.spacing(6),
+  [theme.breakpoints.down('md')]: {
+    flexDirection: 'column'
+  }
+}))
 
-const Faqs = ({ data }) => {
-  const dataToRender = []
+const TabList = styled(MuiTabList)(({ theme }) => ({
+  borderRight: 0,
+  '&, & .MuiTabs-scroller': {
+    boxSizing: 'content-box',
+    padding: theme.spacing(1.25, 1.25, 2),
+    margin: `${theme.spacing(-1.25, -1.25, -2)} !important`
+  },
+  '& .MuiTabs-indicator': {
+    display: 'none'
+  },
+  '& .Mui-selected': {
+    boxShadow: theme.shadows[2],
+    backgroundColor: theme.palette.primary.main,
+    color: `${theme.palette.common.white} !important`
+  },
+  '& .MuiTab-root': {
+    minWidth: 280,
+    lineHeight: 1,
+    textAlign: 'center',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    color: theme.palette.text.primary,
+    borderRadius: theme.shape.borderRadius,
+    '&:hover': {
+      color: theme.palette.primary.main
+    },
+    '& svg': {
+      marginBottom: 0,
+      marginRight: theme.spacing(2)
+    },
+    [theme.breakpoints.down('md')]: {
+      maxWidth: '100%'
+    }
+  }
+}))
 
-  // ** States
-  const [activeTab, setActiveTab] = useState('Payment')
-
-  const toggleTab = tab => setActiveTab(tab)
-
-  // eslint-disable-next-line
-  Object.entries(data).forEach(([key, val]) => {
-    dataToRender.push(val)
-  })
-
-  const renderTabs = () => {
-    return dataToRender.map(item => {
-      const IconTag = Icon[item.icon]
+const Faqs = ({ data, activeTab, handleChange }) => {
+  const renderTabContent = () => {
+    return Object.values(data.faqData).map(tab => {
       return (
-        <NavItem key={item.title} tag='li'>
-          <NavLink active={activeTab === item.title} onClick={() => toggleTab(item.title)}>
-            <IconTag size={18} className='me-1' />
-            <span className='fw-bold'>{item.title}</span>
-          </NavLink>
-        </NavItem>
+        <TabPanel key={tab.id} value={tab.id} sx={{ p: 6.5, pt: 0, width: '100%' }}>
+          <Box key={tab.id}>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <CustomAvatar skin='light' variant='rounded' sx={{ height: 48, width: 48 }}>
+                <Icon icon={tab.icon} fontSize='2.25rem' />
+              </CustomAvatar>
+              <Box sx={{ ml: 4 }}>
+                <Typography variant='h4'>{tab.title}</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>{tab.subtitle}</Typography>
+              </Box>
+            </Box>
+            <Box sx={{ mt: 6 }}>
+              {tab.qandA.map(item => {
+                return (
+                  <Accordion key={item.id}>
+                    <AccordionSummary expandIcon={<Icon fontSize='1.25rem' icon='tabler:chevron-down' />}>
+                      <Typography sx={{ fontWeight: '500' }}>{item.question}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography sx={{ color: 'text.secondary' }}>{item.answer}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                )
+              })}
+            </Box>
+          </Box>
+        </TabPanel>
       )
     })
   }
 
-  const renderTabContent = () => {
-    return dataToRender.map(item => {
-      const IconTag = Icon[item.icon]
-
-      return (
-        <TabPane key={item.title} tabId={item.title}>
-          <div className='d-flex align-items-center'>
-            <div className='avatar avatar-tag bg-light-primary me-1'>
-              <IconTag size={20} />
-            </div>
-            <div>
-              <h4 className='mb-0'>{item.title}</h4>
-              <span>{item.subtitle}</span>
-            </div>
-          </div>
-          {item.qandA.length ? (
-            <UncontrolledAccordion className='accordion-margin mt-2' defaultOpen='0'>
-              {item.qandA.map((r, index) => {
-                return (
-                  <AccordionItem key={index + 1}>
-                    <AccordionHeader tag='h2' targetId={String(index + 1)}>
-                      {r.question}
-                    </AccordionHeader>
-                    <AccordionBody accordionId={String(index + 1)}>{r.ans}</AccordionBody>
-                  </AccordionItem>
-                )
-              })}
-            </UncontrolledAccordion>
-          ) : (
-            <div className='text-center p-5'>
-              <h5 className='p-1'>
-                <Icon.Info size='19' className='me-25' /> No Results Found
-              </h5>
-            </div>
-          )}
-        </TabPane>
-      )
-    })
+  const renderTabs = () => {
+    if (data !== null) {
+      return Object.values(data.faqData).map(tab => {
+        if (tab.qandA.length) {
+          return <Tab key={tab.id} value={tab.id} label={tab.title} icon={<Icon icon={tab.icon} />} />
+        } else {
+          return null
+        }
+      })
+    } else {
+      return null
+    }
   }
 
   return (
-    <div id='faq-tabs'>
-      <Row>
-        <Col lg='3' md='4' sm='12'>
-          <div className='faq-navigation d-flex justify-content-between flex-column mb-2 mb-md-0'>
-            <Nav tag='ul' className='nav-left' pills vertical>
-              {renderTabs()}
-            </Nav>
-            <img
-              alt='illustration'
-              src={illustration}
-              style={{ transform: 'scaleX(1)' }}
-              className='img-fluid d-none d-md-block'
-            />
-          </div>
-        </Col>
-        <Col lg='9' md='8' sm='12'>
-          <TabContent activeTab={activeTab}>{renderTabContent()}</TabContent>
-        </Col>
-      </Row>
-    </div>
+    <MuiBox>
+      <TabContext value={activeTab}>
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <TabList orientation='vertical' onChange={handleChange}>
+            {renderTabs()}
+          </TabList>
+          <Box
+            sx={{
+              mt: 5.5,
+              display: 'flex',
+              justifyContent: 'center',
+              '& img': { maxWidth: '100%', display: { xs: 'none', md: 'block' } }
+            }}
+          >
+            <img src='/images/pages/faq-illustration.png' alt='illustration' width='230' />
+          </Box>
+        </Box>
+        {renderTabContent()}
+      </TabContext>
+    </MuiBox>
   )
 }
 

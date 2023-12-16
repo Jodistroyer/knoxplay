@@ -1,12 +1,9 @@
-// ** Third Party Components
-import PropTypes from 'prop-types'
-
 const Repeater = props => {
   // ** Props
-  const { count, tag, children, ...rest } = props
+  const { count, tag, children } = props
 
   // ** Custom Tag
-  const Tag = tag
+  const Tag = tag || 'div'
 
   // ** Default Items
   const items = []
@@ -16,18 +13,7 @@ const Repeater = props => {
     items.push(children(i))
   }
 
-  return <Tag {...rest}>{items}</Tag>
-}
-
-// ** PropTypes
-Repeater.propTypes = {
-  count: PropTypes.number.isRequired,
-  tag: PropTypes.string.isRequired
-}
-
-// ** Default Props
-Repeater.defaultProps = {
-  tag: 'div'
+  return <Tag {...props}>{items}</Tag>
 }
 
 export default Repeater

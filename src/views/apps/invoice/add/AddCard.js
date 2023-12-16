@@ -1,455 +1,485 @@
 // ** React Imports
-import { Fragment, useState, useEffect } from 'react'
+import { useState, forwardRef } from 'react'
 
-// ** Custom Components
-import Sidebar from '@components/sidebar'
-import Repeater from '@components/repeater'
+// ** MUI Imports
+import Card from '@mui/material/Card'
+import Table from '@mui/material/Table'
+import Button from '@mui/material/Button'
+import Divider from '@mui/material/Divider'
+import Tooltip from '@mui/material/Tooltip'
+import TableRow from '@mui/material/TableRow'
+import Collapse from '@mui/material/Collapse'
+import TableBody from '@mui/material/TableBody'
+import Typography from '@mui/material/Typography'
+import InputLabel from '@mui/material/InputLabel'
+import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
+import Grid from '@mui/material/Grid'
+import InputAdornment from '@mui/material/InputAdornment'
+import TableContainer from '@mui/material/TableContainer'
+import { styled, alpha, useTheme } from '@mui/material/styles'
+import MenuItem from '@mui/material/MenuItem'
+import TableCell from '@mui/material/TableCell'
+import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Components
-import axios from 'axios'
-import Flatpickr from 'react-flatpickr'
-import { SlideDown } from 'react-slidedown'
-import { X, Plus, Hash } from 'react-feather'
-import Select, { components } from 'react-select'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Reactstrap Imports
-import { selectThemeColors } from '@utils'
-import { Row, Col, Card, Form, Input, Label, Button, CardBody, CardText, InputGroup, InputGroupText } from 'reactstrap'
+// ** Third Party Imports
+import DatePicker from 'react-datepicker'
 
-// ** Styles
-import 'react-slidedown/lib/slidedown.css'
-import '@styles/react/libs/react-select/_react-select.scss'
-import '@styles/react/libs/flatpickr/flatpickr.scss'
-import '@styles/base/pages/app-invoice.scss'
+// ** Configs
+import themeConfig from 'src/configs/themeConfig'
 
-const AddCard = () => {
+// ** Custom Component Imports
+import Repeater from 'src/@core/components/repeater'
+import CustomTextField from 'src/@core/components/mui/text-field'
+
+const CustomInput = forwardRef(({ ...props }, ref) => {
+  return <CustomTextField fullWidth inputRef={ref} sx={{ width: { sm: '250px', xs: '170px' } }} {...props} />
+})
+
+const MUITableCell = styled(TableCell)(({ theme }) => ({
+  borderBottom: 0,
+  paddingLeft: '0 !important',
+  paddingRight: '0 !important',
+  '&:not(:last-child)': {
+    paddingRight: `${theme.spacing(2)} !important`
+  }
+}))
+
+const CalcWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  '&:not(:last-of-type)': {
+    marginBottom: theme.spacing(2)
+  }
+}))
+
+const RepeatingContent = styled(Grid)(({ theme }) => ({
+  paddingRight: 0,
+  display: 'flex',
+  position: 'relative',
+  borderRadius: theme.shape.borderRadius,
+  border: `1px solid ${theme.palette.divider}`,
+  '& .col-title': {
+    top: '-2.375rem',
+    position: 'absolute'
+  },
+  [theme.breakpoints.down('md')]: {
+    '& .col-title': {
+      top: '0',
+      position: 'relative'
+    }
+  }
+}))
+
+const RepeaterWrapper = styled(CardContent)(({ theme }) => ({
+  padding: theme.spacing(16, 10, 10),
+  '& .repeater-wrapper + .repeater-wrapper': {
+    marginTop: theme.spacing(16)
+  },
+  [theme.breakpoints.down('md')]: {
+    paddingTop: theme.spacing(10)
+  },
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(6)
+  }
+}))
+
+const InvoiceAction = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'flex-start',
+  padding: theme.spacing(2, 1),
+  borderLeft: `1px solid ${theme.palette.divider}`
+}))
+
+const CustomSelectItem = styled(MenuItem)(({ theme }) => ({
+  color: theme.palette.success.main,
+  backgroundColor: 'transparent !important',
+  '&:hover': {
+    color: `${theme.palette.success.main} !important`,
+    backgroundColor: `${alpha(theme.palette.success.main, 0.1)} !important`
+  },
+  '&.Mui-focusVisible': {
+    backgroundColor: `${alpha(theme.palette.success.main, 0.2)} !important`
+  },
+  '&.Mui-selected': {
+    color: `${theme.palette.success.contrastText} !important`,
+    backgroundColor: `${theme.palette.success.main} !important`,
+    '&.Mui-focusVisible': {
+      backgroundColor: `${theme.palette.success.dark} !important`
+    }
+  }
+}))
+const now = new Date()
+const tomorrowDate = now.setDate(now.getDate() + 7)
+
+const AddCard = props => {
+  // ** Props
+  const { clients, invoiceNumber, selectedClient, setSelectedClient, toggleAddCustomerDrawer } = props
+
   // ** States
   const [count, setCount] = useState(1)
-  const [value, setValue] = useState({})
-  const [open, setOpen] = useState(false)
-  const [clients, setClients] = useState(null)
-  const [selected, setSelected] = useState(null)
-  const [picker, setPicker] = useState(new Date())
-  const [invoiceNumber, setInvoiceNumber] = useState(false)
-  const [dueDatepicker, setDueDatePicker] = useState(new Date())
-  const [options, setOptions] = useState([
-    {
-      value: 'add-new',
-      label: 'Add New Customer',
-      type: 'button',
-      color: 'flat-success'
-    }
-  ])
+  const [selected, setSelected] = useState('')
+  const [issueDate, setIssueDate] = useState(new Date())
+  const [dueDate, setDueDate] = useState(new Date(tomorrowDate))
 
-  useEffect(() => {
-    // ** Get Clients
-    axios.get('/api/invoice/clients').then(response => {
-      const arr = options
-      response.data.map(item => arr.push({ value: item.name, label: item.name }))
-      setOptions([...arr])
-      setClients(response.data)
-    })
-
-    // ** Get Invoices & Set Invoice Number
-    axios
-      .get('/apps/invoice/invoices', {
-        q: '',
-        page: 1,
-        status: '',
-        sort: 'asc',
-        perPage: 10,
-        sortColumn: 'id'
-      })
-      .then(response => {
-        const lastInvoiceNumber = Math.max.apply(
-          Math,
-          response.data.allData.map(i => i.id)
-        )
-        setInvoiceNumber(lastInvoiceNumber + 1)
-      })
-  }, [])
+  // ** Hook
+  const theme = useTheme()
 
   // ** Deletes form
   const deleteForm = e => {
     e.preventDefault()
+
+    // @ts-ignore
     e.target.closest('.repeater-wrapper').remove()
   }
 
-  // ** Function to toggle sidebar
-  const toggleSidebar = () => setOpen(!open)
-
-  // ** Vars
-  const countryOptions = [
-    { value: 'australia', label: 'Australia' },
-    { value: 'canada', label: 'Canada' },
-    { value: 'russia', label: 'Russia' },
-    { value: 'saudi-arabia', label: 'Saudi Arabia' },
-    { value: 'singapore', label: 'Singapore' },
-    { value: 'sweden', label: 'Sweden' },
-    { value: 'switzerland', label: 'Switzerland' },
-    { value: 'united-kingdom', label: 'United Kingdom' },
-    { value: 'united-arab-emirates', label: 'United Arab Emirates' },
-    { value: 'united-states-of-america', label: 'United States of America' }
-  ]
-
-  // ** Custom Options Component
-  const OptionComponent = ({ data, ...props }) => {
-    if (data.type === 'button') {
-      return (
-        <Button className='text-start rounded-0 px-50' color={data.color} block onClick={() => setOpen(true)}>
-          <Plus className='font-medium-1 me-50' />
-          <span className='align-middle'>{data.label}</span>
-        </Button>
-      )
-    } else {
-      return <components.Option {...props}> {data.label} </components.Option>
+  // ** Handle Invoice To Change
+  const handleInvoiceChange = event => {
+    setSelected(event.target.value)
+    if (clients !== undefined) {
+      setSelectedClient(clients.filter(i => i.name === event.target.value)[0])
     }
   }
 
-  // ** Invoice To OnChange
-  const handleInvoiceToChange = data => {
-    setValue(data)
-    setSelected(clients.filter(i => i.name === data.value)[0])
+  const handleAddNewCustomer = () => {
+    toggleAddCustomerDrawer()
   }
 
-  const note =
-    'It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance projects. Thank You!'
-
   return (
-    <Fragment>
-      <Card className='invoice-preview-card'>
-        {/* Header */}
-        <CardBody className='invoice-padding pb-0'>
-          <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0'>
-            <div>
-              <div className='logo-wrapper'>
-                <svg viewBox='0 0 139 95' version='1.1' height='24'>
-                  <defs>
-                    <linearGradient id='invoice-linearGradient-1' x1='100%' y1='10.5120544%' x2='50%' y2='89.4879456%'>
-                      <stop stopColor='#000000' offset='0%'></stop>
-                      <stop stopColor='#FFFFFF' offset='100%'></stop>
-                    </linearGradient>
-                    <linearGradient
-                      id='invoice-linearGradient-2'
-                      x1='64.0437835%'
-                      y1='46.3276743%'
-                      x2='37.373316%'
-                      y2='100%'
-                    >
-                      <stop stopColor='#EEEEEE' stopOpacity='0' offset='0%'></stop>
-                      <stop stopColor='#FFFFFF' offset='100%'></stop>
-                    </linearGradient>
-                  </defs>
-                  <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
-                    <g transform='translate(-400.000000, -178.000000)'>
-                      <g transform='translate(400.000000, 178.000000)'>
-                        <path
-                          className='text-primary'
-                          d='M-5.68434189e-14,2.84217094e-14 L39.1816085,2.84217094e-14 L69.3453773,32.2519224 L101.428699,2.84217094e-14 L138.784583,2.84217094e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L6.71554594,44.4188507 C2.46876683,39.9813776 0.345377275,35.1089553 0.345377275,29.8015838 C0.345377275,24.4942122 0.230251516,14.560351 -5.68434189e-14,2.84217094e-14 Z'
-                          style={{ fill: 'currentColor' }}
-                        ></path>
-                        <path
-                          d='M69.3453773,32.2519224 L101.428699,1.42108547e-14 L138.784583,1.42108547e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L32.8435758,70.5039241 L69.3453773,32.2519224 Z'
-                          fill='url(#invoice-linearGradient-1)'
-                          opacity='0.2'
-                        ></path>
-                        <polygon
-                          fill='#000000'
-                          opacity='0.049999997'
-                          points='69.3922914 32.4202615 32.8435758 70.5039241 54.0490008 16.1851325'
-                        ></polygon>
-                        <polygon
-                          fill='#000000'
-                          opacity='0.099999994'
-                          points='69.3922914 32.4202615 32.8435758 70.5039241 58.3683556 20.7402338'
-                        ></polygon>
-                        <polygon
-                          fill='url(#invoice-linearGradient-2)'
-                          opacity='0.099999994'
-                          points='101.428699 0 83.0667527 94.1480575 130.378721 47.0740288'
-                        ></polygon>
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-                <h3 className='text-primary invoice-logo'>Vuexy</h3>
-              </div>
-              <p className='card-text mb-25'>Office 149, 450 South Brand Brooklyn</p>
-              <p className='card-text mb-25'>San Diego County, CA 91905, USA</p>
-              <p className='card-text mb-0'>+1 (123) 456 7891, +44 (876) 543 2198</p>
-            </div>
-            <div className='invoice-number-date mt-md-0 mt-2'>
-              <div className='d-flex align-items-center justify-content-md-end mb-1'>
-                <h4 className='invoice-title'>Invoice</h4>
-                <InputGroup className='input-group-merge invoice-edit-input-group disabled'>
-                  <InputGroupText>
-                    <Hash size={15} />
-                  </InputGroupText>
-                  <Input
-                    type='number'
-                    className='invoice-edit-input'
-                    value={invoiceNumber || 3171}
-                    placeholder='53634'
-                    disabled
+    <Card>
+      <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
+        <Grid container>
+          <Grid item xl={6} xs={12} sx={{ mb: { xl: 0, xs: 4 } }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+              <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
+                <svg width={34} viewBox='0 0 32 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                  <path
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    fill={theme.palette.primary.main}
+                    d='M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z'
                   />
-                </InputGroup>
+                  <path
+                    fill='#161616'
+                    opacity={0.06}
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    d='M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z'
+                  />
+                  <path
+                    fill='#161616'
+                    opacity={0.06}
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    d='M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z'
+                  />
+                  <path
+                    fillRule='evenodd'
+                    clipRule='evenodd'
+                    fill={theme.palette.primary.main}
+                    d='M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z'
+                  />
+                </svg>
+                <Typography variant='h4' sx={{ ml: 2.5, fontWeight: 700, lineHeight: '24px' }}>
+                  {themeConfig.templateName}
+                </Typography>
+              </Box>
+              <div>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>Office 149, 450 South Brand Brooklyn</Typography>
+                <Typography sx={{ mb: 2, color: 'text.secondary' }}>San Diego County, CA 91905, USA</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>+1 (123) 456 7891, +44 (876) 543 2198</Typography>
               </div>
-              <div className='d-flex align-items-center mb-1'>
-                <span className='title'>Date:</span>
-                <Flatpickr
-                  value={picker}
-                  onChange={date => setPicker(date)}
-                  className='form-control invoice-edit-input date-picker'
+            </Box>
+          </Grid>
+          <Grid item xl={6} xs={12}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: { xl: 'flex-end', xs: 'flex-start' } }}>
+              <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
+                <Typography variant='h4' sx={{ mr: 2, width: '105px' }}>
+                  Invoice
+                </Typography>
+                <CustomTextField
+                  fullWidth
+                  value={invoiceNumber}
+                  sx={{ width: { sm: '250px', xs: '170px' } }}
+                  InputProps={{
+                    disabled: true,
+                    startAdornment: <InputAdornment position='start'>#</InputAdornment>
+                  }}
                 />
-              </div>
-              <div className='d-flex align-items-center'>
-                <span className='title'>Due Date:</span>
-                <Flatpickr
-                  value={dueDatepicker}
-                  onChange={date => setDueDatePicker(date)}
-                  className='form-control invoice-edit-input due-date-picker'
+              </Box>
+              <Box sx={{ mb: 3, display: 'flex', alignItems: 'center' }}>
+                <Typography sx={{ mr: 3, width: '100px', color: 'text.secondary' }}>Date Issued:</Typography>
+                <DatePicker
+                  id='issue-date'
+                  selected={issueDate}
+                  customInput={<CustomInput />}
+                  onChange={date => setIssueDate(date)}
                 />
-              </div>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Typography sx={{ mr: 3, width: '100px', color: 'text.secondary' }}>Date Due:</Typography>
+                <DatePicker
+                  id='due-date'
+                  selected={dueDate}
+                  customInput={<CustomInput />}
+                  onChange={date => setDueDate(date)}
+                />
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </CardContent>
+
+      <Divider />
+
+      <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
+        <Grid container>
+          <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
+            <Typography variant='h6' sx={{ mb: 6 }}>
+              Invoice To:
+            </Typography>
+            <CustomTextField
+              select
+              sx={{
+                mb: 4,
+                width: '200px',
+                '& .MuiFilledInput-input.MuiSelect-select': { minWidth: '11rem !important' }
+              }}
+              SelectProps={{ value: selected, onChange: e => handleInvoiceChange(e) }}
+            >
+              <CustomSelectItem value='' onClick={handleAddNewCustomer}>
+                <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
+                  <Icon icon='tabler:plus' fontSize='1.125rem' />
+                  Add New Customer
+                </Box>
+              </CustomSelectItem>
+              {clients !== undefined &&
+                clients.map(client => (
+                  <MenuItem key={client.name} value={client.name}>
+                    {client.name}
+                  </MenuItem>
+                ))}
+            </CustomTextField>
+            {selectedClient !== null && selectedClient !== undefined ? (
+              <>
+                <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{selectedClient.company}</Typography>
+                <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{selectedClient.address}</Typography>
+                <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{selectedClient.contact}</Typography>
+                <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{selectedClient.companyEmail}</Typography>
+              </>
+            ) : null}
+          </Grid>
+          <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}>
+            <div>
+              <Typography variant='h6' sx={{ mb: 6 }}>
+                Bill To:
+              </Typography>
+              <TableContainer>
+                <Table>
+                  <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>Total Due:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$12,110.55</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>Bank name:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>American Bank</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>Country:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>United States</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>IBAN:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>ETD95476213874685</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>SWIFT code:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>BR91905</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </TableContainer>
             </div>
-          </div>
-        </CardBody>
-        {/* /Header */}
+          </Grid>
+        </Grid>
+      </CardContent>
 
-        <hr className='invoice-spacing' />
+      <Divider />
 
-        {/* Address and Contact */}
-        <CardBody className='invoice-padding pt-0'>
-          <Row className='row-bill-to invoice-spacing'>
-            <Col className='col-bill-to ps-0' xl='8'>
-              <h6 className='invoice-to-title'>Invoice To:</h6>
-              <div className='invoice-customer'>
-                {clients !== null ? (
-                  <Fragment>
-                    <Select
-                      className='react-select'
-                      classNamePrefix='select'
-                      id='label'
-                      value={value}
-                      options={options}
-                      theme={selectThemeColors}
-                      components={{
-                        Option: OptionComponent
-                      }}
-                      onChange={handleInvoiceToChange}
-                    />
-                    {selected !== null ? (
-                      <div className='customer-details mt-1'>
-                        <p className='mb-25'>{selected.name}</p>
-                        <p className='mb-25'>{selected.company}</p>
-                        <p className='mb-25'>{selected.address}</p>
-                        <p className='mb-25'>{selected.country}</p>
-                        <p className='mb-0'>{selected.contact}</p>
-                        <p className='mb-0'>{selected.companyEmail}</p>
-                      </div>
-                    ) : null}
-                  </Fragment>
-                ) : null}
-              </div>
-            </Col>
-            <Col className='pe-0 mt-xl-0 mt-2' xl='4'>
-              <h6 className='mb-2'>Payment Details:</h6>
-              <table>
-                <tbody>
-                  <tr>
-                    <td className='pe-1'>Total Due:</td>
-                    <td>
-                      <span className='fw-bolder'>$12,110.55</span>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td className='pe-1'>Bank name:</td>
-                    <td>American Bank</td>
-                  </tr>
-                  <tr>
-                    <td className='pe-1'>Country:</td>
-                    <td>United States</td>
-                  </tr>
-                  <tr>
-                    <td className='pe-1'>IBAN:</td>
-                    <td>ETD95476213874685</td>
-                  </tr>
-                  <tr>
-                    <td className='pe-1'>SWIFT code:</td>
-                    <td>BR91905</td>
-                  </tr>
-                </tbody>
-              </table>
-            </Col>
-          </Row>
-        </CardBody>
-        {/* /Address and Contact */}
+      <RepeaterWrapper>
+        <Repeater count={count}>
+          {i => {
+            const Tag = i === 0 ? Box : Collapse
 
-        {/* Product Details */}
-        <CardBody className='invoice-padding invoice-product-details'>
-          <Repeater count={count}>
-            {i => {
-              const Tag = i === 0 ? 'div' : SlideDown
-              return (
-                <Tag key={i} className='repeater-wrapper'>
-                  <Row>
-                    <Col className='d-flex product-details-border position-relative pe-0' sm='12'>
-                      <Row className='w-100 pe-lg-0 pe-1 py-2'>
-                        <Col className='mb-lg-0 mb-2 mt-lg-0 mt-2' lg='5' sm='12'>
-                          <CardText className='col-title mb-md-50 mb-0'>Item</CardText>
-                          <Input type='select' className='item-details'>
-                            <option>App Design</option>
-                            <option>App Customization</option>
-                            <option>ABC Template</option>
-                            <option>App Development</option>
-                          </Input>
-                          <Input className='mt-2' type='textarea' rows='1' defaultValue='Customization & Bug Fixes' />
-                        </Col>
-                        <Col className='my-lg-0 my-2' lg='3' sm='12'>
-                          <CardText className='col-title mb-md-2 mb-0'>Cost</CardText>
-                          <Input type='number' defaultValue='24' placeholder='24' />
-                          <div className='mt-2'>
-                            <span>Discount:</span> <span>0%</span>
-                          </div>
-                        </Col>
-                        <Col className='my-lg-0 my-2' lg='2' sm='12'>
-                          <CardText className='col-title mb-md-2 mb-0'>Qty</CardText>
-                          <Input type='number' defaultValue='1' placeholder='1' />
-                        </Col>
-                        <Col className='my-lg-0 mt-2' lg='2' sm='12'>
-                          <CardText className='col-title mb-md-50 mb-0'>Price</CardText>
-                          <CardText className='mb-0'>$24.00</CardText>
-                        </Col>
-                      </Row>
-                      <div className='d-flex justify-content-center border-start invoice-product-actions py-50 px-25'>
-                        <X size={18} className='cursor-pointer' onClick={deleteForm} />
-                      </div>
-                    </Col>
-                  </Row>
-                </Tag>
-              )
-            }}
-          </Repeater>
-          <Row className='mt-1'>
-            <Col sm='12' className='px-0'>
-              <Button color='primary' size='sm' className='btn-add-new' onClick={() => setCount(count + 1)}>
-                <Plus size={14} className='me-25'></Plus> <span className='align-middle'>Add Item</span>
-              </Button>
-            </Col>
-          </Row>
-        </CardBody>
+            return (
+              <Tag key={i} className='repeater-wrapper' {...(i !== 0 ? { in: true } : {})}>
+                <Grid container>
+                  <RepeatingContent item xs={12}>
+                    <Grid container sx={{ py: 4, width: '100%', pr: { lg: 0, xs: 4 } }}>
+                      <Grid item lg={6} md={5} xs={12} sx={{ px: 4, my: { lg: 0, xs: 4 } }}>
+                        <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
+                          Item
+                        </Typography>
+                        <CustomTextField fullWidth select defaultValue='App Design'>
+                          <MenuItem value='App Design'>App Design</MenuItem>
+                          <MenuItem value='App Customization'>App Customization</MenuItem>
+                          <MenuItem value='ABC Template'>ABC Template</MenuItem>
+                          <MenuItem value='App Development'>App Development</MenuItem>
+                        </CustomTextField>
+                        <CustomTextField
+                          rows={2}
+                          fullWidth
+                          multiline
+                          sx={{ mt: 3.5 }}
+                          defaultValue='Customization & Bug Fixes'
+                        />
+                      </Grid>
+                      <Grid item lg={2} md={3} xs={12} sx={{ px: 4, my: { lg: 0, xs: 4 } }}>
+                        <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
+                          Cost
+                        </Typography>
+                        <CustomTextField
+                          type='number'
+                          placeholder='24'
+                          defaultValue='24'
+                          InputProps={{ inputProps: { min: 0 } }}
+                        />
+                        <Typography sx={{ mt: 3.5, mr: 2, color: 'text.secondary' }}>Discount:</Typography>
+                        <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+                          <Typography sx={{ mr: 2, color: 'text.secondary' }}>0%</Typography>
+                          <Tooltip title='Tax 1' placement='top'>
+                            <Typography sx={{ mr: 2, color: 'text.secondary' }}>0%</Typography>
+                          </Tooltip>
+                          <Tooltip title='Tax 2' placement='top'>
+                            <Typography sx={{ color: 'text.secondary' }}>0%</Typography>
+                          </Tooltip>
+                        </Box>
+                      </Grid>
+                      <Grid item lg={2} md={2} xs={12} sx={{ px: 4, my: { lg: 0, xs: 4 } }}>
+                        <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
+                          Hours
+                        </Typography>
+                        <CustomTextField
+                          type='number'
+                          placeholder='1'
+                          defaultValue='1'
+                          InputProps={{ inputProps: { min: 0 } }}
+                        />
+                      </Grid>
+                      <Grid item lg={2} md={1} xs={12} sx={{ px: 4, my: { lg: 0 }, mt: 2 }}>
+                        <Typography className='col-title' sx={{ mb: { md: 2, xs: 0 }, color: 'text.secondary' }}>
+                          Price
+                        </Typography>
+                        <Typography sx={{ color: 'text.secondary' }}>$24.00</Typography>
+                      </Grid>
+                    </Grid>
+                    <InvoiceAction>
+                      <IconButton size='small' onClick={deleteForm}>
+                        <Icon icon='tabler:x' fontSize='1.25rem' />
+                      </IconButton>
+                    </InvoiceAction>
+                  </RepeatingContent>
+                </Grid>
+              </Tag>
+            )
+          }}
+        </Repeater>
 
-        {/* /Product Details */}
-
-        {/* Invoice Total */}
-        <CardBody className='invoice-padding'>
-          <Row className='invoice-sales-total-wrapper'>
-            <Col className='mt-md-0 mt-3' md={{ size: '6', order: 1 }} xs={{ size: 12, order: 2 }}>
-              <div className='d-flex align-items-center mb-1'>
-                <Label for='salesperson' className='form-label'>
-                  Salesperson:
-                </Label>
-                <Input type='text' className='ms-50' id='salesperson' placeholder='Edward Crowley' />
-              </div>
-            </Col>
-            <Col className='d-flex justify-content-end' md={{ size: '6', order: 2 }} xs={{ size: 12, order: 1 }}>
-              <div className='invoice-total-wrapper'>
-                <div className='invoice-total-item'>
-                  <p className='invoice-total-title'>Subtotal:</p>
-                  <p className='invoice-total-amount'>$1800</p>
-                </div>
-                <div className='invoice-total-item'>
-                  <p className='invoice-total-title'>Discount:</p>
-                  <p className='invoice-total-amount'>$28</p>
-                </div>
-                <div className='invoice-total-item'>
-                  <p className='invoice-total-title'>Tax:</p>
-                  <p className='invoice-total-amount'>21%</p>
-                </div>
-                <hr className='my-50' />
-                <div className='invoice-total-item'>
-                  <p className='invoice-total-title'>Total:</p>
-                  <p className='invoice-total-amount'>$1690</p>
-                </div>
-              </div>
-            </Col>
-          </Row>
-        </CardBody>
-        {/* /Invoice Total */}
-
-        <hr className='invoice-spacing mt-0' />
-
-        {/* Invoice Note */}
-        <CardBody className='invoice-padding py-0'>
-          <Row>
-            <Col>
-              <div className='mb-2'>
-                <Label for='note' className='form-label fw-bold'>
-                  Note:
-                </Label>
-                <Input type='textarea' rows='2' id='note' defaultValue={note} />
-              </div>
-            </Col>
-          </Row>
-        </CardBody>
-        {/* /Invoice Note */}
-      </Card>
-
-      <Sidebar
-        size='lg'
-        open={open}
-        title='Add Payment'
-        headerClassName='mb-1'
-        contentClassName='p-0'
-        toggleSidebar={toggleSidebar}
-      >
-        <Form>
-          <div className='mb-2'>
-            <Label for='customer-name' className='form-label'>
-              Customer Name
-            </Label>
-            <Input id='customer-name' placeholder='John Doe' />
-          </div>
-          <div className='mb-2'>
-            <Label for='customer-email' className='form-label'>
-              Customer Email
-            </Label>
-            <Input type='email' id='customer-email' placeholder='example@domain.com' />
-          </div>
-          <div className='mb-2'>
-            <Label for='customer-address' className='form-label'>
-              Customer Address
-            </Label>
-            <Input type='textarea' cols='2' rows='2' id='customer-address' placeholder='1307 Lady Bug Drive New York' />
-          </div>
-          <div className='mb-2'>
-            <Label for='country' className='form-label'>
-              Country
-            </Label>
-            <Select
-              theme={selectThemeColors}
-              className='react-select'
-              classNamePrefix='select'
-              options={countryOptions}
-              isClearable={false}
-            />
-          </div>
-          <div className='mb-2'>
-            <Label for='customer-contact' className='form-label'>
-              Contact
-            </Label>
-            <Input type='number' id='customer-contact' placeholder='763-242-9206' />
-          </div>
-          <div className='d-flex flex-wrap my-2'>
-            <Button className='me-1' color='primary' onClick={() => setOpen(false)}>
-              Add
+        <Grid container sx={{ mt: 4 }}>
+          <Grid item xs={12} sx={{ px: 0 }}>
+            <Button variant='contained' onClick={() => setCount(count + 1)}>
+              Add Item
             </Button>
-            <Button color='secondary' onClick={() => setOpen(false)} outline>
-              Cancel
-            </Button>
-          </div>
-        </Form>
-      </Sidebar>
-    </Fragment>
+          </Grid>
+        </Grid>
+      </RepeaterWrapper>
+
+      <Divider />
+      <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
+        <Grid container>
+          <Grid item xs={12} sm={7} lg={6} sx={{ order: { sm: 1, xs: 2 } }}>
+            <Box sx={{ mb: 4, display: 'flex', alignItems: 'center' }}>
+              <Typography variant='body2' sx={{ mr: 2, fontWeight: 600, lineHeight: 'normal' }}>
+                Salesperson:
+              </Typography>
+              <CustomTextField fullWidth defaultValue='Tommy Shelby' />
+            </Box>
+            <CustomTextField fullWidth placeholder='Thanks for your business' />
+          </Grid>
+          <Grid
+            item
+            xs={12}
+            sm={5}
+            lg={6}
+            sx={{ mb: { sm: 0, xs: 4 }, order: { sm: 2, xs: 1 }, display: 'flex', justifyContent: 'flex-end' }}
+          >
+            <Box sx={{ minWidth: 150, '& > *': { width: '100%' } }}>
+              <CalcWrapper>
+                <Typography sx={{ color: 'text.secondary' }}>Subtotal:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$1800</Typography>
+              </CalcWrapper>
+              <CalcWrapper>
+                <Typography sx={{ color: 'text.secondary' }}>Discount:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$28</Typography>
+              </CalcWrapper>
+              <CalcWrapper sx={{ mb: '0 !important' }}>
+                <Typography sx={{ color: 'text.secondary' }}>Tax:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>21%</Typography>
+              </CalcWrapper>
+              <Divider sx={{ my: `${theme.spacing(2)} !important` }} />
+              <CalcWrapper>
+                <Typography sx={{ color: 'text.secondary' }}>Total:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$1690</Typography>
+              </CalcWrapper>
+            </Box>
+          </Grid>
+        </Grid>
+      </CardContent>
+
+      <Divider />
+
+      <CardContent sx={{ px: [6, 10] }}>
+        <InputLabel
+          htmlFor='invoice-note'
+          sx={{ mb: 2, fontWeight: 500, fontSize: theme.typography.body2.fontSize, lineHeight: 'normal' }}
+        >
+          Note:
+        </InputLabel>
+        <CustomTextField
+          rows={2}
+          fullWidth
+          multiline
+          id='invoice-note'
+          defaultValue='It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance projects. Thank You!'
+        />
+      </CardContent>
+    </Card>
   )
 }
 

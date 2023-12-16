@@ -1,65 +1,95 @@
-// ** React Imports
-import { Fragment } from 'react'
-import { Link } from 'react-router-dom'
+// ** Next Import
+import Link from 'next/link'
 
-// ** Reactstrap Imports
-import { Card, CardBody, Button, Input } from 'reactstrap'
+// ** MUI Imports
+import Card from '@mui/material/Card'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
+import Switch from '@mui/material/Switch'
+import MenuItem from '@mui/material/MenuItem'
+import { styled } from '@mui/material/styles'
+import InputLabel from '@mui/material/InputLabel'
+import Box from '@mui/material/Box'
+import CardContent from '@mui/material/CardContent'
+
+// ** Custom Component Import
+import CustomTextField from 'src/@core/components/mui/text-field'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+const OptionsWrapper = styled(Box)(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between'
+}))
 
 const AddActions = () => {
   return (
-    <Fragment>
-      <Card className='invoice-action-wrapper'>
-        <CardBody>
-          <Button color='primary' block className='mb-75' disabled>
-            Send Invoice
-          </Button>
-          <Button tag={Link} to='/apps/invoice/preview' color='primary' block outline className='mb-75'>
-            Preview
-          </Button>
-          <Button color='primary' block outline>
-            Save
-          </Button>
-        </CardBody>
-      </Card>
-      <div className='mt-2'>
-        <div className='invoice-payment-option'>
-          <p className='mb-50'>Accept payments via</p>
-          <Input type='select' id='payment-select'>
-            <option>Debit Card</option>
-            <option>Credit Card</option>
-            <option>Paypal</option>
-            <option>Internet Banking</option>
-            <option>UPI Transfer</option>
-          </Input>
-        </div>
-        <div className='invoice-terms mt-1'>
-          <div className='d-flex justify-content-between'>
-            <label className='cursor-pointer mb-0' htmlFor='payment-terms'>
-              Payment Terms
-            </label>
-            <div className='form-switch'>
-              <Input type='switch' id='payment-terms' defaultChecked />
-            </div>
-          </div>
-          <div className='d-flex justify-content-between py-1'>
-            <label className='cursor-pointer mb-0' htmlFor='client-notes'>
-              Client Notes
-            </label>
-            <div className='form-switch'>
-              <Input type='switch' id='client-notes' defaultChecked />
-            </div>
-          </div>
-          <div className='d-flex justify-content-between'>
-            <label className='cursor-pointer mb-0' htmlFor='payment-stub'>
-              Payment Stub
-            </label>
-            <div className='form-switch'>
-              <Input type='switch' id='payment-stub' />
-            </div>
-          </div>
-        </div>
-      </div>
-    </Fragment>
+    <Grid container spacing={6}>
+      <Grid item xs={12}>
+        <Card>
+          <CardContent>
+            <Button fullWidth variant='contained' sx={{ mb: 2, '& svg': { mr: 2 } }}>
+              <Icon fontSize='1.125rem' icon='tabler:send' />
+              Send Invoice
+            </Button>
+            <Button
+              fullWidth
+              sx={{ mb: 2 }}
+              variant='tonal'
+              component={Link}
+              color='secondary'
+              href='/apps/invoice/preview/4987'
+            >
+              Preview
+            </Button>
+            <Button fullWidth variant='tonal' color='secondary'>
+              Save
+            </Button>
+          </CardContent>
+        </Card>
+      </Grid>
+      <Grid item xs={12}>
+        <CustomTextField
+          select
+          fullWidth
+          label='Accept payments via'
+          defaultValue='Internet Banking'
+          sx={{
+            mb: 4,
+            '& .MuiInputLabel-root': {
+              fontSize: theme => theme.typography.body1.fontSize,
+              lineHeight: theme => theme.typography.body1.lineHeight
+            }
+          }}
+        >
+          <MenuItem value='Internet Banking'>Internet Banking</MenuItem>
+          <MenuItem value='Debit Card'>Debit Card</MenuItem>
+          <MenuItem value='Credit Card'>Credit Card</MenuItem>
+          <MenuItem value='Paypal'>Paypal</MenuItem>
+          <MenuItem value='UPI Transfer'>UPI Transfer</MenuItem>
+        </CustomTextField>
+        <OptionsWrapper>
+          <InputLabel sx={{ cursor: 'pointer', lineHeight: 1.467 }} htmlFor='invoice-add-payment-terms'>
+            Payment Terms
+          </InputLabel>
+          <Switch defaultChecked id='invoice-add-payment-terms' />
+        </OptionsWrapper>
+        <OptionsWrapper>
+          <InputLabel sx={{ cursor: 'pointer', lineHeight: 1.467 }} htmlFor='invoice-add-client-notes'>
+            Client Notes
+          </InputLabel>
+          <Switch id='invoice-add-client-notes' />
+        </OptionsWrapper>
+        <OptionsWrapper>
+          <InputLabel sx={{ cursor: 'pointer', lineHeight: 1.467 }} htmlFor='invoice-add-payment-stub'>
+            Payment Stub
+          </InputLabel>
+          <Switch id='invoice-add-payment-stub' />
+        </OptionsWrapper>
+      </Grid>
+    </Grid>
   )
 }
 

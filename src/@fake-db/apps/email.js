@@ -1,25 +1,6 @@
-import mock from '../mock'
+// ** Mock Adapter
+import mock from 'src/@fake-db/mock'
 
-// Avatars Imports
-import avatar1 from '@src/assets/images/avatars/1.png'
-import avatar2 from '@src/assets/images/avatars/2.png'
-import avatar3 from '@src/assets/images/avatars/3.png'
-import avatar4 from '@src/assets/images/avatars/4.png'
-import avatar6 from '@src/assets/images/avatars/6.png'
-import avatar7 from '@src/assets/images/avatars/7.png'
-import avatar8 from '@src/assets/images/avatars/8.png'
-import avatar9 from '@src/assets/images/avatars/9.png'
-import avatar10 from '@src/assets/images/avatars/10.png'
-import avatar11 from '@src/assets/images/avatars/11.png'
-import avatarSmall9 from '@src/assets/images/portrait/small/avatar-s-9.jpg'
-
-// Icons Imports
-import jsIcon from '@src/assets/images/icons/js.png'
-import txtIcon from '@src/assets/images/icons/txt.png'
-import xlsIcon from '@src/assets/images/icons/xls.png'
-import docIcon from '@src/assets/images/icons/doc.png'
-
-/* eslint-disable */
 const data = {
   emails: [
     {
@@ -27,7 +8,7 @@ const data = {
       from: {
         email: 'tommys@mail.com',
         name: 'Tommy Sicilia',
-        avatar: avatar1
+        avatar: '/images/avatars/1.png'
       },
       to: [
         {
@@ -35,21 +16,21 @@ const data = {
           email: 'johndoe@mail.com'
         }
       ],
-      subject: 'Theme Update',
+      subject: 'How to Succeed with Your Shopify Store',
       cc: [],
       bcc: [],
       message:
-        '<p>Hi John,</p><p>Biscuit lemon drops marshmallow. Cotton candy marshmallow bear claw. Dragée tiramisu cookie cotton candy. Carrot cake sweet roll I love macaroon wafer jelly soufflé I love dragée. Jujubes jelly I love carrot cake topping I love. Sweet candy I love chupa chups dragée. Tart I love gummies. Chocolate bar carrot cake candy wafer candy canes oat cake I love. Sesame snaps icing pudding sweet roll marshmallow. Cupcake brownie sweet roll chocolate bar I love gummies. Biscuit biscuit macaroon sesame snaps macaroon icing I love soufflé caramels. Apple pie candy jelly. I love icing gummi bears jelly-o pie muffin apple pie.</p><p>Marshmallow halvah brownie cake marzipan ice cream marshmallow. I love lollipop toffee croissant liquorice wafer muffin. Lollipop jelly beans caramels lollipop tootsie roll pudding pie macaroon tootsie roll. Oat cake jujubes gummies cake cake powder cupcake soufflé muffin. Chocolate caramels muffin tart. Jelly beans caramels dessert cotton candy liquorice chocolate cake. Chupa chups muffin bear claw I love. Biscuit jujubes soufflé tart caramels pie sugar plum. Croissant jelly beans cake. Ice cream chocolate liquorice dessert cookie chocolate cake. Powder tart sweet roll macaroon croissant. Sweet tootsie roll macaroon gummi bears macaroon. Gingerbread cake tart.</p><p>Regrads,</p><p>Kristeen Sicilia</p>',
+        '<p>Hi John,</p><p>How to Choose the Perfect Shopify Theme and Build Your Online Store Fast! (keywords: how to create a shopify store, how to start selling on shopify)</p><p>Shopify Tutorials That Will Save You 5 Hours of Time and $150 A Month!</p><p>Can I Start My Own ECommerce Business Without Knowing How To Code?</p><p>The One Thing All Shopify Entrepreneurs Have in Common</p><p>Regrads,</p><p>Tommy Sicilia</p>',
       attachments: [
         {
           fileName: 'log.txt',
-          thumbnail: txtIcon,
+          thumbnail: '/images/icons/file-icons/txt.png',
           url: '',
           size: '5mb'
         },
         {
           fileName: 'performance.xls',
-          thumbnail: xlsIcon,
+          thumbnail: '/images/icons/file-icons/xls.png',
           url: '',
           size: '10mb'
         }
@@ -66,7 +47,7 @@ const data = {
       from: {
         email: 'tressag@mail.com',
         name: 'Tressa Gass',
-        avatar: avatar2
+        avatar: '/images/avatars/6.png'
       },
       to: [
         {
@@ -74,12 +55,19 @@ const data = {
           email: 'johndoe@mail.com'
         }
       ],
-      subject: 'Company Report',
+      subject: 'Please find attached the latest Company Report',
       cc: ['vrushankbrahmshatriya@mail.com'],
       bcc: ['menka@mail.com'],
       message:
-        ' <p>Hello John,</p><p>Chocolate bar chupa chups sweet roll chocolate muffin macaroon liquorice tart. Carrot cake topping jelly-o cupcake sweet apple pie jelly I love. Chocolate cake I love dessert carrot cake tootsie roll chocolate I love. Tootsie roll pie marzipan sesame snaps. Lemon drops cake I love chocolate I love. Cheesecake croissant croissant cheesecake tootsie roll chocolate cake caramels. I love I love cake jelly. Pastry jelly beans I love I love. I love tootsie roll gummies toffee I love cookie cookie. Brownie tart croissant.</p><p>I love jelly pie. Croissant jelly beans lemon drops oat cake. Cupcake carrot cake ice cream cake cookie jelly-o fruitcake jelly macaroon. Biscuit muffin cupcake chocolate bar lollipop danish.</p><p>Ice cream I love I love lemon drops cotton candy macaroon. Jujubes soufflé oat cake sweet roll bear claw cotton candy cookie toffee tootsie roll. Danish sesame snaps sesame snaps cookie jelly danish chocolate bar.</p><p>Fruitcake pastry bear claw chocolate cookie. Biscuit icing bear claw. Sweet roll liquorice jelly-o muffin toffee I love wafer. Candy pastry halvah. Pie pastry candy canes tart. Fruitcake I love liquorice icing sweet roll macaroon. I love ice cream jelly-o biscuit brownie marzipan topping pudding sesame snaps. Chupa chups brownie brownie cotton candy sugar plum toffee. Tiramisu tootsie roll gingerbread biscuit I love ice cream brownie sesame snaps. I love croissant I love I love brownie pie marshmallow.</p><p>Regrads</p><p>Tressa Gass</p>',
-      attachments: [],
+        ' <p>Hello John,</p><p>I hope you are doing well.</p><p> I am sending over a company report for company. It is a PDF file.</p><p>Please let me know if you want to schedule a call or any other questions.</p><p>Regrads</p><p>Tressa Gass</p>',
+      attachments: [
+        {
+          fileName: 'company-report.pdf',
+          thumbnail: '/images/icons/file-icons/pdf.png',
+          url: '',
+          size: '32mb'
+        }
+      ],
       isStarred: true,
       labels: ['company', 'private'],
       time: 'Mon Dec 10 2018 07:55:00 GMT+0000 (GMT)',
@@ -92,23 +80,19 @@ const data = {
       from: {
         email: 'hettiem@mail.com',
         name: 'Hettie Mcerlean',
-        avatar: avatar3
+        avatar: '/images/avatars/3.png'
       },
       to: [
         {
           name: 'me',
           email: 'johndoe@mail.com'
-        },
-        {
-          name: 'Pixinvent',
-          email: 'hello@pixinvent.net'
         }
       ],
-      subject: 'Order Delivered',
+      subject: 'Your order has been delivered',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John,</p><p>Chocolate bar chupa chups sweet roll chocolate muffin macaroon liquorice tart. Carrot cake topping jelly-o cupcake sweet apple pie jelly I love. Chocolate cake I love dessert carrot cake tootsie roll chocolate I love. Tootsie roll pie marzipan sesame snaps. Lemon drops cake I love chocolate I love. Cheesecake croissant croissant cheesecake tootsie roll chocolate cake caramels. I love I love cake jelly. Pastry jelly beans I love I love. I love tootsie roll gummies toffee I love cookie cookie. Brownie tart croissant.</p><p>I love jelly pie. Croissant jelly beans lemon drops oat cake. Cupcake carrot cake ice cream cake cookie jelly-o fruitcake jelly macaroon. Biscuit muffin cupcake chocolate bar lollipop danish.</p><p>Ice cream I love I love lemon drops cotton candy macaroon. Jujubes soufflé oat cake sweet roll bear claw cotton candy cookie toffee tootsie roll. Danish sesame snaps sesame snaps cookie jelly danish chocolate bar.</p><p>Fruitcake pastry bear claw chocolate cookie. Biscuit icing bear claw. Sweet roll liquorice jelly-o muffin toffee I love wafer. Candy pastry halvah. Pie pastry candy canes tart. Fruitcake I love liquorice icing sweet roll macaroon. I love ice cream jelly-o biscuit brownie marzipan topping pudding sesame snaps. Chupa chups brownie brownie cotton candy sugar plum toffee. Tiramisu tootsie roll gingerbread biscuit I love ice cream brownie sesame snaps. I love croissant I love I love brownie pie marshmallow.</p><p>Regrads</p><p>Hettie Mcerlean</p>',
+        '<p>Hello John,</p><p>Your order has just been delivered. Here is the delivery confirmation number: #569443</p><p>Regrads</p><p>If you have any questions, please feel free to reach out to our customer service team at customerService@email.com</p><p>Hettie Mcerlean</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -122,7 +106,7 @@ const data = {
       from: {
         email: 'louettae@mail.com',
         name: 'Louetta Esses',
-        avatar: avatar4
+        avatar: '/images/avatars/4.png'
       },
       to: [
         {
@@ -130,15 +114,15 @@ const data = {
           email: 'johndoe@mail.com'
         }
       ],
-      subject: 'Waterfall Model Update',
+      subject: 'Update Can Change Your Personal Life',
       cc: [],
       bcc: [],
       message:
-        '<p>Hi John,</p><p>Biscuit lemon drops marshmallow. Cotton candy marshmallow bear claw. Dragée tiramisu cookie cotton candy. Carrot cake sweet roll I love macaroon wafer jelly soufflé I love dragée. Jujubes jelly I love carrot cake topping I love. Sweet candy I love chupa chups dragée. Tart I love gummies. Chocolate bar carrot cake candy wafer candy canes oat cake I love. Sesame snaps icing pudding sweet roll marshmallow. Cupcake brownie sweet roll chocolate bar I love gummies. Biscuit biscuit macaroon sesame snaps macaroon icing I love soufflé caramels. Apple pie candy jelly. I love icing gummi bears jelly-o pie muffin apple pie.</p><p>Marshmallow halvah brownie cake marzipan ice cream marshmallow. I love lollipop toffee croissant liquorice wafer muffin. Lollipop jelly beans caramels lollipop tootsie roll pudding pie macaroon tootsie roll. Oat cake jujubes gummies cake cake powder cupcake soufflé muffin. Chocolate caramels muffin tart. Jelly beans caramels dessert cotton candy liquorice chocolate cake. Chupa chups muffin bear claw I love. Biscuit jujubes soufflé tart caramels pie sugar plum. Croissant jelly beans cake. Ice cream chocolate liquorice dessert cookie chocolate cake. Powder tart sweet roll macaroon croissant. Sweet tootsie roll macaroon gummi bears macaroon. Gingerbread cake tart.</p><p>Regrads,</p><p>Kristeen Sicilia</p>',
+        '<p>Hi John,</p><p>5 Biggest Ways in Which the Latest iOS Update Can Change Your Personal Life</p><p>1.Group FaceTime</p><p>2. Memoji & Animoji </p><p>3. Person to Person Payments</p><p>4. Screen Time </p><p>5. Shortcuts App on Macs </p><p>Regrads,</p><p>Louetta Esses</p>',
       attachments: [
         {
-          fileName: 'report.doc',
-          thumbnail: docIcon,
+          fileName: 'update.doc',
+          thumbnail: '/images/icons/file-icons/doc.png',
           url: '',
           size: '32mb'
         }
@@ -155,7 +139,7 @@ const data = {
       from: {
         email: 'bposvner0@zdnet.com',
         name: 'Bobbie Posvner',
-        avatar: avatar11
+        avatar: '/images/avatars/8.png'
       },
       to: [
         {
@@ -163,11 +147,11 @@ const data = {
           email: 'johndoe@dot.gov'
         }
       ],
-      subject: 'Re-contextualized zero administration toolset',
+      subject: 'Your opinion matters to us. Tell us how you feel!',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John,</p><p>Epiboly henbill hemichorea composedness resequent hearthpenny racialization freeboard Reboulia Albuginaceae Violales Trisagion resinlike plumlet insalubrious Urocoptis Orthoceratidae ogmic plateaux reinsist preconsumption rattener venipuncture Rhadamanthine</p><p>perversely corpusculated theophoric uncemented weiring myolipoma gudesire dramatics trichomaphyte adventitious video polychaete glossorrhaphy bestially zoospore nonnotional sawbones unprejudiciable wali collaborative coppled shammish manless predisorder</p>',
+        "<p>Hello John,</p><p>Recently you shopped with us and we know your order has been delivered to you.</p><p>Would you please write a review? It's really important to us.</p><p>Regards,</p><p>Bobbie Posvner</p>",
       attachments: [],
       isStarred: true,
       labels: ['private'],
@@ -181,7 +165,7 @@ const data = {
       from: {
         email: 'rgilder1@illinois.edu',
         name: 'Rebecca Gilder',
-        avatar: avatar6
+        avatar: '/images/avatars/6.png'
       },
       to: [
         {
@@ -189,11 +173,11 @@ const data = {
           email: 'johndoe@google.co.uk'
         }
       ],
-      subject: 'Integrated bi-directional help-desk',
+      subject: 'World Tourism Day Event Invitation',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>irretraceably indestructibility sisi fiddle pyretic Gerbera vocable hoped Chartreux thinglet whister fetiferous Guhayna overloud yuca suggestibly atmiatrics serioludicrous prehaustorium androgenic betulin chiropterite sprittail atrochal</p><p>stopper acinaceous bandcutter unprostituted undependableness Saffarid parasympathetic dishonorer embryogeny overscrupulous deicidal Tapuya roupily devotee alfet sophiologic hydrobromide onlook preverb Dottore primitial frostlike overbig Monocyclica</p>',
+        '<p>Hello John, </p><p>You have been invited to the World Tourism Day event on this weekend.</p><p>The event starts at 10:00 AM and ends at 5:00PM.</p><p>Regards</p><p>Rebecca Gilder</p>',
       attachments: [],
       isStarred: false,
       labels: ['personal'],
@@ -207,7 +191,7 @@ const data = {
       from: {
         email: 'swilby2@yandex.ru',
         name: 'Shawn Wilby',
-        avatar: avatar1
+        avatar: '/images/avatars/1.png'
       },
       to: [
         {
@@ -215,11 +199,11 @@ const data = {
           email: 'johndoe@altervista.org'
         }
       ],
-      subject: 'Devolved regional product',
+      subject: 'Delivery Note',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>scalpellum unisometrical emend esotrope gether separatical passionwise cringe flawful annotinous jiboa thrombotic essoinment successional backrope oligohemia gitaligenin formulaic bradycinesia paralgesic eumycetic receptoral eyrie yearly</p><p>atomistical semischolastic clour discardment pseudelytron cheson path Bennet Herat pinchem Tho extravagantly shaking procidence flocker amidoketone gyric Moi petrolific clink immunization estrepement spalder poitrail</p>',
+        '<p>Hello John, </p><p>Shipping Details:</p><p>Order Number: 82080</p><p>Delivered-to: <strong>John Doe</strong></p><p>Email: <strong>johndoe@altervista.org</strong></p><p>Address: <strong>99 El ABCD San Francisco, CA. United States </strong></p><p>Thank You for being with Us!</p><p>Regards</p><p>Shawn Wilby</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -233,7 +217,7 @@ const data = {
       from: {
         email: 'wmannering3@mozilla.org',
         name: 'Waldemar Mannering',
-        avatar: avatar11
+        avatar: '/images/avatars/5.png'
       },
       to: [
         {
@@ -241,11 +225,11 @@ const data = {
           email: 'johndoe@sciencedaily.com'
         }
       ],
-      subject: 'Quality-focused methodical flexibility',
+      subject: 'Refer friends. Get rewards.',
       cc: [],
       bcc: [],
       message:
-        '<p>Hi John, </p><p>wartproof ketoheptose incomplicate hyomental organal supermaterial monogene sophister nizamate rightle multifilament phloroglucic overvehement boatloading derelictly probudgeting archantiquary unknighted pallograph Volcanalia Jacobitiana ethyl neth Jugatae</p><p>noumenalize irredential energeia phlebotomist galp dactylitis unparticipated solepiece demure metarhyolite toboggan unpleased perilaryngeal binoxalate rabbitry atomic duali dihexahedron Pseudogryphus boomboat obelisk undreaded unadmired podometer</p>',
+        '<p>Hi John, </p><p>At Auto Sales, we understand that our customers are our greatest resource, and the only real way that an automotive dealership can grow is through word of mouth.</p><p>If you had a wonderful experience with us, the greatest thanks you can give is to pass along your praise and positive experience with Auto Sales to your family, friends, and colleagues.</p><p>As a reward for promoting us, we will pay you $200 for every referral you send our way who purchases a pre-owned vehicle of under $15,000. For every purchase over $15,000, we will pay you a referral of $300.</p><p>Regards</p><p>Waldemar Mannering</p>',
       attachments: [],
       isStarred: false,
       labels: ['private'],
@@ -259,7 +243,7 @@ const data = {
       from: {
         email: 'hfrostdyke4@scientificamerican.com',
         name: 'Heath Frostdyke',
-        avatar: avatar9
+        avatar: '/images/avatars/1.png'
       },
       to: [
         {
@@ -267,11 +251,11 @@ const data = {
           email: 'johndoe@weibo.com'
         }
       ],
-      subject: 'Secured optimal algorithm',
+      subject: 'Good Hair Day!',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>prefertility volumetrical subdivision Alpinist hypostomous foreyard lede knuckling Agade viking protometallic unsting palaeobiologist trierarchic bigheartedness Slartibartfast tabitude popadam idioplasm fabulous arsenite cingle backhandedness denizenship</p><p>argo trickish dependingly unhouseled aegeriid ophthalmophlebotomy crazy freedwoman unspinsterlike clinical epistemologically hermodactyl humbugger misogynist plunder Sabbathly tabule feckless cerite porringer benumb duograph propatagian pressman</p>',
+        '<p>Hello John, </p><p>Good Hair Day is all about recognizing the significance a good hair day can have on your confidence, self-esteem, and overall happiness. A good hair day is different for everyone and this year we want to help you achieve your best hair!</p><p>Book with our stylist today to get 10% discount.</p><p>Regards</p><p>Heath Frostdyke</p>',
       attachments: [],
       isStarred: true,
       labels: ['personal'],
@@ -285,7 +269,7 @@ const data = {
       from: {
         email: 'pjentzsch5@tamu.edu',
         name: 'Paulita Jentzsch',
-        avatar: avatar7
+        avatar: '/images/avatars/7.png'
       },
       to: [
         {
@@ -293,19 +277,12 @@ const data = {
           email: 'johndoe@skype.com'
         }
       ],
-      subject: 'Profound user-facing frame',
+      subject: 'Travel to Europe',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>unstintedly septifarious prevalid implicative esere Kedarite Nekkar encampment Issedones Saururus Turkize Tshi misengrave lamnid benzamine rigidulous octonion hydrophilous coxalgic nasturtium epileptogenic biporose undenominationalism widu</p><p>melioration pager infiltrate plouky tribesmanship transudate heinous exhibitionistic klendusic lienocele tractate unemotioned castigate selenate appealable Palladianism chloracetate penna moellon detector halcyon amidofluorid damascene hollaite</p>',
-      attachments: [
-        {
-          fileName: 'UtNulla.xls',
-          thumbnail: xlsIcon,
-          url: '',
-          size: '1mb'
-        }
-      ],
+        '<p>Hello John, </p><p>Use code WILD_TRAVELER to get 25% off on flight bookings to Europe.</p><p>Offer only valid till the weekends.</p><p>Regards</p><p>Paulita Jentzsch</p>',
+      attachments: [],
       isStarred: true,
       labels: ['important'],
       time: 'Tue Jan 03 2018 08:05:33 GMT+0000 (GMT)',
@@ -318,7 +295,7 @@ const data = {
       from: {
         email: 'lminghetti6@yale.edu',
         name: 'Lowell Minghetti',
-        avatar: avatar4
+        avatar: '/images/avatars/4.png'
       },
       to: [
         {
@@ -326,15 +303,15 @@ const data = {
           email: 'johndoe@fda.gov'
         }
       ],
-      subject: 'Reactive full-range encryption',
+      subject: 'Cyber Monday Sale!',
       cc: [],
       bcc: [],
       message:
-        '<p>Hi John, </p><p>Jaime stadimeter reshearer adfix exaristate herby chrysomonad ostentous Abrahamic Marsipobranchii skil linguodental relaster restbalk enhorror glycerizine foremelt difficultness Ostreidae Euphues panduriform howler Finmark primordality</p><p>semicurvilinear skeet sociogenetic dicephalism ghalva ethnicon katagenesis tasklike triachenium abuser henbane strubbly streetway Ramaism besetting saccos enzymically wickiup inopulent poetship Miranda hemianesthesia sphericle oariopathy</p>',
+        '<p>Hi John, </p><p>Take 30% Off Your Entire Purchase!</p><p>This monday you can take 30% off your entire purchase! Simply enter the promo code HGASNC18 during your checkout to activate your savings! </p><p>Regards</p><p>Lowell Minghetti</p>',
       attachments: [
         {
           fileName: 'ElementumLigula.js',
-          thumbnail: jsIcon,
+          thumbnail: '/images/icons/file-icons/js.png',
           url: '',
           size: '29mb'
         }
@@ -351,7 +328,7 @@ const data = {
       from: {
         email: 'efinessy7@sbwire.com',
         name: 'Eugenie Finessy',
-        avatar: avatar2
+        avatar: '/images/avatars/2.png'
       },
       to: [
         {
@@ -359,11 +336,11 @@ const data = {
           email: 'johndoe@odnoklassniki.ru'
         }
       ],
-      subject: 'Polarised holistic protocol',
+      subject: "BOOK LOVER'S DAY",
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>nonmotile generale punctated humanify escharine unlatch alrighty unshepherding standstill upcrane unilobular prefrontal primate fluviatic premundane tritocone compaternity dolina phonautographic cobby corse neurohypnotic cyrtopia wreathy</p><p>slanderousness Lemosi myxochondroma haemogram electrothermostat piperonyl spital reappeal pyopneumothorax Yunca eyoty forecourse extensive kickout germanization vigilant Criophoros muss aortostenosis Berchta phonophotoscopic precorrespondence rigidist castling</p>',
+        '<p>Hello John, </p><p>Whenever you read a good book, you are making efforts to open a new door to let more light come in.</p><p>May you are blessed with more and more books. Happy National Book Lover’s Day to you.</p><p>Regards</p><p>Eugenie Finessy</p>',
       attachments: [],
       isStarred: false,
       labels: ['personal'],
@@ -377,7 +354,7 @@ const data = {
       from: {
         email: 'tmckeurton8@163.com',
         name: 'Tadio McKeurton',
-        avatar: avatar10
+        avatar: '/images/avatars/3.png'
       },
       to: [
         {
@@ -385,11 +362,11 @@ const data = {
           email: 'johndoe@nifty.com'
         }
       ],
-      subject: 'Down-sized transitional intranet',
+      subject: 'Handmade Goods',
       cc: [],
       bcc: [],
       message:
-        '<p>Hey John, </p><p>calcimine gramineal nonfreezable interradial setula undertakable Abranchiata ultrasystematic spectroelectric Astarte Abraham bedsite enantiopathia exlex precoincident thiocarbamic mesenteriform daturism thioantimoniate tripudiate unsultry predynastic benzidino doxasticon</p><p>overstale confessory glossed jane smoodger modernization Dehkan progymnospermic gangliectomy volumenometry Paulinistically tippy Gelfomino hive preredemption coccygine horrendous unintrusted plainer interrelatedly tearer arrojadite incircumspectly yokemating</p>',
+        '<p>Hey John, </p><p>Painted wood blocks, stackable wood blocks</p> <p>Fall is almost here and these little blocks are the perfect décor to begin your fall decorating! These stacked blocks say Count Your Blessings and are in beautiful fall colors.</p><p>Regards</p><p>Tadio McKeurton</p>',
       attachments: [],
       isStarred: false,
       labels: ['important'],
@@ -403,7 +380,7 @@ const data = {
       from: {
         email: 'ebegg9@wikia.com',
         name: 'Eb Begg',
-        avatar: avatarSmall9
+        avatar: '/images/avatars/8.png'
       },
       to: [
         {
@@ -411,11 +388,11 @@ const data = {
           email: 'johndoe@51.la'
         }
       ],
-      subject: 'Organized value-added model',
+      subject: 'App Update',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello Sir, </p><p>Lituola restrengthen bathofloric manciple decaffeinize Debby aciliated eatage proscribe prejurisdiction buttle quacky hyposecretion indemonstrableness schelling lymphopathy consumptivity nonappointment filminess spumiform erotogenicity equestrianize boneflower interlardation</p><p>allocate ponzite cote guilder tuff strind blamefully cocaine monstrously apocalyptically sublanate cherubimical oligoplasmia Miltonian hydrazyl unbeset statured Unami Cordeau strouthiocamelian geitjie larigo sociometry align</p>',
+        '<p>Hello John, </p><p>We have released the update 8.6.1 for the app</p><p>Update your application. Don’t miss our new Feature</p><p>Regards</p><p>Eb Begg</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -429,7 +406,7 @@ const data = {
       from: {
         email: 'mspata@sina.com.cn',
         name: 'Modestine Spat',
-        avatar: avatar9
+        avatar: '/images/avatars/3.png'
       },
       to: [
         {
@@ -437,11 +414,11 @@ const data = {
           email: 'johndoe@oracle.com'
         }
       ],
-      subject: 'Profound systemic alliance 🎉 🎊',
+      subject: 'Password Reset',
       cc: [],
       bcc: [],
       message:
-        '<p>Hey John, </p><p>Parthenopean logeion chipwood tonsilitic cockleshell substance Stilbum dismayed tape Alderamin Phororhacos bridewain zoonomia lujaurite printline extraction weanedness charterless splitmouth bindoree unfit philological Pythonissa scintillescent</p><p>cinchonism sabbaton thyrocricoid dissuasively schematograph immerse pristane stimulability unreligion uncomplemental uteritis nef bavenite Hachiman teleutosorus anterolateral infirmate Nahani Hyla barile farthing crea venesector Cirrostomi</p>',
+        '<p>Hey John, </p><p>I just wanted to let you know that your password has been changed. You can safely ignore this email if you requested this change.</p><p>Otherwise, please do let us know and we will be here to help. </p><p>Regards</p><p>Modestine Spat</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -455,7 +432,7 @@ const data = {
       from: {
         email: 'cprandob@rambler.ru',
         name: 'Chase Prando',
-        avatar: avatar2
+        avatar: '/images/avatars/4.png'
       },
       to: [
         {
@@ -463,11 +440,11 @@ const data = {
           email: 'johndoe@vistaprint.com'
         }
       ],
-      subject: 'Centralized intermediate instruction set',
+      subject: 'Course Update',
       cc: [],
       bcc: [],
       message:
-        '<p>Respected Sir, </p><p>drainman merman pleurosteal slatted serenader Tantalus slodder cachalot guerdon flannelflower digestibility priggish loa monocarbide endive rented kelep pangamous gummata siris stockproof butlerism polycrystalline begetter</p><p>rack unpaining beglue astucious yardstick laniflorous tetrachloride avidious Biblicistic clival myosinogen antilobium unamiability unperforate Elaphurus wrapping deformity revocative kovil unwainscoted councilmanic saccharobiose federalize procellous</p>',
+        '<p>Hey John, </p><p>You have completed more than 68% of the course</p><p>We noticed that you have not attended or advanced the course for over a week.</p><p>It is very important for us that you finish your studies, as regular classes are a guarantee of knowledge and successful completion!</p><p>For help, we have allocated a free opportunity to contact the course teacher within 2 days</p><p>Regards</p><p>Chase Prando</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -481,7 +458,7 @@ const data = {
       from: {
         email: 'nbartlesc@merriam-webster.com',
         name: 'Normand Bartles',
-        avatar: avatar9
+        avatar: '/images/avatars/8.png'
       },
       to: [
         {
@@ -489,11 +466,11 @@ const data = {
           email: 'johndoe@si.edu'
         }
       ],
-      subject: 'Re-contextualized leading edge projection',
+      subject: 'Earth Hour',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>orpine anidiomatic protoreptilian lacklusterness macromastia obstetricate Phaneroglossa tripleness laxatively hypophloeous ocellate sinoauricular porch lignitic miche strinkle hyperthyreosis tugui Alascan unrailroaded Cypriote vesuvian gradative hardener</p><p>forthink Locarno wattlework Nordicist formoxime demipriest medrick Lomentaria lucible Canossa Manatus anaplasty Spirochaete bonus overgown Amurru Skupshtina opisthorchiasis preworthy Brodie shortchange Nikko Gaviae crosscut</p>',
+        '<p>Hey John, </p><p>Earth Hour has always drawn its power from the people - and this year was no exception. We showed that despite the physical distance, we were still able to unite digitally to speak up for nature louder than ever.</p><p>You can still take part in the earth hour virtual spotlight.</p><p>Regards</p><p>Normand Bartles</p>',
       attachments: [],
       isStarred: false,
       labels: ['personal'],
@@ -507,7 +484,7 @@ const data = {
       from: {
         email: 'rgennd@dedecms.com',
         name: 'Robin Genn',
-        avatar: avatar6
+        avatar: '/images/avatars/6.png'
       },
       to: [
         {
@@ -515,11 +492,11 @@ const data = {
           email: 'johndoe@about.com'
         }
       ],
-      subject: 'Team-oriented system-worthy intranet',
+      subject: "Happy Teacher's Day!",
       cc: [],
       bcc: [],
       message:
-        '<p>Hi John, </p><p>balsamation teachableness enarthrodia dentilation superguarantee Yuapin schedulize antarctically biocoenotic unspottedly stinter admonitorily uncollatedness umquhile grayhead dephase stopgap evenglow photogenically desmacyte rink osiered specking ratwa</p><p>hospitize epithymetical montage rhapsodical Ninja superdramatist westerner clubionid haustellate Saltator rodding ophthalmomalacia concupiscibleness tingle hyperuresis Trigoniidae rearousal sanctimonial Munychia counterpaned exhibitable communer triadism Janiform</p>',
+        "<p>Happy Teacher's Day John, </p><p>Teachers have to lead by example, and you have always been an excellent example to follow. As a student, I feel very grateful to have such a great mentor in my life. Happy Teacher’s Day!</p><p>Especially for Teacher's Day, we held a postcard competition for students. We invite you to enjoy this creativity. The kids tried very hard!</p><p>Regards</p><p>Robin Genn</p>",
       attachments: [],
       isStarred: true,
       labels: ['personal'],
@@ -533,7 +510,7 @@ const data = {
       from: {
         email: 'eramelote@webeden.co.uk',
         name: 'Emmalynn Ramelot',
-        avatar: avatar8
+        avatar: '/images/avatars/8.png'
       },
       to: [
         {
@@ -541,11 +518,11 @@ const data = {
           email: 'johndoe@tinypic.com'
         }
       ],
-      subject: 'Phased eco-centric architecture',
+      subject: 'Newly Improved Product',
       cc: [],
       bcc: [],
       message:
-        '<p>Hey John, </p><p>hightoby Maja vindicatorship unglobe poduran bronchodilatation uncontorted underwarden cyclometric orgiacs tigerhearted upscale curatize Scylliorhinidae slick unisolated nanocephalous cuirassier heartwise Venusian titanitic requirement antirestoration toluido</p><p>Trematosaurus procreant ethos pessimistic antiselene pisk Amphipneusta anconad Corchorus unswabbed sizable Balanites sardonical shovelbill trammeler carpetwork rhexis remade myelinated right bounteous unsin retroduction Montanist</p>',
+        '<p>Hey John, </p><p>The Newly Improved Product is Here!</p><p>What is New in Finance?</p><p>1. Dual Authentication</p><p>2. Transparent System</p><p>3. Beta Test </p><p>Regards</p><p>Emmalynn Ramelot</p>',
       attachments: [],
       isStarred: true,
       labels: ['personal'],
@@ -559,7 +536,7 @@ const data = {
       from: {
         email: 'pcuzenf@mediafire.com',
         name: 'Penni Cuzen',
-        avatar: avatar9
+        avatar: '/images/avatars/8.png'
       },
       to: [
         {
@@ -567,15 +544,15 @@ const data = {
           email: 'johndoe@google.es'
         }
       ],
-      subject: 'Future-proofed motivating support',
+      subject: 'Meet your new banker.',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>yonder secessionalist astringer Ovangangela overcumber supracaecal scutulate Aglaonema Pakawan citril unsubducted cavernal multivalve ladify Cichorium supplication flexion cricothyroidean picaro locally etiogenic timeously scalpeen sapropel</p><p>agglutinative hyperideation Flamandize antipragmatic wincer brachyphalangia forenotion Angloman ornamentation merch revulsed windingly tristate orgic sateless orseilline Anchietea pilferer aroid counselor forevermore kulmet maladventure haruspice</p>',
+        "<p>Hey John, </p><p>Having a direct human contact that understands the finance industry can take your project to the next level.</p><p>Amelia is that person for you. She's happy to help with any of your project needs.</p><p>Regards</p><p>Penni Cuzen</p>",
       attachments: [
         {
-          fileName: 'Augue.js',
-          thumbnail: jsIcon,
+          fileName: 'bank-statement.pdf',
+          thumbnail: '/images/icons/file-icons/pdf.png',
           url: '',
           size: '4mb'
         }
@@ -583,7 +560,60 @@ const data = {
       isStarred: false,
       labels: ['private'],
       time: 'Tue Jan 12 2018 04:16:10 GMT+0000 (GMT)',
-      replies: [],
+      replies: [
+        {
+          id: 40,
+          from: {
+            email: 'johndoe@mail.com',
+            name: 'John Doe',
+            avatar: '/images/avatars/6.png'
+          },
+          to: [
+            {
+              name: 'me',
+              email: 'hettiem@mail.com'
+            }
+          ],
+          subject: 'It was the best sandcastle he had ever seen.',
+          cc: [],
+          bcc: [],
+          message:
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+          attachments: [],
+          isStarred: false,
+          labels: [],
+          time: 'Mon Dec 15 2018 10:56:00 GMT+0000 (GMT)',
+          replies: [],
+          folder: 'inbox',
+          isRead: false
+        },
+        {
+          id: 41,
+          from: {
+            email: 'hettiem@mail.com',
+            name: 'Hettie Mcerlean',
+            avatar: '/images/avatars/1.png'
+          },
+          to: [
+            {
+              name: 'me',
+              email: 'johndoe@mail.com'
+            }
+          ],
+          subject: 'I’m a living furnace.',
+          cc: [],
+          bcc: [],
+          message:
+            '<p>Oat cake tart danish jelly beans brownie I love. Liquorice I love lollipop chocolate cake carrot cake toffee. Tart muffin candy canes croissant sugar plum lollipop. Macaroon cheesecake marshmallow powder sweet roll bonbon candy apple pie candy canes.</p><p>Regrads,</p><p>Hettie Mcerlean</p>',
+          attachments: [],
+          isStarred: false,
+          labels: [],
+          time: 'Mon Dec 16 2018 11:25:00 GMT+0000 (GMT)',
+          replies: [],
+          folder: 'inbox',
+          isRead: false
+        }
+      ],
       folder: 'spam',
       isRead: false
     },
@@ -592,7 +622,7 @@ const data = {
       from: {
         email: 'abaldersong@utexas.edu',
         name: 'Ardis Balderson',
-        avatar: avatarSmall9
+        avatar: '/images/avatars/2.png'
       },
       to: [
         {
@@ -600,11 +630,11 @@ const data = {
           email: 'johndoe@ow.ly'
         }
       ],
-      subject: 'Focused impactful open system 📷 😃',
+      subject: 'Bank transfer initiated.',
       cc: [],
       bcc: [],
       message:
-        '<p>Hey John, </p><p>bah kivu decrete epanorthotic unnotched Argyroneta nonius veratrine preimaginary saunders demidolmen Chaldaic allusiveness lorriker unworshipping ribaldish tableman hendiadys outwrest unendeavored fulfillment scientifical Pianokoto Chelonia</p><p>Freudian sperate unchary hyperneurotic phlogiston duodecahedron unflown Paguridea catena disrelishable Stygian paleopsychology cantoris phosphoritic disconcord fruited inblow somewhatly ilioperoneal forrard palfrey Satyrinae outfreeman melebiose</p>',
+        '<p>Hey John, </p><p>Bank transfers initiated before 7 PM ET on business days will typically be available in your bank account the next business day. Business days are Mon-Fri, excluding bank holidays.</p><p>Transfers are reviewed which may result in delays or funds being frozen or removed from your account. Learn more</p><p>Regards</p><p>Ardis Balderson</p>',
       attachments: [],
       isStarred: true,
       labels: ['company'],
@@ -618,7 +648,7 @@ const data = {
       from: {
         email: 'dmallallh@ask.com',
         name: 'Dagmar Mallall',
-        avatar: avatar8
+        avatar: '/images/avatars/8.png'
       },
       to: [
         {
@@ -626,11 +656,11 @@ const data = {
           email: 'johndoe@furl.net'
         }
       ],
-      subject: 'Function-based local productivity 💻',
+      subject: 'Accounting software',
       cc: [],
       bcc: [],
       message:
-        '<p>Dear Consumer, </p><p>gibbed preconceptual passionwort Goanese confluence ungnaw aubepine coadjacency Romipetal isochronic convener overinsistently psammophyte colpenchyma unlogic instinctivist motorcab wellhole receptacle sinistrocular avifaunal decagram paramountness samhita</p><p>sphincterismus Aunjetitz vagabondage parallelotropism unreceipted io wheretoever semivolcanic Chlamydomonadidae spittlestaff spermatogenic Sephardi berrigan lowly grotesquerie Pentameridae unsuccessive archlexicographer Stephanian reimpatriate untossed beth ventriloquial dedicational</p>',
+        '<p>Hey John, </p><p>Take on the market with our powerful platforms.</p><p>Log in online anytime, anywhere on your Mac, PC, tablet or phone and see up-to-date financials. Accounting software with all the time-saving tools you need to grow your business.</p><p>Regards</p><p>Dagmar Mallall</p>',
       attachments: [],
       isStarred: false,
       labels: ['company'],
@@ -644,7 +674,7 @@ const data = {
       from: {
         email: 'nmacgaughyi@aol.com',
         name: 'Nada MacGaughy',
-        avatar: avatar3
+        avatar: '/images/avatars/3.png'
       },
       to: [
         {
@@ -652,19 +682,12 @@ const data = {
           email: 'johndoe@cnet.com'
         }
       ],
-      subject: 'Compatible object-oriented policy ',
+      subject: 'Labor Day Sale',
       cc: [],
       bcc: [],
       message:
-        '<p>Hello John, </p><p>miraculous pirijiri meekheartedness superoxygenation Elric paries epideictical Prajapati reassign stridlins spoach overreadily abusion sailmaking illiterately septangularness retinene Hler exceptionary ferberite possessionalist piperide Oschophoria beau</p><p>abnormalize yearnfulness Janiculum sixhaend abstemiousness uterogestation orchestrina gallotannin muckment melanoblast supercivilization inclusionist electroosmotically immatchable stomatoplastic satinity hydrogen unexorable quinamidine milksopism fascinating ratsbane endocline Zolaist</p>',
-      attachments: [
-        {
-          fileName: 'Leo.xls',
-          thumbnail: xlsIcon,
-          url: '',
-          size: '33mb'
-        }
-      ],
+        '<p>Hey John, </p><p>There is a time for business and a time for pleasure. There is a time to work and a time to rest. Labor Day is your time for pleasure and rest. Enjoy!</p><p>Sale starting today! Save up to 25% off for all lessons.</p><p>Regards</p><p>Nada MacGaughy</p>',
+      attachments: [],
       isStarred: false,
       labels: ['private'],
       time: new Date(new Date().getTime() - 2 * 60 * 60 * 1000),
@@ -677,7 +700,7 @@ const data = {
       from: {
         email: 'douldcottj@yellowpages.com',
         name: 'Dalila Ouldcott',
-        avatar: avatar1
+        avatar: '/images/avatars/1.png'
       },
       to: [
         {
@@ -685,15 +708,15 @@ const data = {
           email: 'johndoe@github.io'
         }
       ],
-      subject: 'User-friendly value-added application 😊',
+      subject: 'Order Feedback',
       cc: [],
       bcc: [],
       message:
-        '<p>Hey John, </p><p>wellish laminable ineunt popshop catalyte prismatize campimetrical lentisk excluding portlet coccinellid impestation Bangash Lollardist perameloid procerebrum presume cashmerette washbasin nainsook Odontolcae Alea holcodont welted</p><p>cibarious terrifical uploop naphthaleneacetic containable nonsailor Zwinglian blighty benchful guar porch fallectomy building coinvolve eidolism warmth unclericalize seismographic recongeal ethanethial clog regicidal regainment legific</p>',
+        "<p>Hey John, </p><p>What did you think o your recent purchase?</p><p> We'd love to hear your feedback on your recent order. Please share your experience in a review to help other pet parents just like you.</p><p>Regards</p><p>Dalila Ouldcott</p>",
       attachments: [
         {
           fileName: 'example.doc',
-          thumbnail: docIcon,
+          thumbnail: '/images/icons/file-icons/doc.png',
           url: '',
           size: '21mb'
         }
@@ -707,7 +730,7 @@ const data = {
           from: {
             email: 'johndoe@mail.com',
             name: 'John Doe',
-            avatar: avatar11
+            avatar: '/images/avatars/1.png'
           },
           to: [
             {
@@ -733,7 +756,7 @@ const data = {
           from: {
             email: 'hettiem@mail.com',
             name: 'Hettie Mcerlean',
-            avatar: avatar3
+            avatar: '/images/avatars/3.png'
           },
           to: [
             {
@@ -757,80 +780,329 @@ const data = {
       ],
       folder: 'inbox',
       isRead: true
+    },
+    {
+      id: 27,
+      from: {
+        email: 'lkubicek0@cdbaby.com',
+        name: 'Lockwood Kubicek',
+        avatar: '/images/avatars/2.png'
+      },
+      to: [
+        {
+          name: 'me',
+          email: 'johndoe@github.io'
+        }
+      ],
+      subject: 'Finally Start Running',
+      cc: [],
+      bcc: [],
+      message:
+        '<p>Hey John, </p><p>How TO Finally Start Running</p><p>Order an individual training and nutrition program from our specialists! Only now there is a 20% discount! </p><p>Regards</p><p>Lockwood Kubicek</p>',
+      attachments: [],
+      isStarred: false,
+      labels: ['private'],
+      time: new Date(new Date().getTime() - 1 * 30 * 60 * 1000),
+      replies: [],
+      folder: 'inbox',
+      isRead: true
+    },
+    {
+      id: 28,
+      from: {
+        email: 'mosgarby1@accuweather.com',
+        name: 'Milena Osgarby',
+        avatar: '/images/avatars/3.png'
+      },
+      to: [
+        {
+          name: 'me',
+          email: 'johndoe@github.io'
+        }
+      ],
+      subject: 'Eco Food',
+      cc: [],
+      bcc: [],
+      message:
+        '<p>Hey John, </p><p>Hey! We replenish our assortment with healthy eco food. On this occasion, we really want to play the same game with you! Can you guess what category of new products we are adding?🍯🍓🍵</p><p>Test your intuition, answer the letter!🔮 All members will receive a discount 20% on purchases in the next email!💌</p><p>Regards</p><p>Milena Osgarby</p>',
+      attachments: [],
+      isStarred: false,
+      labels: ['important'],
+      time: new Date(new Date().getTime() - 1 * 30 * 60 * 1000),
+      replies: [
+        {
+          id: 50,
+          from: {
+            email: 'johndoe@mail.com',
+            name: 'John Doe',
+            avatar: '/images/avatars/6.png'
+          },
+          to: [
+            {
+              name: 'me',
+              email: 'hettiem@mail.com'
+            }
+          ],
+          subject: 'It was the best sandcastle he had ever seen.',
+          cc: [],
+          bcc: [],
+          message:
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+          attachments: [],
+          isStarred: false,
+          labels: [],
+          time: 'Mon Dec 15 2018 10:56:00 GMT+0000 (GMT)',
+          replies: [],
+          folder: 'inbox',
+          isRead: false
+        },
+        {
+          id: 51,
+          from: {
+            email: 'hettiem@mail.com',
+            name: 'Hettie Mcerlean',
+            avatar: '/images/avatars/1.png'
+          },
+          to: [
+            {
+              name: 'me',
+              email: 'johndoe@mail.com'
+            }
+          ],
+          subject: 'I’m a living furnace.',
+          cc: [],
+          bcc: [],
+          message:
+            '<p>Oat cake tart danish jelly beans brownie I love. Liquorice I love lollipop chocolate cake carrot cake toffee. Tart muffin candy canes croissant sugar plum lollipop. Macaroon cheesecake marshmallow powder sweet roll bonbon candy apple pie candy canes.</p><p>Regrads,</p><p>Hettie Mcerlean</p>',
+          attachments: [],
+          isStarred: false,
+          labels: [],
+          time: 'Mon Dec 16 2018 11:25:00 GMT+0000 (GMT)',
+          replies: [],
+          folder: 'inbox',
+          isRead: false
+        }
+      ],
+      folder: 'inbox',
+      isRead: true
+    },
+    {
+      id: 29,
+      from: {
+        email: 'pBuffay@email.com',
+        name: 'Pheoebe Buffay',
+        avatar: '/images/avatars/6.png'
+      },
+      to: [
+        {
+          name: 'me',
+          email: 'johndoe@github.io'
+        }
+      ],
+      subject: 'Personal Insurance',
+      cc: [],
+      bcc: [],
+      message:
+        '<p>Hey John, </p><p>Your personal insurance agent</p><p>If you have any problems with questions about your insurance, you can contact your personal agent.</p><p>Regards</p><p>Pheoebe Buffay</p>',
+      attachments: [],
+      isStarred: false,
+      labels: ['personal'],
+      time: new Date(new Date().getTime() - 1 * 30 * 60 * 1000),
+      replies: [],
+      folder: 'inbox',
+      isRead: true
+    },
+    {
+      id: 30,
+      from: {
+        email: 'gabramow2@elegantthemes.com',
+        name: 'Gabriel Abramow',
+        avatar: '/images/avatars/4.png'
+      },
+      to: [
+        {
+          name: 'me',
+          email: 'johndoe@github.io'
+        }
+      ],
+      subject: 'Forgot your password?',
+      cc: [],
+      bcc: [],
+      message:
+        '<p>Hey John, </p><p>There was a request to change your password!</p><p>If did not make this request, just ignore this email. Otherwise, please click the button below to change your password:</p><p>Regards</p><p>Gabriel Abramow</p>',
+      attachments: [],
+      isStarred: false,
+      labels: ['company'],
+      time: new Date(new Date().getTime() - 1 * 30 * 60 * 1000),
+      replies: [],
+      folder: 'inbox',
+      isRead: true
+    },
+    {
+      id: 31,
+      from: {
+        email: 'tolrenshaw3@twitpic.com',
+        name: 'Temple Olrenshaw',
+        avatar: '/images/avatars/5.png'
+      },
+      to: [
+        {
+          name: 'me',
+          email: 'johndoe@github.io'
+        }
+      ],
+      subject: 'April Fools Day Movies',
+      cc: [],
+      bcc: [],
+      message:
+        '<p>Hey John, </p><p>The Best Movies on April Fool’s Day</p><p>Finding any genuine April Fool’s moments in movies is kind of like trying to peek through a wheat field to find individual stalks, but at the very least there are a few movies that seem to have the spirit of April Fool’s Day down when it comes to their sense of humor.</p><p>So instead of finding individual scenes about the day in question it seems like more fun to go ahead and treat the reader to a few films that might be great to watch this coming Sunday when the day of fools is upon us.</p><p>Regards</p><p>Temple Olrenshaw</p>',
+      attachments: [],
+      isStarred: false,
+      labels: ['company'],
+      time: new Date(new Date().getTime() - 1 * 30 * 60 * 1000),
+      replies: [
+        {
+          id: 32,
+          from: {
+            email: 'johndoe@mail.com',
+            name: 'John Doe',
+            avatar: '/images/avatars/1.png'
+          },
+          to: [
+            {
+              name: 'me',
+              email: 'hettiem@mail.com'
+            }
+          ],
+          subject: 'The underground bunker was filled with chips and candy.',
+          cc: [],
+          bcc: [],
+          message:
+            '<p>Hello Hettie,</p><p>Marshmallow cookie jelly liquorice. Powder macaroon cake pastry biscuit. Cotton candy cotton candy jelly chocolate bar. Sesame snaps candy gummi bears cake cookie jujubes. Sweet I love sweet roll. Sesame snaps I love marzipan. Jelly powder tootsie roll. Marshmallow pudding cookie fruitcake liquorice powder. I love I love cookie chupa chups fruitcake ice cream I love biscuit I love. Tiramisu apple pie candy canes cookie gummies. Donut toffee bear claw topping jelly-o. Cupcake icing muffin. Cookie brownie wafer pie sweet. Icing sesame snaps halvah toffee marshmallow lemon drops jelly.</p><p>Tiramisu candy canes powder. Powder chocolate bar halvah liquorice cake I love danish. Cake wafer apple pie. Bear claw fruitcake I love marzipan dessert marzipan lollipop. Halvah gingerbread jelly chupa chups tiramisu I love wafer gummi bears. Candy powder caramels candy gummies. Tart tart cupcake brownie. Bear claw gummies toffee. Tiramisu donut cake chocolate bar. Halvah chocolate bar donut jelly-o. Icing candy brownie chocolate. Pastry bear claw halvah gummies chocolate bar chocolate. Apple pie danish wafer I love biscuit.</p><p>Regrads,</p><p>John Doe</p>',
+          attachments: [],
+          isStarred: false,
+          labels: [],
+          time: 'Mon Jan 5 2019 10:56:00 GMT+0000 (GMT)',
+          replies: [],
+          folder: 'inbox',
+          isRead: false
+        },
+        {
+          id: 33,
+          from: {
+            email: 'hettiem@mail.com',
+            name: 'Hettie Mcerlean',
+            avatar: '/images/avatars/1.png'
+          },
+          to: [
+            {
+              name: 'me',
+              email: 'johndoe@mail.com'
+            }
+          ],
+          subject: 'The truth is that you pay for your lifestyle in hours.',
+          cc: [],
+          bcc: [],
+          message:
+            '<p>Oat cake tart danish jelly beans brownie I love. Liquorice I love lollipop chocolate cake carrot cake toffee. Tart muffin candy canes croissant sugar plum lollipop. Macaroon cheesecake marshmallow powder sweet roll bonbon candy apple pie candy canes.</p><p>Regrads,</p><p>Hettie Mcerlean</p>',
+          attachments: [],
+          isStarred: false,
+          labels: [],
+          time: 'Mon Jan 8 2019 11:25:00 GMT+0000 (GMT)',
+          replies: [],
+          folder: 'inbox',
+          isRead: false
+        }
+      ],
+      folder: 'inbox',
+      isRead: true
+    },
+    {
+      id: 66,
+      from: {
+        email: 'hidden@mail.com',
+        name: 'Hidden Mail',
+        avatar: '/images/avatars/1.png'
+      },
+      to: [
+        {
+          name: 'me',
+          email: 'johndoe@mail.com'
+        }
+      ],
+      subject: 'Hidden Mail',
+      cc: [],
+      bcc: [],
+      message:
+        '<p>Hi John,</p><p>Biscuit lemon drops marshmallow. Cotton candy marshmallow bear claw. Dragée tiramisu cookie cotton candy. Carrot cake sweet roll I love macaroon wafer jelly soufflé I love dragée. Jujubes jelly I love carrot cake topping I love. Sweet candy I love chupa chups dragée. Tart I love gummies. Chocolate bar carrot cake candy wafer candy canes oat cake I love. Sesame snaps icing pudding sweet roll marshmallow. Cupcake brownie sweet roll chocolate bar I love gummies. Biscuit biscuit macaroon sesame snaps macaroon icing I love soufflé caramels. Apple pie candy jelly. I love icing gummi bears jelly-o pie muffin apple pie.</p><p>Marshmallow halvah brownie cake marzipan ice cream marshmallow. I love lollipop toffee croissant liquorice wafer muffin. Lollipop jelly beans caramels lollipop tootsie roll pudding pie macaroon tootsie roll. Oat cake jujubes gummies cake cake powder cupcake soufflé muffin. Chocolate caramels muffin tart. Jelly beans caramels dessert cotton candy liquorice chocolate cake. Chupa chups muffin bear claw I love. Biscuit jujubes soufflé tart caramels pie sugar plum. Croissant jelly beans cake. Ice cream chocolate liquorice dessert cookie chocolate cake. Powder tart sweet roll macaroon croissant. Sweet tootsie roll macaroon gummi bears macaroon. Gingerbread cake tart.</p><p>Regrads,</p><p>Kristeen Sicilia</p>',
+      attachments: [],
+      isStarred: true,
+      labels: ['private'],
+      time: 'Mon Dec 10 2018 07:46:00 GMT+0000 (GMT)',
+      replies: [],
+      folder: 'starred',
+      isRead: true
     }
   ]
 }
+let paramsFilteredMails = []
 
 // ------------------------------------------------
 // GET: Return Emails
+mock.onGet('/apps/email/allEmails').reply(() => {
+  return [200, { emails: data.emails }]
+})
+
 // ------------------------------------------------
+// GET: Return Emails
 mock.onGet('/apps/email/emails').reply(config => {
   const { q = '', folder = 'inbox', label } = config.params
-
   const queryLowered = q.toLowerCase()
-
   function isInFolder(email) {
     if (folder === 'trash') return email.folder === 'trash'
     if (folder === 'starred') return email.isStarred && email.folder !== 'trash'
+
     return email.folder === (folder || email.folder) && email.folder !== 'trash'
   }
 
   const filteredData = data.emails.filter(
     email =>
-      /* eslint-disable operator-linebreak, implicit-arrow-linebreak */
-      (email.from.name.toLowerCase().includes(queryLowered) || email.subject.toLowerCase().includes(queryLowered)) &&
+      (email.from.name.toLowerCase().includes(queryLowered) ||
+        email.subject.toLowerCase().includes(queryLowered) ||
+        email.message.toLowerCase().includes(queryLowered)) &&
       isInFolder(email) &&
       (label ? email.labels.includes(label) : true)
   )
-  /* eslint-enable  */
+  paramsFilteredMails = filteredData
 
   // ------------------------------------------------
   // Email Meta
   // ------------------------------------------------
   const emailsMeta = {
-    inbox: data.emails.filter(email => !email.isDeleted && !email.isRead && email.folder === 'inbox').length,
+    inbox: data.emails.filter(email => !email.isRead && email.folder === 'inbox').length,
     draft: data.emails.filter(email => email.folder === 'draft').length,
-    spam: data.emails.filter(email => !email.isDeleted && !email.isRead && email.folder === 'spam').length
+    spam: data.emails.filter(email => !email.isRead && email.folder === 'spam').length
   }
 
   return [
     200,
     {
-      emails: filteredData.reverse(),
+      emails: filteredData,
       emailsMeta
     }
   ]
 })
 
 // ------------------------------------------------
-// POST: Update Email
-// ------------------------------------------------
-mock.onPost('/apps/email/update-emails').reply(config => {
-  const { emailIds, dataToUpdate } = JSON.parse(config.data)
-  function updateMailData(email) {
-    Object.assign(email, dataToUpdate)
-  }
-
-  data.emails.forEach(email => {
-    if (emailIds.includes(email.id)) updateMailData(email)
-  })
-
-  return [200]
-})
-
-// ------------------------------------------------
 // POST: Update Emails Label
 // ------------------------------------------------
 mock.onPost('/apps/email/update-emails-label').reply(config => {
-  const { emailIds, label } = JSON.parse(config.data)
-
+  const { emailIds, label } = JSON.parse(config.data).data
   function updateMailLabels(email) {
     const labelIndex = email.labels.indexOf(label)
-
     if (labelIndex === -1) email.labels.push(label)
     else email.labels.splice(labelIndex, 1)
   }
-
   data.emails.forEach(email => {
     if (emailIds.includes(email.id)) updateMailLabels(email)
   })
@@ -842,16 +1114,31 @@ mock.onPost('/apps/email/update-emails-label').reply(config => {
 // GET: GET Single Email
 // ------------------------------------------------
 mock.onGet('/apps/email/get-email').reply(config => {
-  const { id } = config
-
+  const { id } = config.params
   const emailId = Number(id)
-
-  const mail = data.emails.find(i => i.id === emailId)
-  const mailIndex = data.emails.findIndex(i => i.id === mail.id)
-  mailIndex === 0 ? (mail.hasPreviousMail = true) : (mail.hasPreviousMail = false)
-  mailIndex === data.emails.length - 1 ? (mail.hasNextMail = true) : (mail.hasNextMail = false)
+  const mail = paramsFilteredMails.find(i => i.id === emailId)
+  if (mail) {
+    const mailIndex = paramsFilteredMails.findIndex(i => i.id === mail.id)
+    mailIndex > 0 ? (mail.hasPreviousMail = true) : (mail.hasPreviousMail = false)
+    mailIndex < paramsFilteredMails.length - 1 ? (mail.hasNextMail = true) : (mail.hasNextMail = false)
+  }
 
   return mail ? [200, mail] : [404]
+})
+
+// ------------------------------------------------
+// POST: Update Email
+// ------------------------------------------------
+mock.onPost('/apps/email/update-emails').reply(config => {
+  const { emailIds, dataToUpdate } = JSON.parse(config.data).data
+  function updateMailData(email) {
+    Object.assign(email, dataToUpdate)
+  }
+  data.emails.forEach(email => {
+    if (emailIds.includes(email.id)) updateMailData(email)
+  })
+
+  return [200]
 })
 
 // ------------------------------------------------
@@ -859,13 +1146,14 @@ mock.onGet('/apps/email/get-email').reply(config => {
 // ------------------------------------------------
 mock.onGet('/apps/email/paginate-email').reply(config => {
   const { dir, emailId } = config.params
-
-  const currentEmailIndex = data.emails.findIndex(e => e.id === emailId)
-
+  const currentEmailIndex = paramsFilteredMails.findIndex(e => e.id === emailId)
   const newEmailIndex = dir === 'previous' ? currentEmailIndex - 1 : currentEmailIndex + 1
-
-  const newEmail = data.emails[newEmailIndex]
+  const newEmail = paramsFilteredMails[newEmailIndex]
+  if (newEmail) {
+    const mailIndex = paramsFilteredMails.findIndex(i => i.id === newEmail.id)
+    mailIndex > 0 ? (newEmail.hasPreviousMail = true) : (newEmail.hasPreviousMail = false)
+    mailIndex < paramsFilteredMails.length - 1 ? (newEmail.hasNextMail = true) : (newEmail.hasNextMail = false)
+  }
 
   return newEmail ? [200, newEmail] : [404]
 })
-/* eslint-enable */

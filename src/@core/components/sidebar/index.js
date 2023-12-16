@@ -1,93 +1,61 @@
-// ** Third Party Components
-import { X } from 'react-feather'
-import Proptypes from 'prop-types'
-import classnames from 'classnames'
-import PerfectScrollbar from 'react-perfect-scrollbar'
+// ** React Imports
+import { Fragment, useEffect } from 'react'
 
-import { Modal, ModalHeader, ModalBody } from 'reactstrap'
+// ** MUI Imports
+import Backdrop from '@mui/material/Backdrop'
+import Box from '@mui/material/Box'
 
 const Sidebar = props => {
   // ** Props
-  const {
-    open,
-    size,
-    title,
-    width,
-    children,
-    closeBtn,
-    className,
-    toggleSidebar,
-    bodyClassName,
-    contentClassName,
-    wrapperClassName,
-    headerClassName,
-    ...rest
-  } = props
+  const { sx, show, direction, children, hideBackdrop, onOpen, onClose, backDropClick } = props
 
-  // ** If user passes custom close btn render that else default close btn
-  const renderCloseBtn = closeBtn ? closeBtn : <X className='cursor-pointer' size={15} onClick={toggleSidebar} />
+  const handleBackdropClick = () => {
+    if (backDropClick) {
+      backDropClick()
+    }
+  }
+  useEffect(() => {
+    if (show && onOpen) {
+      onOpen()
+    }
+    if (show === false && onClose) {
+      onClose()
+    }
+  }, [onClose, onOpen, show])
 
   return (
-    <Modal
-      isOpen={open}
-      toggle={toggleSidebar}
-      contentClassName={classnames('overflow-hidden', {
-        [contentClassName]: contentClassName
-      })}
-      modalClassName={classnames('modal-slide-in', {
-        [wrapperClassName]: wrapperClassName
-      })}
-      className={classnames({
-        [className]: className,
-        'sidebar-lg': size === 'lg',
-        'sidebar-sm': size === 'sm'
-      })}
-      /*eslint-disable */
-      {...(width !== undefined
-        ? {
-            style: { width: String(width) + 'px' }
-          }
-        : {})}
-      /*eslint-enable */
-      {...rest}
-    >
-      <ModalHeader
-        className={classnames({
-          [headerClassName]: headerClassName
-        })}
-        toggle={toggleSidebar}
-        close={renderCloseBtn}
-        tag='div'
+    <Fragment>
+      <Box
+        sx={{
+          top: 0,
+          height: '100%',
+          zIndex: 'drawer',
+          position: 'absolute',
+          transition: 'all 0.25s ease-in-out',
+          backgroundColor: 'background.paper',
+          ...(show ? { opacity: 1 } : { opacity: 0 }),
+          ...(direction === 'right'
+            ? { left: 'auto', right: show ? 0 : '-100%' }
+            : { right: 'auto', left: show ? 0 : '-100%' }),
+          ...sx
+        }}
       >
-        <h5 className='modal-title'>
-          <span className='align-middle'>{title}</span>
-        </h5>
-      </ModalHeader>
-      <PerfectScrollbar options={{ wheelPropagation: false }}>
-        <ModalBody
-          className={classnames('flex-grow-1', {
-            [bodyClassName]: bodyClassName
-          })}
-        >
-          {children}
-        </ModalBody>
-      </PerfectScrollbar>
-    </Modal>
+        {children}
+      </Box>
+      {hideBackdrop ? null : (
+        <Backdrop
+          open={show}
+          transitionDuration={250}
+          onClick={handleBackdropClick}
+          sx={{ position: 'absolute', zIndex: theme => theme.zIndex.drawer - 1 }}
+        />
+      )}
+    </Fragment>
   )
 }
 
 export default Sidebar
 
-// ** PropTypes
-Sidebar.propTypes = {
-  className: Proptypes.string,
-  bodyClassName: Proptypes.string,
-  open: Proptypes.bool.isRequired,
-  title: Proptypes.string.isRequired,
-  contentClassName: Proptypes.string,
-  wrapperClassName: Proptypes.string,
-  children: Proptypes.any.isRequired,
-  size: Proptypes.oneOf(['sm', 'lg']),
-  toggleSidebar: Proptypes.func.isRequired,
-  width: Proptypes.oneOfType([Proptypes.number, Proptypes.string])
+Sidebar.defaultProps = {
+  direction: 'left'
 }

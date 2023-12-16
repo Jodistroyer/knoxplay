@@ -2,343 +2,393 @@
 import { useState } from 'react'
 
 // ** Third Party Components
-import Select from 'react-select'
-import classnames from 'classnames'
-import { Settings, X } from 'react-feather'
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-// ** Reactstrap Imports
-import { Input, Label } from 'reactstrap'
+// ** MUI Imports
+import Radio from '@mui/material/Radio'
+import Switch from '@mui/material/Switch'
+import Divider from '@mui/material/Divider'
+import { styled } from '@mui/material/styles'
+import IconButton from '@mui/material/IconButton'
+import RadioGroup from '@mui/material/RadioGroup'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import FormControlLabel from '@mui/material/FormControlLabel'
+import MuiDrawer from '@mui/material/Drawer'
 
-// ** Styles
-import '@styles/react/libs/react-select/_react-select.scss'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-const Customizer = props => {
-  // ** Props
-  const {
-    skin,
-    isRtl,
-    layout,
-    setSkin,
-    setIsRtl,
-    isHidden,
-    setLayout,
-    navbarType,
-    footerType,
-    navbarColor,
-    setIsHidden,
-    contentWidth,
-    menuCollapsed,
-    setLastLayout,
-    setNavbarType,
-    setFooterType,
-    setNavbarColor,
-    setContentWidth,
-    setMenuCollapsed
-  } = props
+// ** Hook Import
+import { useSettings } from 'src/@core/hooks/useSettings'
 
+const Toggler = styled(Box)(({ theme }) => ({
+  right: 0,
+  top: '50%',
+  display: 'flex',
+  cursor: 'pointer',
+  position: 'fixed',
+  padding: theme.spacing(2),
+  zIndex: theme.zIndex.modal,
+  transform: 'translateY(-50%)',
+  color: theme.palette.common.white,
+  backgroundColor: theme.palette.primary.main,
+  borderTopLeftRadius: theme.shape.borderRadius,
+  borderBottomLeftRadius: theme.shape.borderRadius
+}))
+
+const Drawer = styled(MuiDrawer)(({ theme }) => ({
+  width: 400,
+  zIndex: theme.zIndex.modal,
+  '& .MuiFormControlLabel-root': {
+    marginRight: '0.6875rem'
+  },
+  '& .MuiDrawer-paper': {
+    border: 0,
+    width: 400,
+    zIndex: theme.zIndex.modal,
+    boxShadow: theme.shadows[9]
+  }
+}))
+
+const CustomizerSpacing = styled('div')(({ theme }) => ({
+  padding: theme.spacing(5, 6)
+}))
+
+const ColorBox = styled(Box)(({ theme }) => ({
+  width: 45,
+  height: 45,
+  cursor: 'pointer',
+  margin: theme.spacing(2.5, 1.75, 1.75),
+  borderRadius: theme.shape.borderRadius,
+  transition: 'margin .25s ease-in-out, width .25s ease-in-out, height .25s ease-in-out, box-shadow .25s ease-in-out',
+  '&:hover': {
+    boxShadow: theme.shadows[4]
+  }
+}))
+
+const Customizer = () => {
   // ** State
-  const [openCustomizer, setOpenCustomizer] = useState(false)
+  const [open, setOpen] = useState(false)
 
-  // ** Toggles Customizer
-  const handleToggle = e => {
-    e.preventDefault()
-    setOpenCustomizer(!openCustomizer)
-  }
+  // ** Hook
+  const { settings, saveSettings } = useSettings()
 
-  // ** Render Layout Skin Options
-  const renderSkinsRadio = () => {
-    const skinsArr = [
-      {
-        name: 'light',
-        label: 'Light',
-        checked: skin === 'light'
-      },
-      {
-        name: 'bordered',
-        label: 'Bordered',
-        checked: skin === 'bordered'
-      },
-      {
-        name: 'dark',
-        label: 'Dark',
-        checked: skin === 'dark'
-      },
-      {
-        name: 'semi-dark',
-        label: 'Semi Dark',
-        checked: skin === 'semi-dark'
-      }
-    ]
+  // ** Vars
+  const {
+    mode,
+    skin,
+    appBar,
+    footer,
+    layout,
+    navHidden,
+    direction,
+    appBarBlur,
+    themeColor,
+    navCollapsed,
+    contentWidth,
+    verticalNavToggleType
+  } = settings
 
-    return skinsArr.map((radio, index) => {
-      const marginCondition = index !== skinsArr.length - 1
-
-      if (layout === 'horizontal' && radio.name === 'semi-dark') {
-        return null
-      }
-
-      return (
-        <div key={index} className={classnames('form-check', { 'mb-2 me-1': marginCondition })}>
-          <Input type='radio' id={radio.name} checked={radio.checked} onChange={() => setSkin(radio.name)} />
-          <Label className='form-check-label' for={radio.name}>
-            {radio.label}
-          </Label>
-        </div>
-      )
-    })
-  }
-
-  // ** Render Navbar Colors Options
-  const renderNavbarColors = () => {
-    const colorsArr = ['white', 'primary', 'secondary', 'success', 'danger', 'info', 'warning', 'dark']
-
-    return colorsArr.map(color => (
-      <li
-        key={color}
-        className={classnames(`color-box bg-${color}`, {
-          selected: navbarColor === color,
-          border: color === 'white'
-        })}
-        onClick={() => setNavbarColor(color)}
-      ></li>
-    ))
-  }
-
-  // ** Render Navbar Type Options
-  const renderNavbarTypeRadio = () => {
-    const navbarTypeArr = [
-      {
-        name: 'floating',
-        label: 'Floating',
-        checked: navbarType === 'floating'
-      },
-      {
-        name: 'sticky',
-        label: 'Sticky',
-        checked: navbarType === 'sticky'
-      },
-      {
-        name: 'static',
-        label: 'Static',
-        checked: navbarType === 'static'
-      },
-      {
-        name: 'hidden',
-        label: 'Hidden',
-        checked: navbarType === 'hidden'
-      }
-    ]
-
-    return navbarTypeArr.map((radio, index) => {
-      const marginCondition = index !== navbarTypeArr.length - 1
-
-      if (layout === 'horizontal' && radio.name === 'hidden') {
-        return null
-      }
-
-      return (
-        <div key={index} className={classnames('form-check', { 'mb-2 me-1': marginCondition })}>
-          <Input type='radio' id={radio.name} checked={radio.checked} onChange={() => setNavbarType(radio.name)} />
-          <Label className='form-check-label' for={radio.name}>
-            {radio.label}
-          </Label>
-        </div>
-      )
-    })
-  }
-
-  // ** Render Footer Type Options
-  const renderFooterTypeRadio = () => {
-    const footerTypeArr = [
-      {
-        name: 'sticky',
-        label: 'Sticky',
-        checked: footerType === 'sticky'
-      },
-      {
-        name: 'static',
-        label: 'Static',
-        checked: footerType === 'static'
-      },
-      {
-        name: 'hidden',
-        label: 'Hidden',
-        checked: footerType === 'hidden'
-      }
-    ]
-
-    return footerTypeArr.map((radio, index) => {
-      const marginCondition = index !== footerTypeArr.length - 1
-
-      return (
-        <div key={index} className={classnames('form-check', { 'mb-2 me-1': marginCondition })}>
-          <Input
-            type='radio'
-            checked={radio.checked}
-            id={`footer-${radio.name}`}
-            onChange={() => setFooterType(radio.name)}
-          />
-          <Label className='form-check-label' for={`footer-${radio.name}`}>
-            {radio.label}
-          </Label>
-        </div>
-      )
-    })
+  const handleChange = (field, value) => {
+    saveSettings({ ...settings, [field]: value })
   }
 
   return (
-    <div
-      className={classnames('customizer d-none d-md-block', {
-        open: openCustomizer
-      })}
-    >
-      <a href='/' className='customizer-toggle d-flex align-items-center justify-content-center' onClick={handleToggle}>
-        <Settings size={14} className='spinner' />
-      </a>
-      <PerfectScrollbar className='customizer-content' options={{ wheelPropagation: false }}>
-        <div className='customizer-header px-2 pt-1 pb-0 position-relative'>
-          <h4 className='mb-0'>Theme Customizer</h4>
-          <p className='m-0'>Customize & Preview in Real Time</p>
-          <a href='/' className='customizer-close' onClick={handleToggle}>
-            <X />
-          </a>
-        </div>
+    <div className='customizer'>
+      <Toggler className='customizer-toggler' onClick={() => setOpen(true)}>
+        <Icon icon='tabler:settings' />
+      </Toggler>
+      <Drawer open={open} hideBackdrop anchor='right' variant='persistent'>
+        <Box
+          className='customizer-header'
+          sx={{
+            position: 'relative',
+            p: theme => theme.spacing(3.5, 5),
+            borderBottom: theme => `1px solid ${theme.palette.divider}`
+          }}
+        >
+          <Typography variant='h6' sx={{ fontWeight: 600, textTransform: 'uppercase' }}>
+            Theme Customizer
+          </Typography>
+          <Typography sx={{ color: 'text.secondary' }}>Customize & Preview in Real Time</Typography>
+          <IconButton
+            onClick={() => setOpen(false)}
+            sx={{
+              right: 20,
+              top: '50%',
+              position: 'absolute',
+              color: 'text.secondary',
+              transform: 'translateY(-50%)'
+            }}
+          >
+            <Icon icon='tabler:x' fontSize={20} />
+          </IconButton>
+        </Box>
+        <PerfectScrollbar options={{ wheelPropagation: false }}>
+          <CustomizerSpacing className='customizer-body'>
+            <Typography
+              component='p'
+              variant='caption'
+              sx={{ mb: 5, color: 'text.disabled', textTransform: 'uppercase' }}
+            >
+              Theming
+            </Typography>
 
-        <hr />
+            {/* Skin */}
+            <Box sx={{ mb: 5 }}>
+              <Typography>Skin</Typography>
+              <RadioGroup
+                row
+                value={skin}
+                sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+                onChange={e => handleChange('skin', e.target.value)}
+              >
+                <FormControlLabel value='default' label='Default' control={<Radio />} />
+                <FormControlLabel value='bordered' label='Bordered' control={<Radio />} />
+              </RadioGroup>
+            </Box>
 
-        <div className='px-2'>
-          <div className='mb-2'>
-            <p className='fw-bold'>Skin</p>
-            <div className='d-flex'>{renderSkinsRadio()}</div>
-          </div>
+            {/* Mode */}
+            <Box sx={{ mb: 5 }}>
+              <Typography>Mode</Typography>
+              <RadioGroup
+                row
+                value={mode}
+                onChange={e => handleChange('mode', e.target.value)}
+                sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+              >
+                <FormControlLabel value='light' label='Light' control={<Radio />} />
+                <FormControlLabel value='dark' label='Dark' control={<Radio />} />
+                {layout === 'horizontal' ? null : (
+                  <FormControlLabel value='semi-dark' label='Semi Dark' control={<Radio />} />
+                )}
+              </RadioGroup>
+            </Box>
 
-          <div className='mb-2'>
-            <p className='fw-bold'>Content Width</p>
-            <div className='d-flex'>
-              <div className='form-check me-1'>
-                <Input
-                  type='radio'
-                  id='full-width'
-                  checked={contentWidth === 'full'}
-                  onChange={() => setContentWidth('full')}
-                />
-                <Label className='form-check-label' for='full-width'>
-                  Full Width
-                </Label>
-              </div>
-              <div className='form-check'>
-                <Input
-                  id='boxed'
-                  type='radio'
-                  checked={contentWidth === 'boxed'}
-                  onChange={() => setContentWidth('boxed')}
-                />
-                <Label className='form-check-label' for='boxed'>
-                  Boxed
-                </Label>
-              </div>
-            </div>
-          </div>
-
-          <div className='form-switch mb-2 ps-0'>
-            <div className='d-flex'>
-              <p className='fw-bold me-auto mb-0'>RTL</p>
-              <Input type='switch' id='rtl' name='RTL' checked={isRtl} onChange={() => setIsRtl(!isRtl)} />
-            </div>
-          </div>
-        </div>
-
-        <hr />
-
-        <div className='px-2'>
-          <p className='fw-bold'>Menu Layout</p>
-          <div className='mb-2'>
-            <div className='d-flex align-items-center'>
-              <div className='form-check me-1'>
-                <Input
-                  type='radio'
-                  id='vertical-layout'
-                  checked={layout === 'vertical'}
-                  onChange={() => {
-                    setLayout('vertical')
-                    setLastLayout('vertical')
+            {/* Color Picker */}
+            <div>
+              <Typography>Primary Color</Typography>
+              <Box sx={{ display: 'flex' }}>
+                <ColorBox
+                  onClick={() => handleChange('themeColor', 'primary')}
+                  sx={{
+                    backgroundColor: '#7367F0',
+                    ...(themeColor === 'primary'
+                      ? { width: 53, height: 53, m: theme => theme.spacing(1.5, 0.75, 0) }
+                      : {})
                   }}
                 />
-                <Label className='form-check-label' for='vertical-layout'>
-                  Vertical
-                </Label>
-              </div>
-              <div className='form-check'>
-                <Input
-                  type='radio'
-                  id='horizontal-layout'
-                  checked={layout === 'horizontal'}
-                  onChange={() => {
-                    setLayout('horizontal')
-                    setLastLayout('horizontal')
+                <ColorBox
+                  onClick={() => handleChange('themeColor', 'secondary')}
+                  sx={{
+                    backgroundColor: 'secondary.main',
+                    ...(themeColor === 'secondary'
+                      ? { width: 53, height: 53, m: theme => theme.spacing(1.5, 0.75, 0) }
+                      : {})
                   }}
                 />
-                <Label className='form-check-label' for='horizontal-layout'>
-                  Horizontal
-                </Label>
-              </div>
-            </div>
-          </div>
-          {layout !== 'horizontal' ? (
-            <div className='form-switch mb-2 ps-0'>
-              <div className='d-flex align-items-center'>
-                <p className='fw-bold me-auto mb-0'>Menu Collapsed</p>
-                <Input
-                  type='switch'
-                  id='menu-collapsed'
-                  name='menu-collapsed'
-                  checked={menuCollapsed}
-                  onChange={() => setMenuCollapsed(!menuCollapsed)}
+                <ColorBox
+                  onClick={() => handleChange('themeColor', 'success')}
+                  sx={{
+                    backgroundColor: 'success.main',
+                    ...(themeColor === 'success'
+                      ? { width: 53, height: 53, m: theme => theme.spacing(1.5, 0.75, 0) }
+                      : {})
+                  }}
                 />
-              </div>
+                <ColorBox
+                  onClick={() => handleChange('themeColor', 'error')}
+                  sx={{
+                    backgroundColor: 'error.main',
+                    ...(themeColor === 'error'
+                      ? { width: 53, height: 53, m: theme => theme.spacing(1.5, 0.75, 0) }
+                      : {})
+                  }}
+                />
+                <ColorBox
+                  onClick={() => handleChange('themeColor', 'warning')}
+                  sx={{
+                    backgroundColor: 'warning.main',
+                    ...(themeColor === 'warning'
+                      ? { width: 53, height: 53, m: theme => theme.spacing(1.5, 0.75, 0) }
+                      : {})
+                  }}
+                />
+                <ColorBox
+                  onClick={() => handleChange('themeColor', 'info')}
+                  sx={{
+                    backgroundColor: 'info.main',
+                    ...(themeColor === 'info' ? { width: 53, height: 53, m: theme => theme.spacing(1.5, 0.75, 0) } : {})
+                  }}
+                />
+              </Box>
             </div>
-          ) : null}
+          </CustomizerSpacing>
 
-          <div className='form-switch mb-2 ps-0'>
-            <div className='d-flex align-items-center'>
-              <p className='fw-bold me-auto mb-0'>Menu Hidden</p>
-              <Input
-                type='switch'
-                id='menu-hidden'
-                name='menu-hidden'
-                checked={isHidden}
-                onChange={() => setIsHidden(!isHidden)}
+          <Divider sx={{ m: '0 !important' }} />
+
+          <CustomizerSpacing className='customizer-body'>
+            <Typography
+              component='p'
+              variant='caption'
+              sx={{ mb: 5, color: 'text.disabled', textTransform: 'uppercase' }}
+            >
+              Layout
+            </Typography>
+
+            {/* Content Width */}
+            <Box sx={{ mb: 5 }}>
+              <Typography>Content Width</Typography>
+              <RadioGroup
+                row
+                value={contentWidth}
+                sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+                onChange={e => handleChange('contentWidth', e.target.value)}
+              >
+                <FormControlLabel value='full' label='Full' control={<Radio />} />
+                <FormControlLabel value='boxed' label='Boxed' control={<Radio />} />
+              </RadioGroup>
+            </Box>
+
+            {/* AppBar */}
+            <Box sx={{ mb: 5 }}>
+              <Typography>AppBar Type</Typography>
+              <RadioGroup
+                row
+                value={appBar}
+                sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+                onChange={e => handleChange('appBar', e.target.value)}
+              >
+                <FormControlLabel value='fixed' label='Fixed' control={<Radio />} />
+                <FormControlLabel value='static' label='Static' control={<Radio />} />
+                {layout === 'horizontal' ? null : (
+                  <FormControlLabel value='hidden' label='Hidden' control={<Radio />} />
+                )}
+              </RadioGroup>
+            </Box>
+
+            {/* Footer */}
+            <Box sx={{ mb: 5 }}>
+              <Typography>Footer Type</Typography>
+              <RadioGroup
+                row
+                value={footer}
+                sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+                onChange={e => handleChange('footer', e.target.value)}
+              >
+                <FormControlLabel value='fixed' label='Fixed' control={<Radio />} />
+                <FormControlLabel value='static' label='Static' control={<Radio />} />
+                <FormControlLabel value='hidden' label='Hidden' control={<Radio />} />
+              </RadioGroup>
+            </Box>
+
+            {/* AppBar Blur */}
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Typography>AppBar Blur</Typography>
+              <Switch
+                name='appBarBlur'
+                checked={appBarBlur}
+                onChange={e => handleChange('appBarBlur', e.target.checked)}
               />
-            </div>
-          </div>
-        </div>
+            </Box>
+          </CustomizerSpacing>
 
-        <hr />
+          <Divider sx={{ m: '0 !important' }} />
 
-        <div className='px-2'>
-          {layout !== 'horizontal' ? (
-            <div className='mb-2'>
-              <p className='fw-bold'>Navbar Color</p>
-              <ul className='list-inline unstyled-list'>{renderNavbarColors()}</ul>
-            </div>
-          ) : null}
+          <CustomizerSpacing className='customizer-body'>
+            <Typography
+              component='p'
+              variant='caption'
+              sx={{ mb: 5, color: 'text.disabled', textTransform: 'uppercase' }}
+            >
+              Menu
+            </Typography>
 
-          <div className='mb-2'>
-            <p className='fw-bold'>{layout === 'horizontal' ? 'Menu' : 'Navbar'} Type</p>
-            <div className='d-flex'>{renderNavbarTypeRadio()}</div>
-          </div>
-        </div>
+            {/* Menu Layout */}
+            <Box sx={{ mb: layout === 'horizontal' && appBar === 'hidden' ? {} : 5 }}>
+              <Typography>Menu Layout</Typography>
+              <RadioGroup
+                row
+                value={layout}
+                sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+                onChange={e => {
+                  saveSettings({
+                    ...settings,
+                    layout: e.target.value,
+                    lastLayout: e.target.value
+                  })
+                }}
+              >
+                <FormControlLabel value='vertical' label='Vertical' control={<Radio />} />
+                <FormControlLabel value='horizontal' label='Horizontal' control={<Radio />} />
+              </RadioGroup>
+            </Box>
 
-        <hr />
+            {/* Menu Toggle */}
+            {navHidden || layout === 'horizontal' ? null : (
+              <Box sx={{ mb: 5 }}>
+                <Typography>Menu Toggle</Typography>
+                <RadioGroup
+                  row
+                  value={verticalNavToggleType}
+                  sx={{ '& .MuiFormControlLabel-label': { color: 'text.secondary' } }}
+                  onChange={e => handleChange('verticalNavToggleType', e.target.value)}
+                >
+                  <FormControlLabel value='accordion' label='Accordion' control={<Radio />} />
+                  <FormControlLabel value='collapse' label='Collapse' control={<Radio />} />
+                </RadioGroup>
+              </Box>
+            )}
 
-        <div className='px-2'>
-          <div className='mb-2'>
-            <p className='fw-bold'>Footer Type</p>
-            <div className='d-flex'>{renderFooterTypeRadio()}</div>
-          </div>
-        </div>
-      </PerfectScrollbar>
+            {/* Menu Collapsed */}
+            {navHidden || layout === 'horizontal' ? null : (
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 5 }}>
+                <Typography>Menu Collapsed</Typography>
+                <Switch
+                  name='navCollapsed'
+                  checked={navCollapsed}
+                  onChange={e => handleChange('navCollapsed', e.target.checked)}
+                />
+              </Box>
+            )}
+
+            {/* Menu Hidden */}
+            {layout === 'horizontal' && appBar === 'hidden' ? null : (
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                <Typography>Menu Hidden</Typography>
+                <Switch
+                  name='navHidden'
+                  checked={navHidden}
+                  onChange={e => handleChange('navHidden', e.target.checked)}
+                />
+              </Box>
+            )}
+          </CustomizerSpacing>
+
+          <Divider sx={{ m: '0 !important' }} />
+
+          <CustomizerSpacing className='customizer-body'>
+            <Typography
+              component='p'
+              variant='caption'
+              sx={{ mb: 5, color: 'text.disabled', textTransform: 'uppercase' }}
+            >
+              Misc
+            </Typography>
+
+            {/* RTL */}
+            <Box sx={{ mb: 5, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+              <Typography>RTL</Typography>
+              <Switch
+                name='direction'
+                checked={direction === 'rtl'}
+                onChange={e => handleChange('direction', e.target.checked ? 'rtl' : 'ltr')}
+              />
+            </Box>
+          </CustomizerSpacing>
+        </PerfectScrollbar>
+      </Drawer>
     </div>
   )
 }

@@ -1,229 +1,297 @@
-// ** Reactstrap Imports
-import { Card, CardBody, CardText, Row, Col, Table } from 'reactstrap'
+// ** MUI Imports
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import Table from '@mui/material/Table'
+import Divider from '@mui/material/Divider'
+import TableRow from '@mui/material/TableRow'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import Typography from '@mui/material/Typography'
+import Box from '@mui/material/Box'
+import CardContent from '@mui/material/CardContent'
+import { styled, useTheme } from '@mui/material/styles'
+import TableContainer from '@mui/material/TableContainer'
+import TableCell from '@mui/material/TableCell'
+
+// ** Configs
+import themeConfig from 'src/configs/themeConfig'
+
+const MUITableCell = styled(TableCell)(({ theme }) => ({
+  borderBottom: 0,
+  paddingLeft: '0 !important',
+  paddingRight: '0 !important',
+  '&:not(:last-child)': {
+    paddingRight: `${theme.spacing(2)} !important`
+  }
+}))
+
+const CalcWrapper = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  '&:not(:last-of-type)': {
+    marginBottom: theme.spacing(2)
+  }
+}))
 
 const PreviewCard = ({ data }) => {
-  return data !== null ? (
-    <Card className='invoice-preview-card'>
-      <CardBody className='invoice-padding pb-0'>
-        {/* Header */}
-        <div className='d-flex justify-content-between flex-md-row flex-column invoice-spacing mt-0'>
-          <div>
-            <div className='logo-wrapper'>
-              <svg viewBox='0 0 139 95' version='1.1' height='24'>
-                <defs>
-                  <linearGradient id='invoice-linearGradient-1' x1='100%' y1='10.5120544%' x2='50%' y2='89.4879456%'>
-                    <stop stopColor='#000000' offset='0%'></stop>
-                    <stop stopColor='#FFFFFF' offset='100%'></stop>
-                  </linearGradient>
-                  <linearGradient
-                    id='invoice-linearGradient-2'
-                    x1='64.0437835%'
-                    y1='46.3276743%'
-                    x2='37.373316%'
-                    y2='100%'
-                  >
-                    <stop stopColor='#EEEEEE' stopOpacity='0' offset='0%'></stop>
-                    <stop stopColor='#FFFFFF' offset='100%'></stop>
-                  </linearGradient>
-                </defs>
-                <g stroke='none' strokeWidth='1' fill='none' fillRule='evenodd'>
-                  <g transform='translate(-400.000000, -178.000000)'>
-                    <g transform='translate(400.000000, 178.000000)'>
-                      <path
-                        className='text-primary'
-                        d='M-5.68434189e-14,2.84217094e-14 L39.1816085,2.84217094e-14 L69.3453773,32.2519224 L101.428699,2.84217094e-14 L138.784583,2.84217094e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L6.71554594,44.4188507 C2.46876683,39.9813776 0.345377275,35.1089553 0.345377275,29.8015838 C0.345377275,24.4942122 0.230251516,14.560351 -5.68434189e-14,2.84217094e-14 Z'
-                        style={{ fill: 'currentColor' }}
-                      ></path>
-                      <path
-                        d='M69.3453773,32.2519224 L101.428699,1.42108547e-14 L138.784583,1.42108547e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L32.8435758,70.5039241 L69.3453773,32.2519224 Z'
-                        fill='url(#invoice-linearGradient-1)'
-                        opacity='0.2'
-                      ></path>
-                      <polygon
-                        fill='#000000'
-                        opacity='0.049999997'
-                        points='69.3922914 32.4202615 32.8435758 70.5039241 54.0490008 16.1851325'
-                      ></polygon>
-                      <polygon
-                        fill='#000000'
-                        opacity='0.099999994'
-                        points='69.3922914 32.4202615 32.8435758 70.5039241 58.3683556 20.7402338'
-                      ></polygon>
-                      <polygon
-                        fill='url(#invoice-linearGradient-2)'
-                        opacity='0.099999994'
-                        points='101.428699 0 83.0667527 94.1480575 130.378721 47.0740288'
-                      ></polygon>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-              <h3 className='text-primary invoice-logo'>Vuexy</h3>
-            </div>
-            <CardText className='mb-25'>Office 149, 450 South Brand Brooklyn</CardText>
-            <CardText className='mb-25'>San Diego County, CA 91905, USA</CardText>
-            <CardText className='mb-0'>+1 (123) 456 7891, +44 (876) 543 2198</CardText>
-          </div>
-          <div className='mt-md-0 mt-2'>
-            <h4 className='invoice-title'>
-              Invoice <span className='invoice-number'>#{data.invoice.id}</span>
-            </h4>
-            <div className='invoice-date-wrapper'>
-              <p className='invoice-date-title'>Date Issued:</p>
-              <p className='invoice-date'>{data.invoice.issuedDate}</p>
-            </div>
-            <div className='invoice-date-wrapper'>
-              <p className='invoice-date-title'>Due Date:</p>
-              <p className='invoice-date'>{data.invoice.dueDate}</p>
-            </div>
-          </div>
-        </div>
-        {/* /Header */}
-      </CardBody>
+  // ** Hook
+  const theme = useTheme()
+  if (data) {
+    return (
+      <Card>
+        <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
+          <Grid container>
+            <Grid item sm={6} xs={12} sx={{ mb: { sm: 0, xs: 4 } }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Box sx={{ mb: 6, display: 'flex', alignItems: 'center' }}>
+                  <svg width={34} viewBox='0 0 32 22' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                    <path
+                      fillRule='evenodd'
+                      clipRule='evenodd'
+                      fill={theme.palette.primary.main}
+                      d='M0.00172773 0V6.85398C0.00172773 6.85398 -0.133178 9.01207 1.98092 10.8388L13.6912 21.9964L19.7809 21.9181L18.8042 9.88248L16.4951 7.17289L9.23799 0H0.00172773Z'
+                    />
+                    <path
+                      fill='#161616'
+                      opacity={0.06}
+                      fillRule='evenodd'
+                      clipRule='evenodd'
+                      d='M7.69824 16.4364L12.5199 3.23696L16.5541 7.25596L7.69824 16.4364Z'
+                    />
+                    <path
+                      fill='#161616'
+                      opacity={0.06}
+                      fillRule='evenodd'
+                      clipRule='evenodd'
+                      d='M8.07751 15.9175L13.9419 4.63989L16.5849 7.28475L8.07751 15.9175Z'
+                    />
+                    <path
+                      fillRule='evenodd'
+                      clipRule='evenodd'
+                      fill={theme.palette.primary.main}
+                      d='M7.77295 16.3566L23.6563 0H32V6.88383C32 6.88383 31.8262 9.17836 30.6591 10.4057L19.7824 22H13.6938L7.77295 16.3566Z'
+                    />
+                  </svg>
+                  <Typography variant='h4' sx={{ ml: 2.5, fontWeight: 700, lineHeight: '24px' }}>
+                    {themeConfig.templateName}
+                  </Typography>
+                </Box>
+                <div>
+                  <Typography sx={{ mb: 2, color: 'text.secondary' }}>Office 149, 450 South Brand Brooklyn</Typography>
+                  <Typography sx={{ mb: 2, color: 'text.secondary' }}>San Diego County, CA 91905, USA</Typography>
+                  <Typography sx={{ color: 'text.secondary' }}>+1 (123) 456 7891, +44 (876) 543 2198</Typography>
+                </div>
+              </Box>
+            </Grid>
+            <Grid item sm={6} xs={12}>
+              <Box sx={{ display: 'flex', justifyContent: { xs: 'flex-start', sm: 'flex-end' } }}>
+                <Table sx={{ maxWidth: '210px' }}>
+                  <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(1.5)} !important` } }}>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography variant='h4'>Invoice</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography variant='h4'>{`#${data.invoice.id}`}</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>Date Issued:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>{data.invoice.issuedDate}</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                    <TableRow>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>Date Due:</Typography>
+                      </MUITableCell>
+                      <MUITableCell>
+                        <Typography sx={{ color: 'text.secondary' }}>{data.invoice.dueDate}</Typography>
+                      </MUITableCell>
+                    </TableRow>
+                  </TableBody>
+                </Table>
+              </Box>
+            </Grid>
+          </Grid>
+        </CardContent>
 
-      <hr className='invoice-spacing' />
+        <Divider />
 
-      {/* Address and Contact */}
-      <CardBody className='invoice-padding pt-0'>
-        <Row className='invoice-spacing'>
-          <Col className='p-0' xl='8'>
-            <h6 className='mb-2'>Invoice To:</h6>
-            <h6 className='mb-25'>{data.invoice.client.name}</h6>
-            <CardText className='mb-25'>{data.invoice.client.company}</CardText>
-            <CardText className='mb-25'>{data.invoice.client.address}</CardText>
-            <CardText className='mb-25'>{data.invoice.client.contact}</CardText>
-            <CardText className='mb-0'>{data.invoice.client.companyEmail}</CardText>
-          </Col>
-          <Col className='p-0 mt-xl-0 mt-2' xl='4'>
-            <h6 className='mb-2'>Payment Details:</h6>
-            <table>
-              <tbody>
-                <tr>
-                  <td className='pe-1'>Total Due:</td>
-                  <td>
-                    <span className='fw-bold'>{data.paymentDetails.totalDue}</span>
-                  </td>
-                </tr>
-                <tr>
-                  <td className='pe-1'>Bank name:</td>
-                  <td>{data.paymentDetails.bankName}</td>
-                </tr>
-                <tr>
-                  <td className='pe-1'>Country:</td>
-                  <td>{data.paymentDetails.country}</td>
-                </tr>
-                <tr>
-                  <td className='pe-1'>IBAN:</td>
-                  <td>{data.paymentDetails.iban}</td>
-                </tr>
-                <tr>
-                  <td className='pe-1'>SWIFT code:</td>
-                  <td>{data.paymentDetails.swiftCode}</td>
-                </tr>
-              </tbody>
-            </table>
-          </Col>
-        </Row>
-      </CardBody>
-      {/* /Address and Contact */}
-
-      {/* Invoice Description */}
-      <Table responsive>
-        <thead>
-          <tr>
-            <th className='py-1'>Task description</th>
-            <th className='py-1'>Rate</th>
-            <th className='py-1'>Hours</th>
-            <th className='py-1'>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className='py-1'>
-              <p className='card-text fw-bold mb-25'>Native App Development</p>
-              <p className='card-text text-nowrap'>
-                Developed a full stack native app using React Native, Bootstrap & Python
-              </p>
-            </td>
-            <td className='py-1'>
-              <span className='fw-bold'>$60.00</span>
-            </td>
-            <td className='py-1'>
-              <span className='fw-bold'>30</span>
-            </td>
-            <td className='py-1'>
-              <span className='fw-bold'>$1,800.00</span>
-            </td>
-          </tr>
-          <tr className='border-bottom'>
-            <td className='py-1'>
-              <p className='card-text fw-bold mb-25'>Ui Kit Design</p>
-              <p className='card-text text-nowrap'>Designed a UI kit for native app using Sketch, Figma & Adobe XD</p>
-            </td>
-            <td className='py-1'>
-              <span className='fw-bold'>$60.00</span>
-            </td>
-            <td className='py-1'>
-              <span className='fw-bold'>20</span>
-            </td>
-            <td className='py-1'>
-              <span className='fw-bold'>$1200.00</span>
-            </td>
-          </tr>
-        </tbody>
-      </Table>
-      {/* /Invoice Description */}
-
-      {/* Total & Sales Person */}
-      <CardBody className='invoice-padding pb-0'>
-        <Row className='invoice-sales-total-wrapper'>
-          <Col className='mt-md-0 mt-3' md='6' order={{ md: 1, lg: 2 }}>
-            <CardText className='mb-0'>
-              <span className='fw-bold'>Salesperson:</span> <span className='ms-75'>Alfie Solomons</span>
-            </CardText>
-          </Col>
-          <Col className='d-flex justify-content-end' md='6' order={{ md: 2, lg: 1 }}>
-            <div className='invoice-total-wrapper'>
-              <div className='invoice-total-item'>
-                <p className='invoice-total-title'>Subtotal:</p>
-                <p className='invoice-total-amount'>$1800</p>
+        <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
+          <Grid container>
+            <Grid item xs={12} sm={6} sx={{ mb: { lg: 0, xs: 4 } }}>
+              <Typography variant='h6' sx={{ mb: 6 }}>
+                Invoice To:
+              </Typography>
+              <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{data.invoice.name}</Typography>
+              <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{data.invoice.company}</Typography>
+              <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{data.invoice.address}</Typography>
+              <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{data.invoice.contact}</Typography>
+              <Typography sx={{ mb: 1.5, color: 'text.secondary' }}>{data.invoice.companyEmail}</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} sx={{ display: 'flex', justifyContent: ['flex-start', 'flex-end'] }}>
+              <div>
+                <Typography variant='h6' sx={{ mb: 6 }}>
+                  Bill To:
+                </Typography>
+                <TableContainer>
+                  <Table>
+                    <TableBody sx={{ '& .MuiTableCell-root': { py: `${theme.spacing(0.75)} !important` } }}>
+                      <TableRow>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>Total Due:</Typography>
+                        </MUITableCell>
+                        <MUITableCell>
+                          <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>
+                            {data.paymentDetails.totalDue}
+                          </Typography>
+                        </MUITableCell>
+                      </TableRow>
+                      <TableRow>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>Bank name:</Typography>
+                        </MUITableCell>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>{data.paymentDetails.bankName}</Typography>
+                        </MUITableCell>
+                      </TableRow>
+                      <TableRow>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>Country:</Typography>
+                        </MUITableCell>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>{data.paymentDetails.country}</Typography>
+                        </MUITableCell>
+                      </TableRow>
+                      <TableRow>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>IBAN:</Typography>
+                        </MUITableCell>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>{data.paymentDetails.iban}</Typography>
+                        </MUITableCell>
+                      </TableRow>
+                      <TableRow>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>SWIFT code:</Typography>
+                        </MUITableCell>
+                        <MUITableCell>
+                          <Typography sx={{ color: 'text.secondary' }}>{data.paymentDetails.swiftCode}</Typography>
+                        </MUITableCell>
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </TableContainer>
               </div>
-              <div className='invoice-total-item'>
-                <p className='invoice-total-title'>Discount:</p>
-                <p className='invoice-total-amount'>$28</p>
-              </div>
-              <div className='invoice-total-item'>
-                <p className='invoice-total-title'>Tax:</p>
-                <p className='invoice-total-amount'>21%</p>
-              </div>
-              <hr className='my-50' />
-              <div className='invoice-total-item'>
-                <p className='invoice-total-title'>Total:</p>
-                <p className='invoice-total-amount'>$1690</p>
-              </div>
-            </div>
-          </Col>
-        </Row>
-      </CardBody>
-      {/* /Total & Sales Person */}
+            </Grid>
+          </Grid>
+        </CardContent>
 
-      <hr className='invoice-spacing' />
+        <Divider />
 
-      {/* Invoice Note */}
-      <CardBody className='invoice-padding pt-0'>
-        <Row>
-          <Col sm='12'>
-            <span className='fw-bold'>Note: </span>
-            <span>
-              It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
-              projects. Thank You!
-            </span>
-          </Col>
-        </Row>
-      </CardBody>
-      {/* /Invoice Note */}
-    </Card>
-  ) : null
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Item</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>hours</TableCell>
+                <TableCell>qty</TableCell>
+                <TableCell>Total</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody
+              sx={{
+                '& .MuiTableCell-root': {
+                  py: `${theme.spacing(2.5)} !important`,
+                  fontSize: theme.typography.body1.fontSize
+                }
+              }}
+            >
+              <TableRow>
+                <TableCell>Premium Branding Package</TableCell>
+                <TableCell>Branding & Promotion</TableCell>
+                <TableCell>48</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>$32</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Social Media</TableCell>
+                <TableCell>Social media templates</TableCell>
+                <TableCell>42</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>$28</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Web Design</TableCell>
+                <TableCell>Web designing package</TableCell>
+                <TableCell>46</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>$24</TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>SEO</TableCell>
+                <TableCell>Search engine optimization</TableCell>
+                <TableCell>40</TableCell>
+                <TableCell>1</TableCell>
+                <TableCell>$22</TableCell>
+              </TableRow>
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        <CardContent sx={{ p: [`${theme.spacing(6)} !important`, `${theme.spacing(10)} !important`] }}>
+          <Grid container>
+            <Grid item xs={12} sm={7} lg={9} sx={{ order: { sm: 1, xs: 2 } }}>
+              <Box sx={{ mb: 2, display: 'flex', alignItems: 'center' }}>
+                <Typography sx={{ mr: 2, fontWeight: 500, color: 'text.secondary' }}>Salesperson:</Typography>
+                <Typography sx={{ color: 'text.secondary' }}>Tommy Shelby</Typography>
+              </Box>
+
+              <Typography sx={{ color: 'text.secondary' }}>Thanks for your business</Typography>
+            </Grid>
+            <Grid item xs={12} sm={5} lg={3} sx={{ mb: { sm: 0, xs: 4 }, order: { sm: 2, xs: 1 } }}>
+              <CalcWrapper>
+                <Typography sx={{ color: 'text.secondary' }}>Subtotal:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$1800</Typography>
+              </CalcWrapper>
+              <CalcWrapper>
+                <Typography sx={{ color: 'text.secondary' }}>Discount:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$28</Typography>
+              </CalcWrapper>
+              <CalcWrapper sx={{ mb: '0 !important' }}>
+                <Typography sx={{ color: 'text.secondary' }}>Tax:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>21%</Typography>
+              </CalcWrapper>
+              <Divider sx={{ my: `${theme.spacing(2)} !important` }} />
+              <CalcWrapper>
+                <Typography sx={{ color: 'text.secondary' }}>Total:</Typography>
+                <Typography sx={{ fontWeight: 500, color: 'text.secondary' }}>$1690</Typography>
+              </CalcWrapper>
+            </Grid>
+          </Grid>
+        </CardContent>
+
+        <Divider />
+
+        <CardContent sx={{ px: [6, 10] }}>
+          <Typography sx={{ color: 'text.secondary' }}>
+            <Typography component='span' sx={{ mr: 1.5, fontWeight: 500, color: 'inherit' }}>
+              Note:
+            </Typography>
+            It was a pleasure working with you and your team. We hope you will keep us in mind for future freelance
+            projects. Thank You!
+          </Typography>
+        </CardContent>
+      </Card>
+    )
+  } else {
+    return null
+  }
 }
 
 export default PreviewCard

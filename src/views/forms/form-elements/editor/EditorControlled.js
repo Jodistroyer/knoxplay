@@ -1,27 +1,17 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** Third Party Components
+// ** Third Party Imports
 import { EditorState } from 'draft-js'
-import { Editor } from 'react-draft-wysiwyg'
 
-// ** Reactstrap Imports
-import { Card, CardHeader, CardTitle, CardBody } from 'reactstrap'
+// ** Component Import
+import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 
 const EditorControlled = () => {
   // ** State
   const [value, setValue] = useState(EditorState.createEmpty())
 
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle tag='h4'>Controlled Editor</CardTitle>
-      </CardHeader>
-      <CardBody>
-        <Editor editorState={value} onEditorStateChange={data => setValue(data)} />
-      </CardBody>
-    </Card>
-  )
+  return <ReactDraftWysiwyg editorState={value} onEditorStateChange={data => setValue(data)} />
 }
 
 export default EditorControlled

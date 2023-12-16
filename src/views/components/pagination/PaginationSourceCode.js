@@ -1,555 +1,167 @@
-export const paginationBasic = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationButtonsJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-
-const PaginationBasic = () => {
+const PaginationButtons = () => {
   return (
-    <Pagination className='d-flex mt-3'>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>6</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>7</PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={10} showFirstButton showLastButton />
+      <Pagination count={10} hidePrevButton hideNextButton />
+    </div>
   )
 }
-export default PaginationBasic
-  `}
-    </code>
+
+export default PaginationButtons
+`}</code>
   </pre>
 )
 
-export const paginationSeparated = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationDisabledJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-const PaginationSeparated = () => {
+const PaginationDisabled = () => {
   return (
-    <Pagination className='d-flex mt-3'>
-      <PaginationItem className='prev-item'>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} />
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>6</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>7</PaginationLink>
-      </PaginationItem>
-      <PaginationItem className='next-item'>
-        <PaginationLink href='#' last>
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={10} disabled />
+      <Pagination count={10} variant='outlined' disabled />
+    </div>
   )
 }
-export default PaginationSeparated
-  `}
-    </code>
+
+export default PaginationDisabled
+`}</code>
   </pre>
 )
 
-export const paginationIconsAndText = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationControlledJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { useState } from 'react'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
+// ** MUI Imports
+import Typography from '@mui/material/Typography'
+import Pagination from '@mui/material/Pagination'
 
-const PaginationIconsAndText = () => {
+const PaginationControlled = () => {
+  // ** State
+  const [page, setPage] = useState(1)
+
+  const handleChange = (event, value) => {
+    setPage(value)
+  }
+
   return (
-    <Pagination className='d-flex mt-3'>
-      <PaginationItem>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} /> Prev
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#' last>
-          Next
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div>
+      <Typography sx={{ mb: 2 }}>Page: {page}</Typography>
+      <Pagination count={10} page={page} onChange={handleChange} />
+    </div>
   )
 }
-export default PaginationIconsAndText
-  `}
-    </code>
+
+export default PaginationControlled
+`}</code>
   </pre>
 )
 
-export const paginationIcons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationRangesJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-const PaginationIcons = () => {
+const PaginationRanges = () => {
   return (
-    <Pagination className='d-flex mt-3'>
-      <PaginationItem>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} />
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#' last>
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={11} defaultPage={6} siblingCount={0} />
+      <Pagination count={11} defaultPage={6} /> {/* Default ranges */}
+      <Pagination count={11} defaultPage={6} siblingCount={0} boundaryCount={2} />
+      <Pagination count={11} defaultPage={6} boundaryCount={2} />
+    </div>
   )
 }
-export default PaginationIcons
-  `}
-    </code>
+
+export default PaginationRanges
+`}</code>
   </pre>
 )
 
-export const paginationSuccess = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationSimpleJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-const PaginationSuccess = () => {
+const PaginationSimple = () => {
   return (
-    <Pagination className='d-flex mt-3' listClassName='pagination-success'>
-      <PaginationItem>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} />
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>6</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>7</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#' last>
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={10} />
+      <Pagination count={10} color='primary' />
+      <Pagination count={10} color='secondary' />
+    </div>
   )
 }
-export default PaginationSuccess
 
-  `}
-    </code>
+export default PaginationSimple
+`}</code>
   </pre>
 )
 
-export const paginationDanger = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationOutlinedJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-const PaginationDanger = () => {
+const PaginationOutlined = () => {
   return (
-    <Pagination className='d-flex mt-3' listClassName='pagination-danger'>
-      <PaginationItem>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} />
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>6</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>7</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#' last>
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={10} variant='outlined' />
+      <Pagination count={10} variant='outlined' color='primary' />
+      <Pagination count={10} variant='outlined' color='secondary' />
+    </div>
   )
 }
-export default PaginationDanger
 
-  `}
-    </code>
+export default PaginationOutlined
+`}</code>
   </pre>
 )
 
-export const paginationInfo = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationRoundedJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-const PaginationInfo = () => {
+const PaginationRounded = () => {
   return (
-    <Pagination className='d-flex mt-3' listClassName='pagination-info'>
-      <PaginationItem>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} />
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>6</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>7</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#' last>
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={10} shape='rounded' color='primary' />
+      <Pagination count={10} variant='outlined' shape='rounded' color='secondary' />
+    </div>
   )
 }
-export default PaginationInfo
 
-  `}
-    </code>
+export default PaginationRounded
+`}</code>
   </pre>
 )
 
-export const paginationWarning = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const PaginationSizesJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-import { Pagination, PaginationItem, PaginationLink } from 'reactstrap'
-import { ChevronLeft, ChevronRight } from 'react-feather'
-
-const PaginationWarning = () => {
+const PaginationSizes = () => {
   return (
-    <Pagination className='d-flex mt-3' listClassName='pagination-warning'>
-      <PaginationItem>
-        <PaginationLink href='#' first>
-          <ChevronLeft size={15} />
-        </PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>1</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>2</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>3</PaginationLink>
-      </PaginationItem>
-      <PaginationItem active>
-        <PaginationLink href='#'>4</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>5</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>6</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#'>7</PaginationLink>
-      </PaginationItem>
-      <PaginationItem>
-        <PaginationLink href='#' last>
-          <ChevronRight size={15} />
-        </PaginationLink>
-      </PaginationItem>
-    </Pagination>
+    <div className='demo-space-y'>
+      <Pagination count={10} size='small' />
+      <Pagination count={10} color='primary' />
+      <Pagination count={10} size='large' color='secondary' />
+    </div>
   )
 }
-export default PaginationWarning
-  `}
-    </code>
-  </pre>
-)
 
-export const paginationPositions = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import {
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Row,
-  Col
-} from 'reactstrap'
-
-const PaginationPositions = () => {
-  return (
-    <Row>
-      <Col xl='4' lg='12'>
-        <h5 className='text-start'>Left Aligned</h5>
-        <Pagination className='d-flex justify-content-start mt-3'>
-          <PaginationItem>
-            <PaginationLink href='#'>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#'>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>5</PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-      <Col xl='4' lg='12'>
-        <h5 className='text-center'>Center Aligned</h5>
-        <Pagination className='d-flex justify-content-center mt-3'>
-          <PaginationItem>
-            <PaginationLink href='#'>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#'>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>5</PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-      <Col xl='4' lg='12'>
-        <h5 className='text-end'>Right Aligned</h5>
-        <Pagination className='d-flex justify-content-end mt-3'>
-          <PaginationItem>
-            <PaginationLink href='#'>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#'>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>5</PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-    </Row>
-  )
-}
-export default PaginationPositions
-  `}
-    </code>
-  </pre>
-)
-
-export const paginationSizes = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import {
-  Pagination,
-  PaginationItem,
-  PaginationLink,
-  Row,
-  Col
-} from 'reactstrap'
-
-const PaginationPositions = () => {
-  return (
-    <Row className='align-items-center'>
-      <Col xl='4' lg='12'>
-        <Pagination size='lg'>
-          <PaginationItem>
-            <PaginationLink href='#'>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#'>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>5</PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-      <Col xl='4' lg='12'>
-        <Pagination>
-          <PaginationItem>
-            <PaginationLink href='#'>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#'>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>5</PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-      <Col xl='4' lg='12'>
-        <Pagination size='sm'>
-          <PaginationItem>
-            <PaginationLink href='#'>1</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>2</PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#'>3</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>4</PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#'>5</PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-    </Row>
-  )
-}
-export default PaginationPositions
-  `}
-    </code>
+export default PaginationSizes
+`}</code>
   </pre>
 )

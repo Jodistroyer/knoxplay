@@ -1,37 +1,18 @@
-/* eslint-disable implicit-arrow-linebreak */
-// ** React Imports
-import { useContext } from 'react'
-import { AbilityContext } from '@src/utility/context/Can'
-
 /**
- * Return which component to render based on it's data/context
- * @param {Object} item nav menu item
+ * Check for URL queries as well for matching
+ * Current URL & Item Path
+ *
+ * @param item
+ * @param activeItem
  */
-export const resolveVerticalNavMenuItemComponent = item => {
-  if (item.header) return 'VerticalNavMenuSectionHeader'
-  if (item.children) return 'VerticalNavMenuGroup'
-  return 'VerticalNavMenuLink'
-}
+export const handleURLQueries = (router, path) => {
+  if (Object.keys(router.query).length && path) {
+    const arr = Object.keys(router.query)
 
-/**
- * Return which component to render based on it's data/context
- * @param {Object} item nav menu item
- */
-export const resolveHorizontalNavMenuItemComponent = item => {
-  if (item.children) return 'HorizontalNavMenuGroup'
-  return 'HorizontalNavMenuLink'
-}
+    return router.asPath.includes(path) && router.asPath.includes(router.query[arr[0]]) && path !== '/'
+  }
 
-/**
- * Check if nav-link is active
- * @param {Object} link nav-link object
- */
-export const isNavLinkActive = (link, currentURL, routerProps) => {
-  return (
-    currentURL === link ||
-    (routerProps && routerProps.meta && routerProps.meta.navLink && routerProps.meta.navLink === link)
-  )
-  // return currentURL === link
+  return false
 }
 
 /**
@@ -39,24 +20,28 @@ export const isNavLinkActive = (link, currentURL, routerProps) => {
  * in one of its children
  *
  * @param item
- * @param activeItem
+ * @param currentURL
  */
-export const hasActiveChild = (item, currentUrl) => {
+export const hasActiveChild = (item, currentURL) => {
   const { children } = item
-
   if (!children) {
     return false
   }
-
   for (const child of children) {
     if (child.children) {
-      if (hasActiveChild(child, currentUrl)) {
+      if (hasActiveChild(child, currentURL)) {
         return true
       }
     }
+    const childPath = child.path
 
     // Check if the child has a link and is active
-    if (child && child.navLink && currentUrl && (child.navLink === currentUrl || currentUrl.includes(child.navLink))) {
+    if (
+      child &&
+      childPath &&
+      currentURL &&
+      (childPath === currentURL || (currentURL.includes(childPath) && childPath !== '/'))
+    ) {
       return true
     }
   }
@@ -74,38 +59,12 @@ export const hasActiveChild = (item, currentUrl) => {
  */
 export const removeChildren = (children, openGroup, currentActiveGroup) => {
   children.forEach(child => {
-    if (!currentActiveGroup.includes(child.id)) {
-      const index = openGroup.indexOf(child.id)
+    if (!currentActiveGroup.includes(child.title)) {
+      const index = openGroup.indexOf(child.title)
       if (index > -1) openGroup.splice(index, 1)
+
+      // @ts-ignore
       if (child.children) removeChildren(child.children, openGroup, currentActiveGroup)
     }
   })
-}
-
-const checkForVisibleChild = (arr, ability) => {
-  return arr.some(i => {
-    if (i.children) {
-      return checkForVisibleChild(i.children, ability)
-    } else {
-      return ability.can(i.action, i.resource)
-    }
-  })
-}
-
-export const canViewMenuGroup = item => {
-  const ability = useContext(AbilityContext)
-  // ! This same logic is used in canViewHorizontalNavMenuGroup and canViewHorizontalNavMenuHeaderGroup. So make sure to update logic in them as well
-  const hasAnyVisibleChild = item.children && checkForVisibleChild(item.children, ability)
-
-  // ** If resource and action is defined in item => Return based on children visibility (Hide group if no child is visible)
-  // ** Else check for ability using provided resource and action along with checking if has any visible child
-  if (!(item.action && item.resource)) {
-    return hasAnyVisibleChild
-  }
-  return ability.can(item.action, item.resource) && hasAnyVisibleChild
-}
-
-export const canViewMenuItem = item => {
-  const ability = useContext(AbilityContext)
-  return ability.can(item.action, item.resource)
 }

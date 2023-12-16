@@ -1,455 +1,345 @@
 // ** React Imports
-import { Fragment, useState } from 'react'
+import { useState, useEffect, forwardRef, useCallback, Fragment } from 'react'
 
-// ** Custom Components
-import Avatar from '@components/avatar'
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Drawer from '@mui/material/Drawer'
+import Switch from '@mui/material/Switch'
+import Button from '@mui/material/Button'
+import MenuItem from '@mui/material/MenuItem'
+import IconButton from '@mui/material/IconButton'
+import Typography from '@mui/material/Typography'
+import FormControl from '@mui/material/FormControl'
+import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Components
-import { X } from 'react-feather'
-import toast from 'react-hot-toast'
-import Flatpickr from 'react-flatpickr'
-import Select, { components } from 'react-select' // eslint-disable-line
-import PerfectScrollbar from 'react-perfect-scrollbar'
+// ** Custom Component Import
+import CustomTextField from 'src/@core/components/mui/text-field'
+
+// ** Third Party Imports
+import DatePicker from 'react-datepicker'
 import { useForm, Controller } from 'react-hook-form'
 
-// ** Reactstrap Imports
-import { Button, Modal, ModalHeader, ModalBody, Label, Input, Form } from 'reactstrap'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Utils
-import { selectThemeColors, isObjEmpty } from '@utils'
+// ** Styled Components
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Avatar Images
-import img1 from '@src/assets/images/avatars/1-small.png'
-import img2 from '@src/assets/images/avatars/3-small.png'
-import img3 from '@src/assets/images/avatars/5-small.png'
-import img4 from '@src/assets/images/avatars/7-small.png'
-import img5 from '@src/assets/images/avatars/9-small.png'
-import img6 from '@src/assets/images/avatars/11-small.png'
+const capitalize = string => string && string[0].toUpperCase() + string.slice(1)
 
-// ** Styles Imports
-import '@styles/react/libs/react-select/_react-select.scss'
-import '@styles/react/libs/flatpickr/flatpickr.scss'
+const defaultState = {
+  url: '',
+  title: '',
+  guests: [],
+  allDay: true,
+  description: '',
+  endDate: new Date(),
+  calendar: 'Business',
+  startDate: new Date()
+}
 
 const AddEventSidebar = props => {
   // ** Props
   const {
-    open,
     store,
     dispatch,
     addEvent,
-    calendarApi,
-    selectEvent,
     updateEvent,
-    removeEvent,
-    refetchEvents,
-    calendarsColor,
-    handleAddEventSidebar
+    drawerWidth,
+    calendarApi,
+    deleteEvent,
+    handleSelectEvent,
+    addEventSidebarOpen,
+    handleAddEventSidebarToggle
   } = props
 
-  // ** Vars & Hooks
-  const selectedEvent = store.selectedEvent,
-    {
-      control,
-      setError,
-      setValue,
-      getValues,
-      handleSubmit,
-      formState: { errors }
-    } = useForm({
-      defaultValues: { title: '' }
-    })
-
   // ** States
-  const [url, setUrl] = useState('')
-  const [desc, setDesc] = useState('')
-  const [guests, setGuests] = useState({})
-  const [allDay, setAllDay] = useState(false)
-  const [location, setLocation] = useState('')
-  const [endPicker, setEndPicker] = useState(new Date())
-  const [startPicker, setStartPicker] = useState(new Date())
-  const [calendarLabel, setCalendarLabel] = useState([{ value: 'Business', label: 'Business', color: 'primary' }])
+  const [values, setValues] = useState(defaultState)
 
-  // ** Select Options
-  const options = [
-    { value: 'Business', label: 'Business', color: 'primary' },
-    { value: 'Personal', label: 'Personal', color: 'danger' },
-    { value: 'Family', label: 'Family', color: 'warning' },
-    { value: 'Holiday', label: 'Holiday', color: 'success' },
-    { value: 'ETC', label: 'ETC', color: 'info' }
-  ]
+  const {
+    control,
+    setValue,
+    clearErrors,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({ defaultValues: { title: '' } })
 
-  const guestsOptions = [
-    { value: 'Donna Frank', label: 'Donna Frank', avatar: img1 },
-    { value: 'Jane Foster', label: 'Jane Foster', avatar: img2 },
-    { value: 'Gabrielle Robertson', label: 'Gabrielle Robertson', avatar: img3 },
-    { value: 'Lori Spears', label: 'Lori Spears', avatar: img4 },
-    { value: 'Sandy Vega', label: 'Sandy Vega', avatar: img5 },
-    { value: 'Cheryl May', label: 'Cheryl May', avatar: img6 }
-  ]
-
-  // ** Custom select components
-  const OptionComponent = ({ data, ...props }) => {
-    return (
-      <components.Option {...props}>
-        <span className={`bullet bullet-${data.color} bullet-sm me-50`}></span>
-        {data.label}
-      </components.Option>
-    )
+  const handleSidebarClose = async () => {
+    setValues(defaultState)
+    clearErrors()
+    dispatch(handleSelectEvent(null))
+    handleAddEventSidebarToggle()
   }
 
-  const GuestsComponent = ({ data, ...props }) => {
-    return (
-      <components.Option {...props}>
-        <div className='d-flex flex-wrap align-items-center'>
-          <Avatar className='my-0 me-1' size='sm' img={data.avatar} />
-          <div>{data.label}</div>
-        </div>
-      </components.Option>
-    )
-  }
-
-  // ** Adds New Event
-  const handleAddEvent = () => {
-    const obj = {
-      title: getValues('title'),
-      start: startPicker,
-      end: endPicker,
-      allDay,
+  const onSubmit = data => {
+    const modifiedEvent = {
+      url: values.url,
       display: 'block',
+      title: data.title,
+      end: values.endDate,
+      allDay: values.allDay,
+      start: values.startDate,
       extendedProps: {
-        calendar: calendarLabel[0].label,
-        url: url.length ? url : undefined,
-        guests: guests.length ? guests : undefined,
-        location: location.length ? location : undefined,
-        desc: desc.length ? desc : undefined
+        calendar: capitalize(values.calendar),
+        guests: values.guests && values.guests.length ? values.guests : undefined,
+        description: values.description.length ? values.description : undefined
       }
     }
-    dispatch(addEvent(obj))
-    refetchEvents()
-    handleAddEventSidebar()
-    toast.success('Event Added')
-  }
-
-  // ** Reset Input Values on Close
-  const handleResetInputValues = () => {
-    dispatch(selectEvent({}))
-    setValue('title', '')
-    setAllDay(false)
-    setUrl('')
-    setLocation('')
-    setDesc('')
-    setGuests({})
-    setCalendarLabel([{ value: 'Business', label: 'Business', color: 'primary' }])
-    setStartPicker(new Date())
-    setEndPicker(new Date())
-  }
-
-  // ** Set sidebar fields
-  const handleSelectedEvent = () => {
-    if (!isObjEmpty(selectedEvent)) {
-      const calendar = selectedEvent.extendedProps.calendar
-
-      const resolveLabel = () => {
-        if (calendar.length) {
-          return { label: calendar, value: calendar, color: calendarsColor[calendar] }
-        } else {
-          return { value: 'Business', label: 'Business', color: 'primary' }
-        }
-      }
-      setValue('title', selectedEvent.title || getValues('title'))
-      setAllDay(selectedEvent.allDay || allDay)
-      setUrl(selectedEvent.url || url)
-      setLocation(selectedEvent.extendedProps.location || location)
-      setDesc(selectedEvent.extendedProps.description || desc)
-      setGuests(selectedEvent.extendedProps.guests || guests)
-      setStartPicker(new Date(selectedEvent.start))
-      setEndPicker(selectedEvent.allDay ? new Date(selectedEvent.start) : new Date(selectedEvent.end))
-      setCalendarLabel([resolveLabel()])
-    }
-  }
-
-  // ** (UI) updateEventInCalendar
-  const updateEventInCalendar = (updatedEventData, propsToUpdate, extendedPropsToUpdate) => {
-    const existingEvent = calendarApi.getEventById(updatedEventData.id)
-
-    // ** Set event properties except date related
-    // ? Docs: https://fullcalendar.io/docs/Event-setProp
-    // ** dateRelatedProps => ['start', 'end', 'allDay']
-    // ** eslint-disable-next-line no-plusplus
-    for (let index = 0; index < propsToUpdate.length; index++) {
-      const propName = propsToUpdate[index]
-      existingEvent.setProp(propName, updatedEventData[propName])
-    }
-
-    // ** Set date related props
-    // ? Docs: https://fullcalendar.io/docs/Event-setDates
-    existingEvent.setDates(new Date(updatedEventData.start), new Date(updatedEventData.end), {
-      allDay: updatedEventData.allDay
-    })
-
-    // ** Set event's extendedProps
-    // ? Docs: https://fullcalendar.io/docs/Event-setExtendedProp
-    // ** eslint-disable-next-line no-plusplus
-    for (let index = 0; index < extendedPropsToUpdate.length; index++) {
-      const propName = extendedPropsToUpdate[index]
-      existingEvent.setExtendedProp(propName, updatedEventData.extendedProps[propName])
-    }
-  }
-
-  // ** Updates Event in Store
-  const handleUpdateEvent = () => {
-    if (getValues('title').length) {
-      const eventToUpdate = {
-        id: selectedEvent.id,
-        title: getValues('title'),
-        allDay,
-        start: startPicker,
-        end: endPicker,
-        url,
-        display: allDay === false ? 'block' : undefined,
-        extendedProps: {
-          location,
-          description: desc,
-          guests,
-          calendar: calendarLabel[0].label
-        }
-      }
-
-      const propsToUpdate = ['id', 'title', 'url']
-      const extendedPropsToUpdate = ['calendar', 'guests', 'location', 'description']
-      dispatch(updateEvent(eventToUpdate))
-      updateEventInCalendar(eventToUpdate, propsToUpdate, extendedPropsToUpdate)
-
-      handleAddEventSidebar()
-      toast.success('Event Updated')
+    if (store.selectedEvent === null || (store.selectedEvent !== null && !store.selectedEvent.title.length)) {
+      dispatch(addEvent(modifiedEvent))
     } else {
-      setError('title', {
-        type: 'manual'
-      })
+      dispatch(updateEvent({ id: store.selectedEvent.id, ...modifiedEvent }))
     }
-  }
-
-  // ** (UI) removeEventInCalendar
-  const removeEventInCalendar = eventId => {
-    calendarApi.getEventById(eventId).remove()
+    calendarApi.refetchEvents()
+    handleSidebarClose()
   }
 
   const handleDeleteEvent = () => {
-    dispatch(removeEvent(selectedEvent.id))
-    removeEventInCalendar(selectedEvent.id)
-    handleAddEventSidebar()
-    toast.error('Event Removed')
+    if (store.selectedEvent) {
+      dispatch(deleteEvent(store.selectedEvent.id))
+    }
+
+    // calendarApi.getEventById(store.selectedEvent.id).remove()
+    handleSidebarClose()
   }
 
-  // ** Event Action buttons
-  const EventActions = () => {
-    if (isObjEmpty(selectedEvent) || (!isObjEmpty(selectedEvent) && !selectedEvent.title.length)) {
+  const handleStartDate = date => {
+    if (date > values.endDate) {
+      setValues({ ...values, startDate: new Date(date), endDate: new Date(date) })
+    }
+  }
+
+  const resetToStoredValues = useCallback(() => {
+    if (store.selectedEvent !== null) {
+      const event = store.selectedEvent
+      setValue('title', event.title || '')
+      setValues({
+        url: event.url || '',
+        title: event.title || '',
+        allDay: event.allDay,
+        guests: event.extendedProps.guests || [],
+        description: event.extendedProps.description || '',
+        calendar: event.extendedProps.calendar || 'Business',
+        endDate: event.end !== null ? event.end : event.start,
+        startDate: event.start !== null ? event.start : new Date()
+      })
+    }
+  }, [setValue, store.selectedEvent])
+
+  const resetToEmptyValues = useCallback(() => {
+    setValue('title', '')
+    setValues(defaultState)
+  }, [setValue])
+  useEffect(() => {
+    if (store.selectedEvent !== null) {
+      resetToStoredValues()
+    } else {
+      resetToEmptyValues()
+    }
+  }, [addEventSidebarOpen, resetToStoredValues, resetToEmptyValues, store.selectedEvent])
+
+  const PickersComponent = forwardRef(({ ...props }, ref) => {
+    return (
+      <CustomTextField
+        inputRef={ref}
+        fullWidth
+        {...props}
+        label={props.label || ''}
+        sx={{ width: '100%' }}
+        error={props.error}
+      />
+    )
+  })
+
+  const RenderSidebarFooter = () => {
+    if (store.selectedEvent === null || (store.selectedEvent !== null && !store.selectedEvent.title.length)) {
       return (
         <Fragment>
-          <Button className='me-1' type='submit' color='primary'>
+          <Button type='submit' variant='contained' sx={{ mr: 4 }}>
             Add
           </Button>
-          <Button color='secondary' type='reset' onClick={handleAddEventSidebar} outline>
-            Cancel
+          <Button variant='tonal' color='secondary' onClick={resetToEmptyValues}>
+            Reset
           </Button>
         </Fragment>
       )
     } else {
       return (
         <Fragment>
-          <Button className='me-1' color='primary' onClick={handleUpdateEvent}>
+          <Button type='submit' variant='contained' sx={{ mr: 4 }}>
             Update
           </Button>
-          <Button color='danger' onClick={handleDeleteEvent} outline>
-            Delete
+          <Button variant='tonal' color='secondary' onClick={resetToStoredValues}>
+            Reset
           </Button>
         </Fragment>
       )
     }
   }
 
-  // ** Close BTN
-  const CloseBtn = <X className='cursor-pointer' size={15} onClick={handleAddEventSidebar} />
-
   return (
-    <Modal
-      isOpen={open}
-      className='sidebar-lg'
-      toggle={handleAddEventSidebar}
-      onOpened={handleSelectedEvent}
-      onClosed={handleResetInputValues}
-      contentClassName='p-0 overflow-hidden'
-      modalClassName='modal-slide-in event-sidebar'
+    <Drawer
+      anchor='right'
+      open={addEventSidebarOpen}
+      onClose={handleSidebarClose}
+      ModalProps={{ keepMounted: true }}
+      sx={{ '& .MuiDrawer-paper': { width: ['100%', drawerWidth] } }}
     >
-      <ModalHeader className='mb-1' toggle={handleAddEventSidebar} close={CloseBtn} tag='div'>
-        <h5 className='modal-title'>
-          {selectedEvent && selectedEvent.title && selectedEvent.title.length ? 'Update' : 'Add'} Event
-        </h5>
-      </ModalHeader>
-      <PerfectScrollbar options={{ wheelPropagation: false }}>
-        <ModalBody className='flex-grow-1 pb-sm-0 pb-3'>
-          <Form
-            onSubmit={handleSubmit(data => {
-              if (data.title.length) {
-                if (isObjEmpty(errors)) {
-                  if (isObjEmpty(selectedEvent) || (!isObjEmpty(selectedEvent) && !selectedEvent.title.length)) {
-                    handleAddEvent()
-                  } else {
-                    handleUpdateEvent()
-                  }
-                  handleAddEventSidebar()
-                }
-              } else {
-                setError('title', {
-                  type: 'manual'
-                })
+      <Box
+        className='sidebar-header'
+        sx={{
+          p: 6,
+          display: 'flex',
+          justifyContent: 'space-between'
+        }}
+      >
+        <Typography variant='h5'>
+          {store.selectedEvent !== null && store.selectedEvent.title.length ? 'Update Event' : 'Add Event'}
+        </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          {store.selectedEvent !== null && store.selectedEvent.title.length ? (
+            <IconButton
+              size='small'
+              onClick={handleDeleteEvent}
+              sx={{ color: 'text.primary', mr: store.selectedEvent !== null ? 1 : 0 }}
+            >
+              <Icon icon='tabler:trash' fontSize='1.25rem' />
+            </IconButton>
+          ) : null}
+          <IconButton
+            size='small'
+            onClick={handleSidebarClose}
+            sx={{
+              p: '0.375rem',
+              borderRadius: 1,
+              color: 'text.primary',
+              backgroundColor: 'action.selected',
+              '&:hover': {
+                backgroundColor: theme => `rgba(${theme.palette.customColors.main}, 0.16)`
               }
-            })}
+            }}
           >
-            <div className='mb-1'>
-              <Label className='form-label' for='title'>
-                Title <span className='text-danger'>*</span>
-              </Label>
-              <Controller
-                name='title'
-                control={control}
-                render={({ field }) => (
-                  <Input id='title' placeholder='Title' invalid={errors.title && true} {...field} />
-                )}
+            <Icon icon='tabler:x' fontSize='1.25rem' />
+          </IconButton>
+        </Box>
+      </Box>
+      <Box className='sidebar-body' sx={{ p: theme => theme.spacing(0, 6, 6) }}>
+        <DatePickerWrapper>
+          <form onSubmit={handleSubmit(onSubmit)} autoComplete='off'>
+            <Controller
+              name='title'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <CustomTextField
+                  fullWidth
+                  label='Title'
+                  value={value}
+                  sx={{ mb: 4 }}
+                  onChange={onChange}
+                  placeholder='Event Title'
+                  error={Boolean(errors.title)}
+                  {...(errors.title && { helperText: 'This field is required' })}
+                />
+              )}
+            />
+            <CustomTextField
+              select
+              fullWidth
+              sx={{ mb: 4 }}
+              label='Calendar'
+              SelectProps={{
+                value: values.calendar,
+                onChange: e => setValues({ ...values, calendar: e.target.value })
+              }}
+            >
+              <MenuItem value='Personal'>Personal</MenuItem>
+              <MenuItem value='Business'>Business</MenuItem>
+              <MenuItem value='Family'>Family</MenuItem>
+              <MenuItem value='Holiday'>Holiday</MenuItem>
+              <MenuItem value='ETC'>ETC</MenuItem>
+            </CustomTextField>
+            <Box sx={{ mb: 4 }}>
+              <DatePicker
+                selectsStart
+                id='event-start-date'
+                endDate={values.endDate}
+                selected={values.startDate}
+                startDate={values.startDate}
+                showTimeSelect={!values.allDay}
+                dateFormat={!values.allDay ? 'yyyy-MM-dd hh:mm' : 'yyyy-MM-dd'}
+                customInput={<PickersComponent label='Start Date' registername='startDate' />}
+                onChange={date => setValues({ ...values, startDate: new Date(date) })}
+                onSelect={handleStartDate}
               />
-            </div>
-
-            <div className='mb-1'>
-              <Label className='form-label' for='label'>
-                Label
-              </Label>
-              <Select
-                id='label'
-                value={calendarLabel}
-                options={options}
-                theme={selectThemeColors}
-                className='react-select'
-                classNamePrefix='select'
-                isClearable={false}
-                onChange={data => setCalendarLabel([data])}
-                components={{
-                  Option: OptionComponent
-                }}
+            </Box>
+            <Box sx={{ mb: 4 }}>
+              <DatePicker
+                selectsEnd
+                id='event-end-date'
+                endDate={values.endDate}
+                selected={values.endDate}
+                minDate={values.startDate}
+                startDate={values.startDate}
+                showTimeSelect={!values.allDay}
+                dateFormat={!values.allDay ? 'yyyy-MM-dd hh:mm' : 'yyyy-MM-dd'}
+                customInput={<PickersComponent label='End Date' registername='endDate' />}
+                onChange={date => setValues({ ...values, endDate: new Date(date) })}
               />
-            </div>
-
-            <div className='mb-1'>
-              <Label className='form-label' for='startDate'>
-                Start Date
-              </Label>
-              <Flatpickr
-                required
-                id='startDate'
-                name='startDate'
-                className='form-control'
-                onChange={date => setStartPicker(date[0])}
-                value={startPicker}
-                options={{
-                  enableTime: allDay === false,
-                  dateFormat: 'Y-m-d H:i'
-                }}
+            </Box>
+            <FormControl sx={{ mb: 4 }}>
+              <FormControlLabel
+                label='All Day'
+                control={
+                  <Switch checked={values.allDay} onChange={e => setValues({ ...values, allDay: e.target.checked })} />
+                }
               />
-            </div>
+            </FormControl>
+            <CustomTextField
+              fullWidth
+              type='url'
+              id='event-url'
+              sx={{ mb: 4 }}
+              label='Event URL'
+              value={values.url}
+              placeholder='https://www.google.com'
+              onChange={e => setValues({ ...values, url: e.target.value })}
+            />
 
-            <div className='mb-1'>
-              <Label className='form-label' for='endDate'>
-                End Date
-              </Label>
-              <Flatpickr
-                required
-                id='endDate'
-                // tag={Flatpickr}
-                name='endDate'
-                className='form-control'
-                onChange={date => setEndPicker(date[0])}
-                value={endPicker}
-                options={{
-                  enableTime: allDay === false,
-                  dateFormat: 'Y-m-d H:i'
-                }}
-              />
-            </div>
-
-            <div className='form-switch mb-1'>
-              <Input
-                id='allDay'
-                type='switch'
-                className='me-1'
-                checked={allDay}
-                name='customSwitch'
-                onChange={e => setAllDay(e.target.checked)}
-              />
-              <Label className='form-label' for='allDay'>
-                All Day
-              </Label>
-            </div>
-
-            <div className='mb-1'>
-              <Label className='form-label' for='eventURL'>
-                Event URL
-              </Label>
-              <Input
-                type='url'
-                id='eventURL'
-                value={url}
-                onChange={e => setUrl(e.target.value)}
-                placeholder='https://www.google.com'
-              />
-            </div>
-
-            <div className='mb-1'>
-              <Label className='form-label' for='guests'>
-                Guests
-              </Label>
-              <Select
-                isMulti
-                id='guests'
-                className='react-select'
-                classNamePrefix='select'
-                isClearable={false}
-                options={guestsOptions}
-                theme={selectThemeColors}
-                value={guests.length ? [...guests] : null}
-                onChange={data => setGuests([...data])}
-                components={{
-                  Option: GuestsComponent
-                }}
-              />
-            </div>
-
-            <div className='mb-1'>
-              <Label className='form-label' for='location'>
-                Location
-              </Label>
-              <Input id='location' value={location} onChange={e => setLocation(e.target.value)} placeholder='Office' />
-            </div>
-
-            <div className='mb-1'>
-              <Label className='form-label' for='description'>
-                Description
-              </Label>
-              <Input
-                type='textarea'
-                name='text'
-                id='description'
-                rows='3'
-                value={desc}
-                onChange={e => setDesc(e.target.value)}
-                placeholder='Description'
-              />
-            </div>
-            <div className='d-flex mb-1'>
-              <EventActions />
-            </div>
-          </Form>
-        </ModalBody>
-      </PerfectScrollbar>
-    </Modal>
+            <CustomTextField
+              select
+              fullWidth
+              label='Guests'
+              sx={{ mb: 4 }}
+              SelectProps={{
+                multiple: true,
+                value: values.guests,
+                onChange: e => setValues({ ...values, guests: e.target.value })
+              }}
+            >
+              <MenuItem value='bruce'>Bruce</MenuItem>
+              <MenuItem value='clark'>Clark</MenuItem>
+              <MenuItem value='diana'>Diana</MenuItem>
+              <MenuItem value='john'>John</MenuItem>
+              <MenuItem value='barry'>Barry</MenuItem>
+            </CustomTextField>
+            <CustomTextField
+              rows={4}
+              multiline
+              fullWidth
+              sx={{ mb: 6.5 }}
+              label='Description'
+              id='event-description'
+              value={values.description}
+              onChange={e => setValues({ ...values, description: e.target.value })}
+            />
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <RenderSidebarFooter />
+            </Box>
+          </form>
+        </DatePickerWrapper>
+      </Box>
+    </Drawer>
   )
 }
 

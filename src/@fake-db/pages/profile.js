@@ -1,358 +1,664 @@
-import mock from '../mock'
-
-// Avatar Imports
-import avatar1 from '@src/assets/images/avatars/1-small.png'
-import avatar3 from '@src/assets/images/avatars/3-small.png'
-import avatar5 from '@src/assets/images/avatars/5-small.png'
-import avatar6 from '@src/assets/images/avatars/6-small.png'
-import avatar10 from '@src/assets/images/avatars/10-small.png'
-import avatar12 from '@src/assets/images/avatars/12-small.png'
-
-// Portrait Imports
-import portrait1 from '@src/assets/images/portrait/small/avatar-s-1.jpg'
-import portrait2 from '@src/assets/images/portrait/small/avatar-s-2.jpg'
-import portrait3 from '@src/assets/images/portrait/small/avatar-s-3.jpg'
-import portrait4 from '@src/assets/images/portrait/small/avatar-s-4.jpg'
-import portrait5 from '@src/assets/images/portrait/small/avatar-s-5.jpg'
-import portrait6 from '@src/assets/images/portrait/small/avatar-s-6.jpg'
-import portrait7 from '@src/assets/images/portrait/small/avatar-s-7.jpg'
-import portrait8 from '@src/assets/images/portrait/small/avatar-s-8.jpg'
-import portrait9 from '@src/assets/images/portrait/small/avatar-s-9.jpg'
-import portrait10 from '@src/assets/images/portrait/small/avatar-s-10.jpg'
-import portrait11 from '@src/assets/images/portrait/small/avatar-s-11.jpg'
-import portrait12 from '@src/assets/images/portrait/small/avatar-s-12.jpg'
-import portrait15 from '@src/assets/images/portrait/small/avatar-s-15.jpg'
-import portrait18 from '@src/assets/images/portrait/small/avatar-s-18.jpg'
-import portrait22 from '@src/assets/images/portrait/small/avatar-s-22.jpg'
-
-// ** Cover Image
-import coverImg from '@src/assets/images/profile/user-uploads/timeline.jpg'
-
-// ** Post Images
-import Post2 from '@src/assets/images/profile/post-media/2.jpg'
-import Post25 from '@src/assets/images/profile/post-media/25.jpg'
-
-// ** User Uploads
-import userUpload02 from '@src/assets/images/profile/user-uploads/user-02.jpg'
-import userUpload03 from '@src/assets/images/profile/user-uploads/user-03.jpg'
-import userUpload04 from '@src/assets/images/profile/user-uploads/user-04.jpg'
-import userUpload05 from '@src/assets/images/profile/user-uploads/user-05.jpg'
-import userUpload06 from '@src/assets/images/profile/user-uploads/user-06.jpg'
-import userUpload07 from '@src/assets/images/profile/user-uploads/user-07.jpg'
-import userUpload08 from '@src/assets/images/profile/user-uploads/user-08.jpg'
-import userUpload09 from '@src/assets/images/profile/user-uploads/user-09.jpg'
-import userUpload13 from '@src/assets/images/profile/user-uploads/user-13.jpg'
+// ** Mock Adapter
+import mock from 'src/@fake-db/mock'
 
 const data = {
-  profileData: {
-    header: {
-      avatar: portrait2,
-      username: 'Kitty Allanson',
-      designation: 'UI/UX Designer',
-      coverImg
-    },
-    userAbout: {
-      about: 'Tart I love sugar plum I love oat cake. Sweet ⭐️ roll caramels I love jujubes. Topping cake wafer.',
-      joined: 'November 15, 2015',
-      lives: 'New York, USA',
-      email: 'bucketful@fiendhead.org',
-      website: 'www.pixinvent.com'
-    },
-    suggestedPages: [
+  profileHeader: {
+    location: 'Vatican City',
+    joiningDate: 'April 2021',
+    fullName: 'Belle Ferguson',
+    designation: 'UX Designer',
+    profileImg: '/images/avatars/14.png',
+    designationIcon: 'tabler:color-swatch',
+    coverImg: '/images/pages/profile-banner.png'
+  },
+  profile: {
+    about: [
+      { property: 'Full Name', value: 'John Doe', icon: 'tabler:user' },
+      { property: 'Status', value: 'active', icon: 'tabler:check' },
+      { property: 'Role', value: 'Developer', icon: 'tabler:crown' },
+      { property: 'Country', value: 'USA', icon: 'tabler:flag' },
+      { property: 'Language', value: 'English', icon: 'tabler:language' }
+    ],
+    contacts: [
+      { property: 'Contact', value: '(123) 456-7890', icon: 'tabler:phone-call' },
+      { property: 'Skype', value: 'john.doe', icon: 'tabler:brand-skype' },
+      { property: 'Email', value: 'john.doe@example.com', icon: 'tabler:mail' }
+    ],
+    teams: [
+      { property: 'Backend Developer', value: '(126 Members)', icon: 'tabler:brand-github', color: 'primary' },
+      { property: 'React Developer', value: '(98 Members)', icon: 'tabler:brand-react', color: 'info' }
+    ],
+    overview: [
+      { property: 'Task Compiled', value: '13.5k', icon: 'tabler:check' },
+      { property: 'Connections', value: '897', icon: 'tabler:users' },
+      { property: 'Projects Compiled', value: '146', icon: 'tabler:layout-grid' }
+    ],
+    connections: [
       {
-        avatar: avatar12,
-        username: 'Peter Reed',
-        subtitle: 'Company',
-        favorite: false
+        isFriend: false,
+        connections: '45',
+        name: 'Cecilia Payne',
+        avatar: '/images/avatars/8.png'
       },
       {
-        avatar: avatar1,
-        username: 'Harriett Adkins',
-        subtitle: 'Company',
-        favorite: false
+        isFriend: true,
+        connections: '1.32k',
+        name: 'Curtis Fletcher',
+        avatar: '/images/avatars/3.png'
       },
       {
-        avatar: avatar10,
-        username: 'Juan Weaver',
-        subtitle: 'Company',
-        favorite: false
+        isFriend: true,
+        connections: '125',
+        name: 'Alice Stone',
+        avatar: '/images/avatars/12.png'
       },
       {
-        avatar: avatar3,
-        username: 'Claudia Chandler',
-        subtitle: 'Company',
-        favorite: false
+        isFriend: false,
+        connections: '456',
+        name: 'Darrell Barnes',
+        avatar: '/images/avatars/7.png'
       },
       {
-        avatar: avatar5,
-        username: 'Earl Briggs',
-        subtitle: 'Company',
-        favorite: true
-      },
-      {
-        avatar: avatar6,
-        username: 'Jonathan Lyons',
-        subtitle: 'Beauty Store',
-        favorite: false
+        isFriend: false,
+        connections: '1.2k',
+        name: 'Eugenia Moore',
+        avatar: '/images/avatars/6.png'
       }
     ],
-    twitterFeeds: [
+    teamsTech: [
       {
-        imgUrl: avatar5,
-        title: 'Gertrude Stevens',
-        id: 'tiana59 ',
-        tags: '#design #fasion',
-        desc: 'I love cookie chupa chups sweet tart apple pie ⭐️ chocolate bar.',
-        favorite: false
+        members: 72,
+        ChipColor: 'error',
+        chipText: 'Developer',
+        title: 'React Developers',
+        avatar: '/images/icons/project-icons/react-label.png'
       },
       {
-        imgUrl: avatar12,
-        title: 'Lura Jones',
-        id: 'tiana59 ',
-        tags: '#vuejs #code #coffeez',
-        desc: 'Halvah I love powder jelly I love cheesecake cotton candy. 😍',
-        favorite: true
+        members: 122,
+        chipText: 'Support',
+        ChipColor: 'primary',
+        title: 'Support Team',
+        avatar: '/images/icons/project-icons/support-label.png'
       },
       {
-        imgUrl: avatar1,
-        title: 'Norman Gross',
-        id: 'tiana59 ',
-        tags: '#sketch #uiux #figma',
-        desc: 'Candy jelly beans powder brownie biscuit. Jelly marzipan oat cake cake.',
-        favorite: false
-      }
-    ],
-    post: [
-      {
-        avatar: portrait18,
-        username: 'Leeanna Alvord',
-        postTime: '12 Dec 2018 at 1:16 AM',
-        postText:
-          'Wonderful Machine· A well-written bio allows viewers to get to know a photographer beyond the work. This can make the difference when presenting to clients who are looking for the perfect fit.',
-        postImg: Post2,
-        likes: '1.25k',
-        youLiked: true,
-        comments: '1.25k',
-        share: '1.25k',
-        likedUsers: [
-          {
-            avatar: portrait1,
-            username: 'Trine Lynes'
-          },
-          {
-            avatar: portrait2,
-            username: 'Lilian Nenes'
-          },
-          {
-            avatar: portrait3,
-            username: 'Alberto Glotzbach'
-          },
-          {
-            avatar: portrait5,
-            username: 'George Nordic'
-          },
-          {
-            avatar: portrait4,
-            username: 'Vinnie Mostowy'
-          }
-        ],
-        likedCount: 140,
-        detailedComments: [
-          {
-            avatar: portrait6,
-            username: 'Kitty Allanson',
-            comment: 'Easy & smart fuzzy search🕵🏻 functionality which enables users to search quickly.',
-            commentsLikes: 34,
-            youLiked: false
-          },
-          {
-            avatar: portrait8,
-            username: 'Jackey Potter',
-            comment: 'Unlimited color🖌 options allows you to set your application color as per your branding 🤪.',
-            commentsLikes: 61,
-            youLiked: true
-          }
-        ]
+        members: 7,
+        ChipColor: 'info',
+        chipText: 'Designer',
+        title: 'UI Designer',
+        avatar: '/images/icons/project-icons/figma-label.png'
       },
       {
-        avatar: portrait22,
-        username: 'Rosa Walters',
-        postTime: '11 Dec 2019 at 1:16 AM',
-        postText:
-          'Wonderful Machine· A well-written bio allows viewers to get to know a photographer beyond the work. This can make the difference when presenting to clients who are looking for the perfect fit.',
-        postImg: Post25,
-        likes: '1.25k',
-        youLiked: true,
-        comments: '1.25k',
-        share: '1.25k',
-        likedUsers: [
-          {
-            avatar: portrait1,
-            username: 'Kori Scargle'
-          },
-          {
-            avatar: portrait2,
-            username: 'Florinda Mollison'
-          },
-          {
-            avatar: portrait3,
-            username: 'Beltran Endley'
-          },
-          {
-            avatar: portrait5,
-            username: 'Kara Gerred'
-          },
-          {
-            avatar: portrait4,
-            username: 'Sophey Bru'
-          }
-        ],
-        likedCount: 271,
-        detailedComments: [
-          {
-            avatar: portrait3,
-            username: 'Kitty Allanson',
-            comment: 'Easy & smart fuzzy search🕵🏻 functionality which enables users to search quickly.',
-            commentsLikes: 34,
-            youLiked: false
-          }
-        ]
+        members: 289,
+        ChipColor: 'error',
+        chipText: 'Developer',
+        title: 'Vue.js Developers',
+        avatar: '/images/icons/project-icons/vue-label.png'
       },
       {
-        avatar: portrait15,
-        username: 'Charles Watson',
-        postTime: '12 Dec 2019 at 1:16 AM',
-        postText:
-          'Wonderful Machine· A well-written bio allows viewers to get to know a photographer beyond the work. This can make the difference when presenting to clients who are looking for the perfect fit.',
-        postVid: 'https://www.youtube.com/embed/6stlCkUDG_s',
-        likes: '1.25k',
-        youLiked: true,
-        comments: '1.25k',
-        share: '1.25k',
-        likedUsers: [
-          {
-            avatar: portrait1,
-            username: 'Dehlia Bolderson'
-          },
-          {
-            avatar: portrait2,
-            username: 'De Lamy'
-          },
-          {
-            avatar: portrait3,
-            username: 'Vallie Kingsley'
-          },
-          {
-            avatar: portrait5,
-            username: 'Nadia Armell'
-          },
-          {
-            avatar: portrait4,
-            username: 'Romonda Aseef'
-          }
-        ],
-        likedCount: 264,
-        detailedComments: [
-          {
-            avatar: portrait3,
-            username: 'Kitty Allanson',
-            comment: 'Easy & smart fuzzy search🕵🏻 functionality which enables users to search quickly.',
-            commentsLikes: 34,
-            youLiked: false
-          }
-        ]
-      }
-    ],
-    latestPhotos: [
-      { img: userUpload13 },
-      { img: userUpload02 },
-      { img: userUpload03 },
-      { img: userUpload04 },
-      { img: userUpload05 },
-      { img: userUpload06 },
-      { img: userUpload07 },
-      { img: userUpload08 },
-      { img: userUpload09 }
-    ],
-    suggestions: [
-      {
-        avatar: portrait9,
-        name: 'Peter Reed',
-        mutualFriend: '6 Mutual Friends'
-      },
-      {
-        avatar: portrait6,
-        name: 'Harriett Adkins',
-        mutualFriend: '3 Mutual Friends'
-      },
-      {
-        avatar: portrait7,
-        name: 'Juan Weaver',
-        mutualFriend: '1 Mutual Friends'
-      },
-      {
-        avatar: portrait8,
-        name: 'Claudia Chandler',
-        mutualFriend: '16 Mutual Friends'
-      },
-      {
-        avatar: portrait1,
-        name: 'Earl Briggs',
-        mutualFriend: '4 Mutual Friends'
-      },
-      {
-        avatar: portrait10,
-        name: 'Jonathan Lyons',
-        mutualFriend: '25 Mutual Friends'
-      }
-    ],
-    polls: [
-      {
-        name: 'RDJ',
-        result: '82%',
-        votedUser: [
-          {
-            img: portrait12,
-            username: 'Tonia Seabold'
-          },
-          {
-            img: portrait5,
-            username: 'Carissa Dolle'
-          },
-          {
-            img: portrait9,
-            username: 'Kelle Herrick'
-          },
-          {
-            img: portrait10,
-            username: 'Len Bregantini'
-          },
-          {
-            img: portrait11,
-            username: 'John Doe'
-          }
-        ]
-      },
-      {
-        name: 'Chris Hemsworth',
-        result: '67%',
-        votedUser: [
-          {
-            img: portrait9,
-            username: 'Diana Prince'
-          },
-          {
-            img: portrait1,
-            username: 'Lois Lane'
-          },
-          {
-            img: portrait8,
-            username: 'Bruce Wayne'
-          }
-        ]
+        members: 24,
+        chipText: 'Marketing',
+        ChipColor: 'secondary',
+        title: 'Digital Marketing',
+        avatar: '/images/icons/project-icons/twitter-label.png'
       }
     ]
-  }
+  },
+  teams: [
+    {
+      extraMembers: 25,
+      title: 'React Developers',
+      avatar: '/images/icons/project-icons/react-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/1.png', name: 'Vinnie Mostowy' },
+        { avatar: '/images/avatars/2.png', name: 'Allen Rieske' },
+        { avatar: '/images/avatars/3.png', name: 'Julee Rossignol' },
+        { avatar: '/images/avatars/4.png', name: 'George Burrill' }
+      ],
+      description:
+        'We don’t make assumptions about the rest of your technology stack, so you can develop new features in React.',
+      chips: [
+        {
+          title: 'React',
+          color: 'primary'
+        },
+        {
+          title: 'MUI',
+          color: 'info'
+        }
+      ]
+    },
+    {
+      extraMembers: 15,
+      title: 'Vue.js Dev Team',
+      avatar: '/images/icons/project-icons/vue-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/5.png', name: "Kaith D'souza" },
+        { avatar: '/images/avatars/6.png', name: 'John Doe' },
+        { avatar: '/images/avatars/7.png', name: 'Alan Walker' },
+        { avatar: '/images/avatars/8.png', name: 'Calvin Middleton' }
+      ],
+      description:
+        'The development of Vue and its ecosystem is guided by an international team, some of whom have chosen to be featured below.',
+      chips: [
+        {
+          title: 'Vuejs',
+          color: 'success'
+        },
+        {
+          color: 'error',
+          title: 'Developer'
+        }
+      ]
+    },
+    {
+      extraMembers: 55,
+      title: 'Creative Designers',
+      avatar: '/images/icons/project-icons/xd-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/9.png', name: 'Jimmy Ressula' },
+        { avatar: '/images/avatars/10.png', name: 'Kristi Lawker' },
+        { avatar: '/images/avatars/11.png', name: 'Danny Paul' },
+        { avatar: '/images/avatars/12.png', name: 'Alicia Littleton' }
+      ],
+      description:
+        'A design or product team is more than just the people on it. A team includes the people, the roles they play.',
+      chips: [
+        {
+          title: 'Sketch',
+          color: 'warning'
+        },
+        {
+          title: 'XD',
+          color: 'error'
+        }
+      ]
+    },
+    {
+      extraMembers: 35,
+      title: 'Support Team',
+      avatar: '/images/icons/project-icons/support-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/5.png', name: 'Andrew Tye' },
+        { avatar: '/images/avatars/12.png', name: 'Rishi Swaat' },
+        { avatar: '/images/avatars/7.png', name: 'Rossie Kim' },
+        { avatar: '/images/avatars/8.png', name: 'Mary Hunter' }
+      ],
+      description:
+        'Support your team. Your customer support team is fielding the good, the bad, and the ugly day in and day out.',
+      chips: [
+        {
+          color: 'info',
+          title: 'Zendesk'
+        }
+      ]
+    },
+    {
+      extraMembers: 19,
+      title: 'Digital Marketing',
+      avatar: '/images/icons/project-icons/social-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/13.png', name: 'Kim Merchent' },
+        { avatar: '/images/avatars/12.png', name: "Sam D'souza" },
+        { avatar: '/images/avatars/11.png', name: 'Nurvi Karlos' },
+        { avatar: '/images/avatars/10.png', name: 'Margorie Whitmire' }
+      ],
+      description:
+        'Digital marketing refers to advertising delivered through digital channels such as search engines, websites…',
+      chips: [
+        {
+          color: 'primary',
+          title: 'Twitter'
+        },
+        {
+          title: 'Email',
+          color: 'success'
+        }
+      ]
+    },
+    {
+      title: 'Event',
+      extraMembers: 55,
+      avatar: '/images/icons/project-icons/event-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/6.png', name: 'Vinnie Mostowy' },
+        { avatar: '/images/avatars/5.png', name: 'Allen Rieske' },
+        { avatar: '/images/avatars/4.png', name: 'Julee Rossignol' },
+        { avatar: '/images/avatars/7.png', name: 'Daniel Long' }
+      ],
+      description:
+        'Event is defined as a particular contest which is part of a program of contests. An example of an event is the long…',
+      chips: [
+        {
+          title: 'Hubilo',
+          color: 'success'
+        }
+      ]
+    },
+    {
+      extraMembers: 45,
+      title: 'Figma Resources',
+      avatar: '/images/icons/project-icons/figma-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/8.png', name: 'Andrew Mostowy' },
+        { avatar: '/images/avatars/1.png', name: 'Micky Ressula' },
+        { avatar: '/images/avatars/3.png', name: 'Michel Pal' },
+        { avatar: '/images/avatars/12.png', name: 'Herman Lockard' }
+      ],
+      description:
+        'Explore, install, use, and remix thousands of plugins and files published to the Figma Community by designers and developers.',
+      chips: [
+        {
+          title: 'UI/UX',
+          color: 'success'
+        },
+        {
+          title: 'Figma',
+          color: 'secondary'
+        }
+      ]
+    },
+    {
+      extraMembers: 50,
+      title: 'Only Beginners',
+      avatar: '/images/icons/project-icons/html-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/11.png', name: 'Kim Karlos' },
+        { avatar: '/images/avatars/10.png', name: 'Katy Turner' },
+        { avatar: '/images/avatars/9.png', name: 'Peter Adward' },
+        { avatar: '/images/avatars/6.png', name: 'Leona Miller' }
+      ],
+      description:
+        'Learn the basics of how websites work, front-end vs back-end, and using a code editor. Learn basic HTML, CSS, and…',
+      chips: [
+        {
+          title: 'CSS',
+          color: 'info'
+        },
+        {
+          title: 'HTML',
+          color: 'warning'
+        }
+      ]
+    }
+  ],
+  projects: [
+    {
+      members: 28,
+      daysLeft: 28,
+      comments: 15,
+      totalTask: 344,
+      hours: '380/244',
+      tasks: '290/344',
+      budget: '$18.2k',
+      completedTask: 328,
+      deadline: '28/2/22',
+      chipColor: 'success',
+      startDate: '14/2/21',
+      budgetSpent: '$24.8k',
+      title: 'Social Banners',
+      client: 'Christian Jimenez',
+      avatar: '/images/icons/project-icons/social-label.png',
+      description: 'We are Consulting, Software Development and Web Development Services.',
+      avatarGroup: [
+        { avatar: '/images/avatars/11.png', name: 'Vinnie Mostowy' },
+        { avatar: '/images/avatars/2.png', name: 'Allen Rieske' },
+        { avatar: '/images/avatars/3.png', name: 'Julee Rossignol' }
+      ]
+    },
+    {
+      members: 12,
+      daysLeft: 15,
+      comments: 236,
+      totalTask: 90,
+      tasks: '12/90',
+      hours: '98/135',
+      budget: '$1.8k',
+      completedTask: 38,
+      deadline: '21/6/22',
+      budgetSpent: '$2.4k',
+      chipColor: 'warning',
+      startDate: '18/8/21',
+      title: 'Admin Template',
+      client: 'Jeffrey Phillips',
+      avatar: '/images/icons/project-icons/react-label.png',
+      avatarGroup: [
+        { avatar: '/images/avatars/4.png', name: "Kaith D'souza" },
+        { avatar: '/images/avatars/5.png', name: 'John Doe' },
+        { avatar: '/images/avatars/6.png', name: 'Alan Walker' }
+      ],
+      description: "Time is our most valuable asset, that's why we want to help you save it by creating…"
+    },
+    {
+      members: 23,
+      daysLeft: 45,
+      comments: 98,
+      budget: '$420',
+      totalTask: 140,
+      tasks: '22/140',
+      hours: '880/421',
+      completedTask: 95,
+      chipColor: 'error',
+      budgetSpent: '$980',
+      deadline: '8/10/21',
+      title: 'App Design',
+      startDate: '24/7/21',
+      client: 'Ricky McDonald',
+      avatar: '/images/icons/project-icons/vue-label.png',
+      description: 'App design combines the user interface (UI) and user experience (UX).',
+      avatarGroup: [
+        { avatar: '/images/avatars/7.png', name: 'Jimmy Ressula' },
+        { avatar: '/images/avatars/8.png', name: 'Kristi Lawker' },
+        { avatar: '/images/avatars/9.png', name: 'Danny Paul' }
+      ]
+    },
+    {
+      members: 62,
+      comments: 120,
+      daysLeft: 126,
+      totalTask: 420,
+      budget: '2.43k',
+      tasks: '237/420',
+      hours: '1.2k/820',
+      completedTask: 302,
+      deadline: '12/9/22',
+      budgetSpent: '$8.5k',
+      chipColor: 'warning',
+      startDate: '10/2/19',
+      client: 'Hulda Wright',
+      title: 'Create Website',
+      avatar: '/images/icons/project-icons/html-label.png',
+      description: 'Your domain name should reflect your products or services so that your...',
+      avatarGroup: [
+        { avatar: '/images/avatars/10.png', name: 'Andrew Tye' },
+        { avatar: '/images/avatars/11.png', name: 'Rishi Swaat' },
+        { avatar: '/images/avatars/12.png', name: 'Rossie Kim' }
+      ]
+    },
+    {
+      daysLeft: 5,
+      members: 98,
+      comments: 20,
+      totalTask: 285,
+      tasks: '29/285',
+      budget: '28.4k',
+      hours: '142/420',
+      chipColor: 'error',
+      completedTask: 100,
+      deadline: '25/12/21',
+      startDate: '12/12/20',
+      budgetSpent: '$52.7k',
+      client: 'Jerry Greene',
+      title: 'Figma Dashboard',
+      avatar: '/images/icons/project-icons/figma-label.png',
+      description: 'Use this template to organize your design project. Some of the key features are…',
+      avatarGroup: [
+        { avatar: '/images/avatars/12.png', name: 'Kim Merchent' },
+        { avatar: '/images/avatars/6.png', name: "Sam D'souza" },
+        { avatar: '/images/avatars/4.png', name: 'Nurvi Karlos' }
+      ]
+    },
+    {
+      daysLeft: 4,
+      comments: 16,
+      budget: '$655',
+      members: 23,
+      totalTask: 290,
+      tasks: '29/290',
+      hours: '580/445',
+      completedTask: 290,
+      budgetSpent: '$1.3k',
+      chipColor: 'success',
+      deadline: '02/11/21',
+      startDate: '17/8/21',
+      title: 'Logo Design',
+      client: 'Olive Strickland',
+      avatar: '/images/icons/project-icons/xd-label.png',
+      description: 'Premium logo designs created by top logo designers. Create the branding of business.',
+      avatarGroup: [
+        { avatar: '/images/avatars/8.png', name: 'Kim Karlos' },
+        { avatar: '/images/avatars/11.png', name: 'Katy Turner' },
+        { avatar: '/images/avatars/2.png', name: 'Peter Adward' }
+      ]
+    }
+  ],
+  connections: [
+    {
+      tasks: '834',
+      projects: '18',
+      isConnected: true,
+      connections: '129',
+      name: 'Mark Gilbert',
+      designation: 'UI Designer',
+      avatar: '/images/avatars/11.png',
+      chips: [
+        {
+          title: 'Figma',
+          color: 'secondary'
+        },
+        {
+          title: 'Sketch',
+          color: 'warning'
+        }
+      ]
+    },
+    {
+      tasks: '2.31k',
+      projects: '112',
+      isConnected: false,
+      connections: '1.28k',
+      name: 'Eugenia Parsons',
+      designation: 'Developer',
+      avatar: '/images/avatars/12.png',
+      chips: [
+        {
+          color: 'error',
+          title: 'Angular'
+        },
+        {
+          color: 'info',
+          title: 'React'
+        }
+      ]
+    },
+    {
+      tasks: '1.25k',
+      projects: '32',
+      isConnected: false,
+      connections: '890',
+      name: 'Francis Byrd',
+      designation: 'Developer',
+      avatar: '/images/avatars/7.png',
+      chips: [
+        {
+          title: 'HTML',
+          color: 'primary'
+        },
+        {
+          color: 'info',
+          title: 'React'
+        }
+      ]
+    },
+    {
+      tasks: '12.4k',
+      projects: '86',
+      isConnected: false,
+      connections: '890',
+      name: 'Leon Lucas',
+      designation: 'UI/UX Designer',
+      avatar: '/images/avatars/8.png',
+      chips: [
+        {
+          title: 'Figma',
+          color: 'secondary'
+        },
+        {
+          title: 'Sketch',
+          color: 'warning'
+        },
+        {
+          color: 'primary',
+          title: 'Photoshop'
+        }
+      ]
+    },
+    {
+      tasks: '23.8k',
+      projects: '244',
+      isConnected: true,
+      connections: '2.14k',
+      name: 'Jayden Rogers',
+      designation: 'Full Stack Developer',
+      avatar: '/images/avatars/5.png',
+      chips: [
+        {
+          color: 'info',
+          title: 'React'
+        },
+        {
+          title: 'HTML',
+          color: 'warning'
+        },
+        {
+          color: 'success',
+          title: 'Node.js'
+        }
+      ]
+    },
+    {
+      tasks: '1.28k',
+      projects: '32',
+      isConnected: false,
+      designation: 'SEO',
+      connections: '1.27k',
+      name: 'Jeanette Powell',
+      avatar: '/images/avatars/6.png',
+      chips: [
+        {
+          title: 'Analysis',
+          color: 'secondary'
+        },
+        {
+          color: 'success',
+          title: 'Writing'
+        }
+      ]
+    }
+  ]
 }
 
-mock.onGet('/profile/data').reply(() => [200, data.profileData])
+const projectTable = [
+  {
+    id: 1,
+    status: 38,
+    leader: 'Eileen',
+    name: 'Website SEO',
+    date: '10 may 2021',
+    avatarColor: 'success',
+    avatarGroup: ['/images/avatars/1.png', '/images/avatars/4.png', '/images/avatars/3.png', '/images/avatars/2.png']
+  },
+  {
+    id: 2,
+    status: 45,
+    leader: 'Owen',
+    date: '03 Jan 2021',
+    name: 'Social Banners',
+    avatar: '/images/icons/project-icons/social-label.png',
+    avatarGroup: ['/images/avatars/5.png', '/images/avatars/6.png']
+  },
+  {
+    id: 3,
+    status: 92,
+    leader: 'Keith',
+    date: '12 Aug 2021',
+    name: 'Logo Designs',
+    avatar: '/images/icons/project-icons/sketch-label.png',
+    avatarGroup: ['/images/avatars/2.png', '/images/avatars/1.png', '/images/avatars/7.png', '/images/avatars/8.png']
+  },
+  {
+    id: 4,
+    status: 56,
+    leader: 'Merline',
+    date: '19 Apr 2021',
+    name: 'IOS App Design',
+    avatar: '/images/icons/project-icons/sketch-label.png',
+    avatarGroup: ['/images/avatars/5.png', '/images/avatars/3.png', '/images/avatars/6.png', '/images/avatars/7.png']
+  },
+  {
+    id: 5,
+    status: 25,
+    leader: 'Harmonia',
+    date: '08 Apr 2021',
+    name: 'Figma Dashboards',
+    avatar: '/images/icons/project-icons/figma-label.png',
+    avatarGroup: ['/images/avatars/7.png', '/images/avatars/6.png', '/images/avatars/8.png']
+  },
+  {
+    id: 6,
+    status: 36,
+    leader: 'Allyson',
+    date: '29 Sept 2021',
+    name: 'Crypto Admin',
+    avatar: '/images/icons/project-icons/html-label.png',
+    avatarGroup: ['/images/avatars/2.png', '/images/avatars/5.png']
+  },
+  {
+    id: 7,
+    status: 72,
+    leader: 'Georgie',
+    date: '20 Mar 2021',
+    name: 'Create Website',
+    avatar: '/images/icons/project-icons/react-label.png',
+    avatarGroup: ['/images/avatars/3.png', '/images/avatars/1.png', '/images/avatars/6.png']
+  },
+  {
+    id: 8,
+    status: 89,
+    leader: 'Fred',
+    date: '09 Feb 2021',
+    name: 'App Design',
+    avatar: '/images/icons/project-icons/xd-label.png',
+    avatarGroup: ['/images/avatars/7.png', '/images/avatars/6.png']
+  },
+  {
+    id: 9,
+    status: 77,
+    leader: 'Richardo',
+    date: '17 June 2021',
+    name: 'Angular APIs',
+    avatar: '/images/icons/project-icons/figma-label.png',
+    avatarGroup: ['/images/avatars/5.png', '/images/avatars/8.png', '/images/avatars/1.png']
+  },
+  {
+    id: 10,
+    status: 100,
+    leader: 'Genevra',
+    date: '06 Oct 2021',
+    name: 'Admin Template',
+    avatar: '/images/icons/project-icons/vue-label.png',
+    avatarGroup: ['/images/avatars/2.png', '/images/avatars/3.png', '/images/avatars/4.png', '/images/avatars/5.png']
+  }
+]
+mock.onGet('/pages/profile').reply(config => {
+  const { tab = '' } = config.params ?? ''
+
+  // @ts-ignore
+  return [200, data[tab]]
+})
+mock.onGet('/pages/profile-header').reply(() => {
+  return [200, data.profileHeader]
+})
+mock.onGet('/pages/profile-table').reply(config => {
+  const { q = '' } = config.params ?? ''
+  const queryLowered = q.toLowerCase()
+
+  const filteredData = projectTable.filter(row => {
+    return (
+      row.name.toLowerCase().includes(queryLowered) ||
+      row.date.toLowerCase().includes(queryLowered) ||
+      row.leader.toLowerCase().includes(queryLowered)
+    )
+  })
+
+  return [200, filteredData]
+})

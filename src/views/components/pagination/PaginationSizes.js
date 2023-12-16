@@ -1,97 +1,14 @@
-// ** Reactstrap Imports
-import { Pagination, PaginationItem, PaginationLink, Row, Col } from 'reactstrap'
+// ** MUI Imports
+import Pagination from '@mui/material/Pagination'
 
-const PaginationPositions = () => {
+const PaginationSizes = () => {
   return (
-    <Row className='align-items-center'>
-      <Col xl='4' lg='12'>
-        <Pagination size='lg'>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              3
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              4
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              5
-            </PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-      <Col xl='4' lg='12'>
-        <Pagination>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              3
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              4
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              5
-            </PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-      <Col xl='4' lg='12'>
-        <Pagination size='sm'>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              1
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              2
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem active>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              3
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              4
-            </PaginationLink>
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationLink href='#' onClick={e => e.preventDefault()}>
-              5
-            </PaginationLink>
-          </PaginationItem>
-        </Pagination>
-      </Col>
-    </Row>
+    <div className='demo-space-y'>
+      <Pagination count={10} size='small' />
+      <Pagination count={10} color='primary' />
+      <Pagination count={10} size='large' color='secondary' />
+    </div>
   )
 }
-export default PaginationPositions
+
+export default PaginationSizes

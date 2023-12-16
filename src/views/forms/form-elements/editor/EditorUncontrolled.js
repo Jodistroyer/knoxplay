@@ -1,20 +1,6 @@
-// ** Third Party Components
-import { Editor } from 'react-draft-wysiwyg'
+// ** Component Import
+import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 
-// ** Reactstrap Imports
-import { Card, CardHeader, CardTitle, CardBody } from 'reactstrap'
-
-const EditorUncontrolled = () => {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle tag='h4'>Uncontrolled Editor</CardTitle>
-      </CardHeader>
-      <CardBody>
-        <Editor />
-      </CardBody>
-    </Card>
-  )
-}
+const EditorUncontrolled = () => <ReactDraftWysiwyg />
 
 export default EditorUncontrolled

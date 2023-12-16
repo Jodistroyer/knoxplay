@@ -1,489 +1,517 @@
-export const filledButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const ButtonsCustomizedJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import { brown } from '@mui/material/colors'
+import { styled } from '@mui/material/styles'
+import Button from '@mui/material/Button'
 
-import { Button } from 'reactstrap'
-
-const FilledButtons = () => {
-  return (
-    <React.Fragment>
-      <Button.Ripple color='primary'>Primary</Button.Ripple>
-      <Button.Ripple color='secondary'>Secondary</Button.Ripple>
-      <Button.Ripple color='success'>Success</Button.Ripple>
-      <Button.Ripple color='danger'>Danger</Button.Ripple>
-      <Button.Ripple color='warning'>Warning</Button.Ripple>
-      <Button.Ripple color='info'>Info</Button.Ripple>
-      <Button.Ripple color='dark'>Dark</Button.Ripple>
-    </React.Fragment>
-  )
-}
-export default FilledButtons
-`}
-    </code>
-  </pre>
-)
-
-export const outlineButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-
-const OutlineButtons = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button.Ripple color='primary' outline>
-        Primary
-      </Button.Ripple>
-      <Button.Ripple color='secondary' outline>
-        Secondary
-      </Button.Ripple>
-      <Button.Ripple color='success' outline>
-        Success
-      </Button.Ripple>
-      <Button.Ripple color='danger' outline>
-        Danger
-      </Button.Ripple>
-      <Button.Ripple color='warning' outline>
-        Warning
-      </Button.Ripple>
-      <Button.Ripple color='info' outline>
-        Info
-      </Button.Ripple>
-      <Button.Ripple color='dark' outline>
-        Dark
-      </Button.Ripple>
-    </div>
-  )
-}
-export default OutlineButtons
-  `}
-    </code>
-  </pre>
-)
-
-export const flatButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-
-const FlatButtons = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button.Ripple color='flat-primary'>Primary</Button.Ripple>
-      <Button.Ripple color='flat-secondary'>Secondary</Button.Ripple>
-      <Button.Ripple color='flat-success'>Success</Button.Ripple>
-      <Button.Ripple color='flat-danger'>Danger</Button.Ripple>
-      <Button.Ripple color='flat-warning'>Warning</Button.Ripple>
-      <Button.Ripple color='flat-info'>Info</Button.Ripple>
-      <Button.Ripple color='flat-dark'>Dark</Button.Ripple>
-    </div>
-  )
-}
-export default FlatButtons
-    `}
-    </code>
-  </pre>
-)
-
-export const gradientButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-
-const GradientButtons = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button color='gradient-primary'>Primary</Button>
-      <Button color='gradient-secondary'>Secondary</Button>
-      <Button color='gradient-success'>Success</Button>
-      <Button color='gradient-danger'>Danger</Button>
-      <Button color='gradient-warning'>Warning</Button>
-      <Button color='gradient-info'>Info</Button>
-      <Button color='gradient-dark'>Dark</Button>
-    </div>
-  )
-}
-export default GradientButtons
-      `}
-    </code>
-  </pre>
-)
-
-export const reliefButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-
-const ReliefButtons = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button color='relief-primary'>Primary</Button>
-      <Button color='relief-secondary'>Secondary</Button>
-      <Button color='relief-success'>Success</Button>
-      <Button color='relief-danger'>Danger</Button>
-      <Button color='relief-warning'>Warning</Button>
-      <Button color='relief-info'>Info</Button>
-      <Button color='relief-dark'>Dark</Button>
-    </div>
-  )
-}
-export default ReliefButtons`}
-    </code>
-  </pre>
-)
-
-export const roundButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-
-const RoundButtons = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button.Ripple className='round' color='primary' outline>
-        Primary
-      </Button.Ripple>
-      <Button.Ripple className='round' color='secondary' outline>
-        Secondary
-      </Button.Ripple>
-      <Button.Ripple className='round' color='success' outline>
-        Success
-      </Button.Ripple>
-      <Button.Ripple className='round' color='danger' outline>
-        Danger
-      </Button.Ripple>
-      <Button.Ripple className='round' color='warning' outline>
-        Warning
-      </Button.Ripple>
-      <Button.Ripple className='round' color='info' outline>
-        Info
-      </Button.Ripple>
-      <Button.Ripple className='round' color='dark' outline>
-        Dark
-      </Button.Ripple>
-    </div>
-  )
-}
-export default RoundButtons`}
-    </code>
-  </pre>
-)
-
-export const iconButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-import { Home, Star, Check } from 'react-feather'
-
-const ButtonsIcon = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button.Ripple outline color='primary'>
-        <Home size={14} />
-        <span className='align-middle ms-25'>Home</span>
-      </Button.Ripple>
-      <Button.Ripple color='warning'>
-        <Star size={14} />
-        <span className='align-middle ms-25'>Star</span>
-      </Button.Ripple>
-      <Button.Ripple color='flat-success'>
-        <Check size={14} />
-        <span className='align-middle ms-25'>Done</span>
-      </Button.Ripple>
-      <Button.Ripple outline color='primary' disabled>
-        <Home size={14} />
-        <span className='align-middle ms-25'>Home</span>
-      </Button.Ripple>
-    </div>
-  )
-}
-export default ButtonsIcon
-              `}
-    </code>
-  </pre>
-)
-
-export const iconOnlyButtons = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button } from 'reactstrap'
-import { Search, Inbox, Camera } from 'react-feather'
-
-const ButtonsIconOnly = () => {
-  return (
-    <div className='demo-inline-spacing'>
-      <Button.Ripple className='btn-icon' outline color='primary'>
-        <Search size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon' color='warning'>
-        <Inbox size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon' color='flat-success'>
-        <Camera size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon' outline color='primary' disabled>
-        <Search size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon rounded-circle' outline color='primary'>
-        <Search size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon rounded-circle' color='warning'>
-        <Inbox size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon rounded-circle' color='flat-success'>
-        <Camera size={16} />
-      </Button.Ripple>
-      <Button.Ripple className='btn-icon rounded-circle' outline color='primary' disabled>
-        <Search size={16} />
-      </Button.Ripple>
-    </div>
-  )
-}
-export default ButtonsIconOnly`}
-    </code>
-  </pre>
-)
-
-export const buttonGroup = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button, ButtonGroup, Row, Col } from 'reactstrap'
-import { Facebook, Twitter, Instagram } from 'react-feather'
-
-const ButtonGroups = () => {
-  return (
-    <React.Fragment>
-      <Row>
-        <Col md={6} sm={12}>
-          <ButtonGroup className='mb-1'>
-            <Button color='primary'>Left</Button>
-            <Button color='primary'>Middle</Button>
-            <Button color='primary'>Right</Button>
-          </ButtonGroup>
-        </Col>
-        <Col md={6} sm={12}>
-          <ButtonGroup className='mb-1'>
-            <Button outline color='primary'>
-              <Facebook size={15} />
-            </Button>
-            <Button outline color='primary'>
-              <Twitter size={15} />
-            </Button>
-            <Button outline color='primary'>
-              <Instagram size={15} />
-            </Button>
-          </ButtonGroup>
-        </Col>
-      </Row>
-    </React.Fragment>
-  )
-}
-export default ButtonGroups`}
-    </code>
-  </pre>
-)
-
-export const buttonCBRadio = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-import React, { useState } from 'react'
-import { Button, ButtonGroup, Row, Col, CardText } from 'reactstrap'
-
-const ButtonCheckboxRadio = () => {
-  const [cSelected, setCSelected] = useState([])
-  const [rSelected, setRSelected] = useState(null)
-
-  const onCheckboxBtnClick = selected => {
-    const index = cSelected.indexOf(selected)
-    if (index < 0) {
-      cSelected.push(selected)
-    } else {
-      cSelected.splice(index, 1)
-    }
-    setCSelected([...cSelected])
+// Styled component for a custom button
+const CustomButton = styled(Button)(({ theme }) => ({
+  backgroundColor: brown[500],
+  color: theme.palette.getContrastText(brown[500]),
+  '&:hover': {
+    backgroundColor: brown[700]
   }
+}))
 
+// Styled component for a Bootstrap button
+const BootstrapButton = styled(Button)({
+  fontSize: 16,
+  lineHeight: 1.5,
+  boxShadow: 'none',
+  border: '1px solid',
+  padding: '6px 12px',
+  textTransform: 'none',
+  borderColor: '#0063cc',
+  backgroundColor: '#0063cc',
+  fontFamily: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"'
+  ].join(','),
+  '&:hover': {
+    boxShadow: 'none',
+    borderColor: '#0062cc',
+    backgroundColor: '#0069d9'
+  },
+  '&:active': {
+    boxShadow: 'none',
+    borderColor: '#005cbf',
+    backgroundColor: '#0062cc',
+    transform: 'none !important'
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)'
+  }
+})
+
+const ButtonsCustomized = () => {
   return (
-    <Row>
-      <Col md='12' lg='6'>
-        <ButtonGroup className='mb-1'>
-          <Button color='primary' onClick={() => onCheckboxBtnClick(1)} active={cSelected.includes(1)}>
-            Active
-          </Button>
-          <Button color='primary' onClick={() => onCheckboxBtnClick(2)} active={cSelected.includes(2)}>
-            Checkbox
-          </Button>
-          <Button color='primary' onClick={() => onCheckboxBtnClick(3)} active={cSelected.includes(3)}>
-            Checkbox
-          </Button>
-        </ButtonGroup>
-        <CardText>Selected: {JSON.stringify(cSelected)}</CardText>
-      </Col>
-      <Col md='12' lg='6'>
-        <ButtonGroup className='mb-1'>
-          <Button color='primary' onClick={() => setRSelected(1)} active={rSelected === 1}>
-            Active
-          </Button>
-          <Button color='primary' onClick={() => setRSelected(2)} active={rSelected === 2}>
-            Radio
-          </Button>
-          <Button color='primary' onClick={() => setRSelected(3)} active={rSelected === 3}>
-            Radio
-          </Button>
-        </ButtonGroup>
-        <CardText>Selected: {rSelected}</CardText>
-      </Col>
-    </Row>
+    <div className='demo-space-x'>
+      <CustomButton variant='contained'>Custom Color</CustomButton>
+      <BootstrapButton variant='contained' disableRipple>
+        Bootstrap
+      </BootstrapButton>
+    </div>
   )
 }
 
-export default ButtonCheckboxRadio`}
-    </code>
+export default ButtonsCustomized
+`}</code>
   </pre>
 )
 
-export const buttonSizes = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const ButtonsColorsJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { Fragment } from 'react'
 
-import { Button, Row, Col } from 'reactstrap'
+// ** MUI Imports
+import Button from '@mui/material/Button'
 
-const ButtonSizes = () => {
+const ButtonsColors = () => {
   return (
-    <React.Fragment>
-      <Row>
-        <Col md={6} sm={12}>
-          <div className='d-inline-block me-1 mb-1'>
-            <Button.Ripple color='primary' size='lg'>
-              Large
-            </Button.Ripple>
-          </div>
-          <div className='d-inline-block me-1 mb-1'>
-            <Button.Ripple color='primary'>Default</Button.Ripple>
-          </div>
-          <div className='d-inline-block mb-1'>
-            <Button.Ripple color='primary' size='sm'>
-              Small
-            </Button.Ripple>
-          </div>
-        </Col>
-        <Col md={6} sm={12}>
-          <div className='d-inline-block me-1 mb-1'>
-            <Button.Ripple
-              outline
-              className='me-1 mb-1'
-              color='primary'
-              size='lg'
-            >
-              Large
-            </Button.Ripple>
-          </div>
-          <div className='d-inline-block me-1 mb-1'>
-            <Button.Ripple outline color='primary'>
-              Default
-            </Button.Ripple>
-          </div>
-          <div className='d-inline-block mb-1'>
-            <Button.Ripple outline color='primary' size='sm'>
-              Small
-            </Button.Ripple>
-          </div>
-        </Col>
-      </Row>
-    </React.Fragment>
-  )
-}
-export default ButtonSizes
-              `}
-    </code>
-  </pre>
-)
-
-export const buttonBlock = (
-  <pre>
-    <code className='language-jsx'>
-      {`
-
-import { Button, Row, Col } from 'reactstrap'
-
-const ButtonBlock = () => {
-  return (
-    <React.Fragment>
-      <Row>
-        <Col className='d-grid mb-1 mb-lg-0' lg={6} md={12}>
-          <Button.Ripple color='primary'>Block Level Button</Button.Ripple>
-        </Col>
-        <Col lg={6} md={12}>
-          <Button.Ripple block outline color='primary'>
-            Block Level Button
-          </Button.Ripple>
-        </Col>
-      </Row>
-    </React.Fragment>
+    <Fragment>
+      <div className='demo-space-x'>
+        <Button color='success'>Success</Button>
+        <Button color='error'>Error</Button>
+        <Button color='warning'>Warning</Button>
+        <Button color='info'>Info</Button>
+      </div>
+      <div className='demo-space-x'>
+        <Button variant='outlined' color='success'>
+          Success
+        </Button>
+        <Button variant='outlined' color='error'>
+          Error
+        </Button>
+        <Button variant='outlined' color='warning'>
+          Warning
+        </Button>
+        <Button variant='outlined' color='info'>
+          Info
+        </Button>
+      </div>
+      <div className='demo-space-x'>
+        <Button variant='contained' color='success'>
+          Success
+        </Button>
+        <Button variant='contained' color='error'>
+          Error
+        </Button>
+        <Button variant='contained' color='warning'>
+          Warning
+        </Button>
+        <Button variant='contained' color='info'>
+          Info
+        </Button>
+      </div>
+      <div className='demo-space-x'>
+        <Button variant='tonal' color='success'>
+          Success
+        </Button>
+        <Button variant='tonal' color='error'>
+          Error
+        </Button>
+        <Button variant='tonal' color='warning'>
+          Warning
+        </Button>
+        <Button variant='tonal' color='info'>
+          Info
+        </Button>
+      </div>
+    </Fragment>
   )
 }
 
-export default ButtonBlock`}
-    </code>
+export default ButtonsColors
+`}</code>
   </pre>
 )
 
-export const buttonTags = (
-  <pre>
-    <code className='language-jsx'>
-      {`
+export const ButtonsFabJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Box from '@mui/material/Box'
+import Fab from '@mui/material/Fab'
+import Typography from '@mui/material/Typography'
 
-import { Button } from 'reactstrap'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-const ButtonTags = () => {
+const ButtonsFab = () => {
   return (
-    <React.Fragment>
-      <a
-        className='me-1 mb-1 btn btn-primary'
-        color='primary'
-        href='https://pixinvent.com/'
-        target='_blank'
-        rel='noopener noreferrer'
-      >
-        Link
-      </a>
-      <Button className='me-1 mb-1' color='primary' tag='button'>
-        Button
+    <>
+      <Typography sx={{ fontWeight: 500 }}>Circular Variant</Typography>
+      <Box sx={{ mb: 6 }} className='demo-space-x'>
+        <Fab aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab color='primary' aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab color='secondary' aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab color='success' aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab color='error' aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab color='warning' aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab color='info' aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+        <Fab disabled aria-label='edit'>
+          <Icon icon='tabler:pencil' />
+        </Fab>
+      </Box>
+      <Typography sx={{ fontWeight: 500 }}>Extended Variant</Typography>
+      <div className='demo-space-x'>
+        <Fab variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab color='primary' variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab color='secondary' variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab color='success' variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab color='error' variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab color='warning' variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab color='info' variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+        <Fab disabled variant='extended' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:plus' />
+          Add
+        </Fab>
+      </div>
+    </>
+  )
+}
+
+export default ButtonsFab
+`}</code>
+  </pre>
+)
+
+export const ButtonsContainedJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Button from '@mui/material/Button'
+
+const ButtonsContained = () => {
+  return (
+    <div className='demo-space-x'>
+      <Button variant='contained'>Primary</Button>
+      <Button variant='contained' color='secondary'>
+        Secondary
       </Button>
-      <input
-        className='me-1 mb-1 btn btn-primary'
-        type='button'
-        value='Input'
-      />
-      <input
-        className='me-1 mb-1 btn btn-primary'
-        type='submit'
-        value='Submit'
-      />
-    </React.Fragment>
+      <Button variant='contained' disabled>
+        Disabled
+      </Button>
+      <Button variant='contained' href='#'>
+        Link
+      </Button>
+    </div>
   )
 }
-export default ButtonTags
-              `}
-    </code>
+
+export default ButtonsContained
+`}</code>
+  </pre>
+)
+
+export const ButtonsSizesJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { Fragment } from 'react'
+
+// ** MUI Imports
+import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+const ButtonsSizes = () => {
+  return (
+    <Fragment>
+      <div className='demo-space-x'>
+        <Button variant='text' size='small'>
+          Small
+        </Button>
+        <Button variant='text' size='medium'>
+          Medium
+        </Button>
+        <Button variant='text' size='large'>
+          Large
+        </Button>
+      </div>
+      <div className='demo-space-x'>
+        <Button variant='outlined' size='small'>
+          Small
+        </Button>
+        <Button variant='outlined' size='medium'>
+          Medium
+        </Button>
+        <Button variant='outlined' size='large'>
+          Large
+        </Button>
+      </div>
+      <div className='demo-space-x'>
+        <Button variant='contained' size='small'>
+          Small
+        </Button>
+        <Button variant='contained' size='medium'>
+          Medium
+        </Button>
+        <Button variant='contained' size='large'>
+          Large
+        </Button>
+      </div>
+      <div className='demo-space-x'>
+        <Button variant='tonal' size='small'>
+          Small
+        </Button>
+        <Button variant='tonal' size='medium'>
+          Medium
+        </Button>
+        <Button variant='tonal' size='large'>
+          Large
+        </Button>
+      </div>
+      <div className='demo-space-x'>
+        <IconButton aria-label='capture screenshot' color='secondary' size='small'>
+          <Icon icon='tabler:aperture' fontSize='inherit' />
+        </IconButton>
+        <IconButton aria-label='capture screenshot' color='secondary'>
+          <Icon icon='tabler:aperture' fontSize={20} />
+        </IconButton>
+        <IconButton aria-label='capture screenshot' color='secondary'>
+          <Icon icon='tabler:aperture' />
+        </IconButton>
+        <IconButton aria-label='capture screenshot' color='secondary' size='large'>
+          <Icon icon='tabler:aperture' fontSize={35} />
+        </IconButton>
+      </div>
+    </Fragment>
+  )
+}
+
+export default ButtonsSizes
+`}</code>
+  </pre>
+)
+
+export const ButtonsIconsJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import IconButton from '@mui/material/IconButton'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+const ButtonsIcons = () => {
+  return (
+    <div className='demo-space-x'>
+      <IconButton aria-label='capture screenshot'>
+        <Icon icon='tabler:aperture' />
+      </IconButton>
+      <IconButton aria-label='capture screenshot' color='primary'>
+        <Icon icon='tabler:aperture' />
+      </IconButton>
+      <IconButton aria-label='capture screenshot' color='secondary'>
+        <Icon icon='tabler:aperture' />
+      </IconButton>
+      <IconButton aria-label='capture screenshot' disabled>
+        <Icon icon='tabler:aperture' />
+      </IconButton>
+    </div>
+  )
+}
+
+export default ButtonsIcons
+`}</code>
+  </pre>
+)
+
+export const ButtonsOutlinedJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Button from '@mui/material/Button'
+
+const ButtonsOutlined = () => {
+  return (
+    <div className='demo-space-x'>
+      <Button variant='outlined'>Primary</Button>
+      <Button variant='outlined' color='secondary'>
+        Secondary
+      </Button>
+      <Button variant='outlined' disabled>
+        Disabled
+      </Button>
+      <Button variant='outlined' href='#'>
+        Link
+      </Button>
+    </div>
+  )
+}
+
+export default ButtonsOutlined
+`}</code>
+  </pre>
+)
+
+export const ButtonsTextJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Button from '@mui/material/Button'
+
+const ButtonsText = () => {
+  return (
+    <div className='demo-space-x'>
+      <Button variant='text'>Primary</Button>
+      <Button variant='text' color='secondary'>
+        Secondary
+      </Button>
+      <Button variant='text' disabled>
+        Disabled
+      </Button>
+      <Button variant='text' href='#'>
+        Link
+      </Button>
+    </div>
+  )
+}
+
+export default ButtonsText
+`}</code>
+  </pre>
+)
+
+export const ButtonsWithIconAndLabelJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Button from '@mui/material/Button'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+const ButtonsWithIconAndLabel = () => {
+  return (
+    <div className='demo-space-x'>
+      <Button variant='contained' endIcon={<Icon icon='tabler:send' />}>
+        Send
+      </Button>
+      <Button variant='contained' color='secondary' startIcon={<Icon icon='tabler:trash' />}>
+        Delete
+      </Button>
+    </div>
+  )
+}
+
+export default ButtonsWithIconAndLabel
+`}</code>
+  </pre>
+)
+
+export const ButtonsTonalJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** MUI Imports
+import Button from '@mui/material/Button'
+
+const ButtonsTonal = () => {
+  return (
+    <div className='demo-space-x'>
+      <Button variant='tonal'>Primary</Button>
+      <Button variant='tonal' color='secondary'>
+        Secondary
+      </Button>
+      <Button variant='tonal' disabled>
+        Disabled
+      </Button>
+      <Button variant='tonal' href='#'>
+        Link
+      </Button>
+    </div>
+  )
+}
+
+export default ButtonsTonal
+`}</code>
+  </pre>
+)
+
+export const ButtonsFabSizesJSXCode = (
+  <pre className='language-jsx'>
+    <code className='language-jsx'>{`// ** React Imports
+import { Fragment } from 'react'
+
+// ** MUI Imports
+import Fab from '@mui/material/Fab'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+const ButtonsFabSizes = () => {
+  return (
+    <Fragment>
+      <div className='demo-space-x'>
+        <Fab color='primary' aria-label='add' size='small'>
+          <Icon icon='tabler:plus' />
+        </Fab>
+        <Fab color='primary' aria-label='add' size='medium'>
+          <Icon icon='tabler:plus' />
+        </Fab>
+        <Fab color='primary' aria-label='add' size='large'>
+          <Icon icon='tabler:plus' />
+        </Fab>
+      </div>
+      <div className='demo-space-x'>
+        <Fab variant='extended' size='small' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:navigation' />
+          Navigate
+        </Fab>
+        <Fab variant='extended' size='medium' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:navigation' />
+          Navigate
+        </Fab>
+        <Fab variant='extended' size='large' sx={{ '& svg': { mr: 1 } }}>
+          <Icon icon='tabler:navigation' />
+          Navigate
+        </Fab>
+      </div>
+    </Fragment>
+  )
+}
+
+export default ButtonsFabSizes
+`}</code>
   </pre>
 )

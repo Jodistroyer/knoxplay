@@ -1,178 +1,180 @@
-import mock from '../mock'
+// ** Mock Adapter
+import mock from 'src/@fake-db/mock'
+
 const data = {
   faqData: {
     // payment
     payment: {
-      icon: 'CreditCard',
+      id: 'payment',
       title: 'Payment',
-      subtitle: 'Which license do I need?',
+      icon: 'tabler:credit-card',
+      subtitle: 'Get help with payment',
       qandA: [
         {
-          question: 'Does my subscription automatically renew?',
-          ans: 'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+          id: 'order-payment',
+          question: 'When is payment taken for my order?',
+          answer:
+            'Payment is taken during the checkout process when you pay for your order. The order number that appears on the confirmation screen indicates payment has been successfully processed.'
         },
         {
-          question: 'Can I store the item on an intranet so everyone has access?',
-          ans: 'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
+          id: 'order',
+          question: 'How do I pay for my order?',
+          answer:
+            'We accept Visa®, MasterCard®, American Express®, and PayPal®. Our servers encrypt all information submitted to them, so you can be confident that your credit card information will be kept safe and secure.'
         },
         {
-          question: 'What does non-exclusive mean?',
-          ans: 'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
+          id: 'placing-order',
+          question: "What should I do if I'm having trouble placing an order?",
+          answer:
+            'For any technical difficulties you are experiencing with our website, please contact us at our support portal, or you can call us toll-free at 1-000-000-000, or email us at order@companymail.com'
         },
         {
-          question: 'Is the Regular License the same thing as an editorial license?',
-          ans: 'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
-        },
-        {
+          id: 'users-license',
           question: 'Which license do I need for an end product that is only accessible to paying users?',
-          ans: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          answer:
+            'If you have paying users or you are developing any SaaS products then you need an Extended License. For each products, you need a license. You can get free lifetime updates as well.'
         },
         {
-          question: 'Which license do I need to use an item in a commercial?',
-          ans: 'At tempor commodo ullamcorper a lacus vestibulum. Ultrices neque ornare aenean euismod. Dui vivamus arcu felis bibendum. Turpis in eu mi bibendum neque egestas congue. Nullam ac tortor vitae purus faucibus ornare suspendisse sed.'
-        },
-        {
-          question: 'Can I re-distribute an item? What about under an Extended License?',
-          ans: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod lacinia at quis risus sed vulputate odio ut enim. Dictum at tempor commodo ullamcorper a lacus vestibulum.'
+          id: 'subscription-review',
+          question: 'Does my subscription automatically renew?',
+          answer:
+            'No, This is not subscription based item.Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps.'
         }
       ]
     },
+
     // delivery
     delivery: {
-      icon: 'ShoppingBag',
+      id: 'delivery',
       title: 'Delivery',
-      subtitle: 'Which license do I need?',
+      icon: 'tabler:briefcase',
+      subtitle: 'Get help with delivery',
       qandA: [
         {
-          question: 'Where has my order reached?',
-          ans: 'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+          id: 'ship-order',
+          question: 'How would you ship my order?',
+          answer:
+            'For large products, we deliver your product via a third party logistics company offering you the “room of choice” scheduled delivery service. For small products, we offer free parcel delivery.'
         },
         {
-          question:
-            'The shipment status shows that it has been returned/cancelled. What does it mean and who do I contact?',
-          ans: 'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
+          id: 'delivery-cost',
+          question: 'What is the delivery cost of my order?',
+          answer:
+            'The cost of scheduled delivery is $69 or $99 per order, depending on the destination postal code. The parcel delivery is free.'
         },
         {
-          question: 'What if my shipment is marked as lost?',
-          ans: 'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
-        },
-        {
-          question: 'My shipment status shows that it’s out for delivery. By when will I receive it?',
-          ans: 'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
-        },
-        {
-          question: 'What do I need to do to get the shipment delivered within a specific timeframe?',
-          ans: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          id: 'product-damaged',
+          question: 'What to do if my product arrives damaged?',
+          answer:
+            'We will promptly replace any product that is damaged in transit. Just contact our support team, to notify us of the situation within 48 hours of product arrival.'
         }
       ]
     },
+
     // cancellation and return
     cancellationReturn: {
-      icon: 'RefreshCw',
+      id: 'cancellation-return',
       title: 'Cancellation & Return',
-      subtitle: 'Which license do I need?',
+      icon: 'tabler:rotate-clockwise-2',
+      subtitle: 'Get help with cancellation & return',
       qandA: [
         {
-          question: 'Can my security guard or neighbour receive my shipment if I am not available?',
-          ans: 'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+          id: 'cancel-order',
+          question: 'Can I cancel my order?',
+          answer:
+            'Scheduled delivery orders can be cancelled 72 hours prior to your selected delivery date for full refund. Parcel delivery orders cannot be cancelled, however a free return label can be provided upon request.'
         },
         {
-          question: 'How can I get the contact number of my delivery agent?',
-          ans: 'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
+          id: 'product-return',
+          question: 'Can I return my product?',
+          answer:
+            'You can return your product within 15 days of delivery, by contacting our support team, All merchandise returned must be in the original packaging with all original items.'
         },
         {
-          question: 'How can I cancel my shipment?',
-          ans: 'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
-        },
-        {
-          question: 'I have received a defective/damaged product. What do I do?',
-          ans: 'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
-        },
-        {
-          question: 'How do I change my delivery address?',
-          ans: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-        },
-        {
-          question: 'What documents do I need to carry for self-collection of my shipment?',
-          ans: 'At tempor commodo ullamcorper a lacus vestibulum. Ultrices neque ornare aenean euismod. Dui vivamus arcu felis bibendum. Turpis in eu mi bibendum neque egestas congue. Nullam ac tortor vitae purus faucibus ornare suspendisse sed. Commodo viverra maecenas accumsan lacus vel facilisis volutpat est velit. Tortor consequat id porta nibh. Id aliquet lectus proin nibh nisl condimentum id venenatis a. Faucibus nisl tincidunt eget nullam non nisi. Enim nunc faucibus a pellentesque. Pellentesque diam volutpat commodo sed egestas egestas fringilla phasellus. Nec nam aliquam sem et tortor consequat id. Fringilla est ullamcorper eget nulla facilisi. Morbi tristique senectus et netus et.'
-        },
-        {
-          question: 'What are the timings for self-collecting shipments from the Delhivery Branch?',
-          ans: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Euismod lacinia at quis risus sed vulputate odio ut enim. Dictum at tempor commodo ullamcorper a lacus vestibulum.'
+          id: 'return-status',
+          question: 'Where can I view status of return?',
+          answer: 'Locate the item from Your Orders. Select Return/Refund status'
         }
       ]
     },
+
     // my orders
     myOrders: {
-      icon: 'Package',
+      id: 'my-orders',
+      icon: 'tabler:box',
       title: 'My Orders',
-      subtitle: 'Which license do I need?',
+      subtitle: 'Order details',
       qandA: [
         {
-          question: 'Can I avail of an open delivery?',
-          ans: 'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+          id: 'order-success',
+          question: 'Has my order been successful?',
+          answer:
+            'All successful order transactions will receive an order confirmation email once the order has been processed. If you have not received your order confirmation email within 24 hours, check your junk email or spam folder. Alternatively, log in to your account to check your order summary. If you do not have a account, you can contact our Customer Care Team on 1-000-000-000.'
         },
         {
-          question: 'I haven’t received the refund of my returned shipment. What do I do?',
-          ans: 'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
+          id: 'promo-code',
+          question: 'My Promotion Code is not working, what can I do?',
+          answer: 'If you are having issues with a promotion code, please contact us at 1 000 000 000 for assistance.'
         },
         {
-          question: 'How can I ship my order to an international location?',
-          ans: 'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
-        },
-        {
-          question: 'I missed the delivery of my order today. What should I do?',
-          ans: 'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
-        },
-        {
-          question: 'The delivery of my order is delayed. What should I do?',
-          ans: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
+          id: 'track-orders',
+          question: 'How do I track my Orders?',
+          answer:
+            'If you have an account just sign into your account from here and select “My Orders”. If you have a a guest account track your order from here using the order number and the email address.'
         }
       ]
     },
+
     // product and services
     productServices: {
-      icon: 'Settings',
+      id: 'product-services',
+      icon: 'tabler:settings',
       title: 'Product & Services',
-      subtitle: 'Which license do I need?',
+      subtitle: 'Get help with product & services',
       qandA: [
         {
-          question: 'How can I register a complaint against the courier executive who came to deliver my order?',
-          ans: 'Pastry pudding cookie toffee bonbon jujubes jujubes powder topping. Jelly beans gummi bears sweet roll bonbon muffin liquorice. Wafer lollipop sesame snaps. Brownie macaroon cookie muffin cupcake candy caramels tiramisu. Oat cake chocolate cake sweet jelly-o brownie biscuit marzipan. Jujubes donut marzipan chocolate bar. Jujubes sugar plum jelly beans tiramisu icing cheesecake.'
+          id: 'shipping-notification',
+          question: 'Will I be notified once my order has shipped?',
+          answer:
+            'Yes, We will send you an email once your order has been shipped. This email will contain tracking and order information.'
         },
         {
-          question: 'The status for my shipment shows as ‘not picked up’. What do I do?',
-          ans: 'Sweet pie candy jelly. Sesame snaps biscuit sugar plum. Sweet roll topping fruitcake. Caramels liquorice biscuit ice cream fruitcake cotton candy tart. Donut caramels gingerbread jelly-o gingerbread pudding. Gummi bears pastry marshmallow candy canes pie. Pie apple pie carrot cake.'
+          id: 'warranty-notification',
+          question: 'Where can I find warranty information?',
+          answer:
+            'We are committed to quality products. For information on warranty period and warranty services, visit our Warranty section here.'
         },
         {
-          question: 'How can I get a proof of delivery for my shipment?',
-          ans: 'Tart gummies dragée lollipop fruitcake pastry oat cake. Cookie jelly jelly macaroon icing jelly beans soufflé cake sweet. Macaroon sesame snaps cheesecake tart cake sugar plum. Dessert jelly-o sweet muffin chocolate candy pie tootsie roll marzipan.'
-        },
-        {
-          question: 'How can I avail your services?',
-          ans: 'Cheesecake muffin cupcake dragée lemon drops tiramisu cake gummies chocolate cake. Marshmallow tart croissant. Tart dessert tiramisu marzipan lollipop lemon drops. Cake bonbon bonbon gummi bears topping jelly beans brownie jujubes muffin. Donut croissant jelly-o cake marzipan. Liquorice marzipan cookie wafer tootsie roll. Tootsie roll sweet cupcake.'
+          id: 'warranty-coverage',
+          question: 'How can I purchase additional warranty coverage?',
+          answer:
+            'For the peace of your mind, we offer extended warranty plans that add additional year(s) of protection to the standard manufacturer’s warranty provided by us. To purchase or find out more about the extended warranty program, visit Extended Warranty section here.'
         }
       ]
     }
   }
 }
+mock.onGet('/pages/faqs').reply(config => {
+  if (config.params) {
+    const { q = '' } = config.params
+    const queryLowered = q.toLowerCase()
+    const filteredData = {}
+    Object.entries(data.faqData).forEach(entry => {
+      const [categoryName, categoryObj] = entry
 
-mock.onGet('/faq/data').reply(config => {
-  const { q = '' } = config.params
-  const queryLowered = q.toLowerCase()
-
-  const filteredData = {}
-
-  Object.entries(data.faqData).forEach(entry => {
-    const [categoryName, categoryObj] = entry
-    const filteredQAndAOfCategory = categoryObj.qandA.filter(qAndAObj => {
-      return qAndAObj.question.toLowerCase().includes(queryLowered)
+      const filteredQAndAOfCategory = categoryObj.qandA.filter(qAndAObj => {
+        return qAndAObj.question.toLowerCase().includes(queryLowered)
+      })
+      if (filteredQAndAOfCategory.length) {
+        filteredData[categoryName] = {
+          ...categoryObj,
+          qandA: filteredQAndAOfCategory
+        }
+      }
     })
-    filteredData[categoryName] = {
-      ...categoryObj,
-      qandA: filteredQAndAOfCategory.length ? filteredQAndAOfCategory : []
-    }
-  })
 
-  return [200, filteredData]
+    return [200, { faqData: filteredData }]
+  } else {
+    return [200, data]
+  }
 })

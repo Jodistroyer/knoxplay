@@ -1,29 +1,57 @@
-// ** Reactstrap Imports
-import { Input } from 'reactstrap'
+// ** MUI Imports
+import Box from '@mui/material/Box'
+import Switch from '@mui/material/Switch'
+import Typography from '@mui/material/Typography'
+import InputLabel from '@mui/material/InputLabel'
+import useMediaQuery from '@mui/material/useMediaQuery'
 
-const PricingHeader = ({ duration, setDuration }) => {
-  const onChange = e => {
-    if (e.target.checked) {
-      setDuration('yearly')
-    } else {
-      setDuration('monthly')
-    }
-  }
+// ** Icon Import
+import Icon from 'src/@core/components/icon'
+
+// ** Custom Component Import
+import CustomChip from 'src/@core/components/mui/chip'
+
+const PricingHeader = props => {
+  // ** Props
+  const { plan, handleChange } = props
+
+  // ** Hook
+  const hidden = useMediaQuery(theme => theme.breakpoints.down('sm'))
 
   return (
-    <div className='text-center'>
-      <h1 className='mt-5'>Pricing Plans</h1>
-      <p className='mb-2 pb-75'>
-        All plans include 40+ advanced tools and features to boost your product. Choose the best plan to fit your needs.
-      </p>
-      <div className='d-flex align-items-center justify-content-center mb-5 pb-50'>
-        <h6 className='me-50 mb-0'>Monthly</h6>
-        <div className='form-switch'>
-          <Input id='plan-switch' type='switch' checked={duration === 'yearly'} onChange={onChange} />
-        </div>
-        <h6 className='ms-50 mb-0'>Annually</h6>
-      </div>
-    </div>
+    <Box sx={{ mb: [10, 17.5], textAlign: 'center' }}>
+      <Typography variant='h2'>Pricing Plans</Typography>
+      <Box sx={{ mt: 2.5, mb: 10.75 }}>
+        <Typography sx={{ color: 'text.secondary' }}>
+          All plans include 40+ advanced tools and features to boost your product.
+        </Typography>
+        <Typography sx={{ color: 'text.secondary' }}>Choose the best plan to fit your needs.</Typography>
+      </Box>
+      <Box sx={{ display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
+        <InputLabel htmlFor='pricing-switch' sx={{ cursor: 'pointer' }}>
+          Monthly
+        </InputLabel>
+        <Switch id='pricing-switch' onChange={handleChange} checked={plan === 'annually'} />
+        <InputLabel htmlFor='pricing-switch' sx={{ cursor: 'pointer' }}>
+          Annually
+        </InputLabel>
+        {!hidden && (
+          <Box
+            sx={{
+              top: -30,
+              left: '50%',
+              display: 'flex',
+              position: 'absolute',
+              transform: 'translateX(35%)',
+              '& svg': { mt: 1.5, mr: 1, color: 'text.disabled' }
+            }}
+          >
+            <Icon icon='tabler:corner-left-down' />
+            <CustomChip rounded size='small' skin='light' color='primary' label='Save up to 10%' />
+          </Box>
+        )}
+      </Box>
+    </Box>
   )
 }
 

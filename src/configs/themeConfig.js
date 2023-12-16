@@ -1,35 +1,40 @@
-// Logo Import
-import logo from '@src/assets/images/logo/logo.svg'
-
-// You can customize the template with the help of this file
-
-//Template config options
+/**
+ * Config
+ * -------------------------------------------------------------------------------------
+ * ! IMPORTANT: Make sure you clear the browser local storage in order to see the config changes in the template.
+ * ! To clear local storage, you may refer https://www.leadshook.com/help/how-to-clear-local-storage-in-google-chrome-browser/.
+ */
 const themeConfig = {
-  app: {
-    appName: 'Vuexy',
-    appLogoImage: logo
-  },
-  layout: {
-    isRTL: false,
-    skin: 'light', // light, dark, bordered, semi-dark
-    type: 'vertical', // vertical, horizontal
-    contentWidth: 'boxed', // full, boxed
-    menu: {
-      isHidden: false,
-      isCollapsed: false
-    },
-    navbar: {
-      // ? For horizontal menu, navbar type will work for navMenu type
-      type: 'floating', // static , sticky , floating, hidden
-      backgroundColor: 'white' // BS color options [primary, success, etc]
-    },
-    footer: {
-      type: 'static' // static, sticky, hidden
-    },
-    customizer: false,
-    scrollTop: true, // Enable scroll to top button
-    toastPosition: 'top-right' // top-left, top-center, top-right, bottom-left, bottom-center, bottom-right
-  }
+  // ** Layout Configs
+  templateName: 'Vuexy' /* App Name */,
+  layout: 'vertical' /* vertical | horizontal */,
+  mode: 'light' /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
+  direction: 'ltr' /* ltr | rtl */,
+  skin: 'default' /* default | bordered */,
+  contentWidth: 'boxed' /* full | boxed */,
+  footer: 'static' /* fixed | static | hidden */,
+  // ** Routing Configs
+  routingLoader: true /* true | false */,
+  // ** Navigation (Menu) Configs
+  navHidden: false /* true | false */,
+  menuTextTruncate: true /* true | false */,
+  navSubItemIcon: 'tabler:circle' /* Icon */,
+  verticalNavToggleType: 'accordion' /* accordion | collapse /*! Note: This is for Vertical navigation menu only */,
+  navCollapsed: false /* true | false /*! Note: This is for Vertical navigation menu only */,
+  navigationSize: 260 /* Number in px(Pixels) /*! Note: This is for Vertical navigation menu only */,
+  collapsedNavigationSize: 82 /* Number in px(Pixels) /*! Note: This is for Vertical navigation menu only */,
+  afterVerticalNavMenuContentPosition: 'fixed' /* fixed | static */,
+  beforeVerticalNavMenuContentPosition: 'fixed' /* fixed | static */,
+  horizontalMenuToggle: 'hover' /* click | hover /*! Note: This is for Horizontal navigation menu only */,
+  horizontalMenuAnimation: true /* true | false */,
+  // ** AppBar Configs
+  appBar: 'fixed' /* fixed | static | hidden /*! Note: hidden value will only work for Vertical Layout */,
+  appBarBlur: true /* true | false */,
+  // ** Other Configs
+  responsiveFontSizes: false /* true | false */,
+  disableRipple: false /* true | false */,
+  disableCustomizer: false /* true | false */,
+  toastPosition: 'top-right' /* top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */
 }
 
 export default themeConfig

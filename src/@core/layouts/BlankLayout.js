@@ -1,43 +1,36 @@
-// ** React Imports
-import { Outlet } from 'react-router-dom'
-import { useEffect, useState } from 'react'
+// ** MUI Imports
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 
-// ** Custom Hooks
-import { useSkin } from '@hooks/useSkin'
+// Styled component for Blank Layout component
+const BlankLayoutWrapper = styled(Box)(({ theme }) => ({
+  height: '100vh',
 
-// ** Third Party Components
-import classnames from 'classnames'
+  // For V1 Blank layout pages
+  '& .content-center': {
+    display: 'flex',
+    minHeight: '100vh',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: theme.spacing(5)
+  },
 
-const BlankLayout = () => {
-  // ** States
-  const [isMounted, setIsMounted] = useState(false)
-
-  // ** Hooks
-  const { skin } = useSkin()
-
-  useEffect(() => {
-    setIsMounted(true)
-    return () => setIsMounted(false)
-  }, [])
-
-  if (!isMounted) {
-    return null
+  // For V2 Blank layout pages
+  '& .content-right': {
+    display: 'flex',
+    minHeight: '100vh',
+    overflowX: 'hidden',
+    position: 'relative'
   }
+}))
 
+const BlankLayout = ({ children }) => {
   return (
-    <div
-      className={classnames('blank-page', {
-        'dark-layout': skin === 'dark'
-      })}
-    >
-      <div className='app-content content'>
-        <div className='content-wrapper'>
-          <div className='content-body'>
-            <Outlet />
-          </div>
-        </div>
-      </div>
-    </div>
+    <BlankLayoutWrapper className='layout-wrapper'>
+      <Box className='app-content' sx={{ overflow: 'hidden', minHeight: '100vh', position: 'relative' }}>
+        {children}
+      </Box>
+    </BlankLayoutWrapper>
   )
 }
 
